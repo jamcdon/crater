@@ -1,0 +1,31 @@
+# This is a basic workflow that is manually triggered
+
+name: post to gitea
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on: push
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Runs a single command using the runners shell
+    - uses: actions/checkout@v2
+
+    - name: regex dashes
+      run:  echo "MOD_REPOSITORY=$(echo $GITHUB_REPOSITORY | sed 's/ /-/g')" >> $GITHUB_ENV
+
+    - name: regex username
+      run:  echo "MOD_REPOSITORY=$(echo $GITHUB_REPOSITORY | sed 's?jamcdon/??g')" >> $GITHUB_ENV
+
+    - name: base64
+      run: echo "KEY=$(echo ${{secrets.B64_API_KEY}} | base64 -d)" >> $GITHUB_ENV
+
+    - name: chmod +x
+      run: chmod +x ci-cd/post-reqwest-1.1
+
+    - name: run binary
+      run: ./ci-cd/post-reqwest-1.1 $KEY $MOD_REPOSITORY
