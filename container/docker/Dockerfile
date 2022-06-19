@@ -2,7 +2,9 @@ FROM node:18-alpine
 
 WORKDIR /app
 # grab [ package.json, package-lock.json, tsconfig.json ]
-COPY ../../*.json .
+COPY ../../package.json .
+COPY ../../package-lock.json .
+COPY ../../tsconfig.json .
 
 RUN npm install
 
