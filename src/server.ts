@@ -2,7 +2,7 @@ import express, {Application, Request, Response} from 'express';
 import routes from './api/routes'
 
 const app: Application = express();
-const HOST = '127.0.0.1';
+const HOST = '0.0.0.0';
 const PORT = 3000;
 
 //Body parsing middleware
