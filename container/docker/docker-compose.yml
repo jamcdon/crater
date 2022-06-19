@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  dockerd-mongo:
+    image: mongo:latest
+    container_name: dockerd-mongo
+    restart: always
+    networks:
+      - dockerd-net
+    expose:
+      - 27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME='${APP_DB_USER}'
+      - MONGO_INITDB_ROOT_PASSWORD='${APP_DB_PASSWORD}'
+      - MONGO_INITD_DATABASE='${DB_NAME}'
+  dockerd-mysql:
+    image: mysql
+    container_name: dockerd-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${APP_DB_USER}
+      MYSQL_PASSWORD: ${APP_DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    networks:
+      - dockerd-net
+    expose:
+      - 3306
+  dockerd-gg:
+    build: .
+    container_name: dockerd-gg
+    restart: always
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${APP_DB_USER}
+      - DB_HOST=dockerd-mysql
+      - DB_DRIVER=mysql
+      - DB_PASSWORD=${APP_DB_PASSWORD}
+    networks:
+      - dockerd-net
+    ports:
+      - '80:3000'
+networks:
+  dockerd-net:
+    driver: bridge
