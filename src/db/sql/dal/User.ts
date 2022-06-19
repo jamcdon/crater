@@ -1,4 +1,4 @@
-import {Op} from 'sequelize';
+// not currently being used// import {Op} from 'sequelize';
 import {User} from '../models';
 import {UserInput, UserOutput} from '../models/User'
 
