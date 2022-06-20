@@ -4,8 +4,8 @@ export interface User {
 	username: string;
 	passwordSalt: string;
 	passwordHash: string;
-	createdAt?: Date;
-	updatedAt?: Date;
+	createdAt: Date;
+	updatedAt: Date;
 	deletedAt?: Date;
 
 }

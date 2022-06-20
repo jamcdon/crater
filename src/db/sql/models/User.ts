@@ -12,8 +12,8 @@ interface UserAttributes {
 	deletedAt?: Date;
 }
 
-export interface UserInput extends Optional<User, 'id' > {}
-export interface UserOutput extends Required<User> {}
+export interface UserInput extends Optional<UserAttributes, 'id' | 'username'> {}
+export interface UserOutput extends Required<UserAttributes> {}
 
 class User extends Model<UserAttributes, UserInput> implements UserAttributes{
 	public id!: number
@@ -21,6 +21,8 @@ class User extends Model<UserAttributes, UserInput> implements UserAttributes{
 	public username!: string
 	public passwordSalt!: string
 	public passwordHash!: string
+
+	// timestamps!
 	public readonly createdAt!: Date;
 	public readonly updatedAt!: Date;
 	public readonly deletedAt!: Date;
