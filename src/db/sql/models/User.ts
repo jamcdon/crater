@@ -22,7 +22,7 @@ class User extends Model<UserAttributes, UserInput> implements UserAttributes{
 	public passwordSalt!: string
 	public passwordHash!: string
 	public readonly createdAt!: Date;
-	public readonly lastUpdated!: Date;
+	public readonly updatedAt!: Date;
 	public readonly deletedAt!: Date;
 }
 
