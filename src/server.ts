@@ -1,5 +1,8 @@
 import express, {Application, Request, Response} from 'express';
 import routes from './api/routes'
+import dbInit from './db/sql/init'
+
+dbInit()
 
 const app: Application = express();
 const HOST = '0.0.0.0';
