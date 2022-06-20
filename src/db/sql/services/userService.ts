@@ -1,18 +1,22 @@
-import * as userDAl from '../dal/User'
+import * as userDAL from '../dal/User'
 import { UserInput, UserOutput } from '../models/User'
 
 export const create = (payload: UserInput): Promise<UserOutput> => {
-    return userDAl.create(payload)
+    return userDAL.create(payload)
 }
 
 export const update = (id: number, payload: Partial<UserInput>): Promise<UserOutput> => {
-    return userDAl.update(id, payload)
+    return userDAL.update(id, payload)
 }
 
 export const getById = (id: number): Promise<UserOutput> => {
-    return userDAl.getById(id)
+    return userDAL.getById(id)
+}
+
+export const getByUsername = (username: string): Promise<UserOutput> => {
+    return userDAL.getByUsername(username)
 }
 
 export const deleteById = (id: number): Promise<Boolean> => {
-    return userDAl.deleteById(id)
+    return userDAL.deleteById(id)
 }

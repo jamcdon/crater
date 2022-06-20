@@ -15,6 +15,10 @@ export const getById = async (id: number): Promise<User> => {
     return mapper.toUser(await service.getById(id))
 }
 
+export const getByUsername = async(username: string): Promise<User> => {
+    return mapper.toUser(await service.getByUsername(username))
+}
+
 export const deleteById = async (id: number): Promise<Boolean> => {
     const isDeleted = await service.deleteById(id)
     return isDeleted

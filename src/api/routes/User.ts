@@ -4,14 +4,20 @@ import { CreateUserDTO, FilterUserDTO, UpdateUserDTO } from '../dto/user.dto'
 
 const userRouter = Router()
 
-userRouter.get('/:id', async (req: Request, res: Response) => {
+userRouter.get('/id/:id', async (req: Request, res: Response) => {
     // get user by id
     const id = Number(req.params.id)
     const result = await userController.getById(id)
     return res.status(200).send(result)
 })
 
-userRouter.put('/:id', async (req: Request, res: Response) => {
+userRouter.get('/:username', async (req: Request, res: Response) => {
+    const username = String(req.params.username)
+    const result = await userController.getByUsername(username)
+    return res.status(200).send(result)
+})
+
+userRouter.put('/id/:id', async (req: Request, res: Response) => {
     // update user by id
     const id = Number(req.params.id)
     const payload:UpdateUserDTO = req.body
@@ -20,7 +26,7 @@ userRouter.put('/:id', async (req: Request, res: Response) => {
     return res.status(201).send(result)
 })
 
-userRouter.delete('/:id', async(req: Request, res: Response) => {
+userRouter.delete('/id/:id', async(req: Request, res: Response) => {
     // delete user by id
     const id = Number(req.params.id)
 

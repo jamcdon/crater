@@ -1,6 +1,8 @@
 // not currently being used// import {Op} from 'sequelize';
+import sequelizeConnection from '../config';
 import {User} from '../models';
 import {UserInput, UserOutput} from '../models/User'
+import Sequelize from 'sequelize'
 
 export const create = async (payload:UserInput): Promise<UserOutput> => {
     const user = await User.create(payload)
@@ -17,6 +19,17 @@ export const update = async (id: number, payload: Partial<UserInput>): Promise<U
 
 export const getById = async (id: number): Promise<UserOutput> => {
     const user = await User.findByPk(id)
+    if (!user) {
+        throw new Error('not found')
+    }
+    return user
+}
+
+export const getByUsername = async(username: string): Promise<UserOutput> => {
+    const lookUp = username.toLowerCase();
+    const user = await User.findOne({ 
+        where: { username: lookUp }
+    })
     if (!user) {
         throw new Error('not found')
     }
