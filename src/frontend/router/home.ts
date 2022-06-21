@@ -1,9 +1,8 @@
 import { Router, Request, Response } from 'express'
+import { homeController } from '../controllers'
 
 const homeRouter = Router()
 
-homeRouter.get('/', async (req: Request, res: Response) => {
-    return res.render("pages/home")
-})
+homeRouter.get('/', homeController.index)
 
 export default homeRouter
