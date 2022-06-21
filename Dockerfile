@@ -12,6 +12,8 @@ COPY ./src ./src
 
 RUN ./node_modules/.bin/tsc
 
+COPY ./views ./dist/views
+
 EXPOSE 3000
 
 CMD ["node", "./dist/server/server.js"]
