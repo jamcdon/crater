@@ -8,11 +8,7 @@ const dbPassword = process.env.DB_PASSWORD as string;
 
 const connectionString: string = `mongodb://{dbUser}:{dbPassword}@{dbHost}:27017/{dbName}`
 const noSqlInit = () => {
-    mongoose.connect(connectionString, {
-        useCreateIndex: true,
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    } as ConnectOptions)
+    mongoose.connect(connectionString)
     console.log('Connected to NOSQL databse.')
 }
 
