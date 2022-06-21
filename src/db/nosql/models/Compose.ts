@@ -13,8 +13,12 @@ const ComposeModelSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    image: {
+    imageName: {
         type: String,
+        required: true
+    },
+    imageID: {
+        type: Number,
         required: true
     },
     tags: [

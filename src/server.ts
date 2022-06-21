@@ -1,8 +1,10 @@
 import express, {Application, Request, Response} from 'express';
-import routes from './api/routes'
-import dbInit from './db/sql/init'
+import apiRoutes from './api/routes'
+import sqlInit from './db/sql/init'
+import noSqlInit from './db/nosql/init'
 
-dbInit()
+sqlInit()
+noSqlInit()
 
 const app: Application = express();
 const HOST = '0.0.0.0';
@@ -22,7 +24,7 @@ export const get = () => {
 		}
 	)
 
-	app.use('/api/v1', routes)
+	app.use('/api/v1', apiRoutes)
 	return app
 }
 

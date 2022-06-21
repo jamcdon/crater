@@ -5,6 +5,10 @@ const CommentModelSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    composeID: {
+        type: Number,
+        required: true
+    },
     user: {
         type: String,
         required: true

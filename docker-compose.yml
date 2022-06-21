@@ -33,7 +33,8 @@ services:
     environment:
       - DB_NAME=${DB_NAME}
       - DB_USER=${APP_DB_USER}
-      - DB_HOST=dockerd-mysql
+      - SQL_HOST=dockerd-mysql
+      - NO_SQL_HOST=dockerd-mongo
       - DB_DRIVER=mysql
       - DB_PASSWORD=${APP_DB_PASSWORD}
     networks:

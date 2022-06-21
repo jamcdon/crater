@@ -1,7 +1,8 @@
 import { User } from './models';
 
-const dbInit = () => {
+const sqlInit = () => {
     User.sync()
+    console.log('Connected to SQL database.')
 }
 
-export default dbInit;
+export default sqlInit;
