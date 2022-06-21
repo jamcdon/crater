@@ -1,7 +1,9 @@
 import express, {Application, Request, Response} from 'express';
 import apiRoutes from './api/routes'
+import frontEndRoutes from './frontend/router'
 import sqlInit from './db/sql/init'
 import noSqlInit from './db/nosql/init'
+import path from 'path'
 
 sqlInit()
 noSqlInit()
@@ -10,20 +12,16 @@ const app: Application = express();
 const HOST = '0.0.0.0';
 const PORT = 3000;
 
+//pug middleware
+app.set("views", path.join(__dirname, "frontend/views"))
+app.set("views engine", "pug")
+
 //Body parsing middleware
 export const get = () => {
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: true }));
-	app.get('/', async(req: Request, res: Response):
-		Promise<Response> => {
-			return res
-				.status(200)
-				.send({
-					message: `Hello, World!\n Endpoints at: http://${HOST}:${PORT}/api/v1`
-				})
-		}
-	)
 
+	app.use('/', frontEndRoutes)
 	app.use('/api/v1', apiRoutes)
 	return app
 }
