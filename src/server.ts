@@ -13,7 +13,7 @@ const HOST = '0.0.0.0';
 const PORT = 3000;
 
 //pug middleware
-app.set("views", path.join(__dirname, "frontend/views"))
+app.set("views", path.join(__dirname, "../views"))
 app.set("views engine", "pug")
 
 //Body parsing middleware
