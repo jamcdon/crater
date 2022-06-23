@@ -1,0 +1,55 @@
+doctype html
+html(lang="en")
+    head 
+        title
+        meta(charset="utf-8" href="")
+        link(rel="stylesheet")
+    header.p-3.bg-dark.text-white 
+        div.container
+            div.d-flex.flex-wrap.align-items-center.justify-content-center.justify-content.lg-start
+                a(href='/').d-flex.align-items-center.mb-2.mb-lg-0.text-white.text-decoration-none
+                    svg(width=40,height=32,role='img', aria-label="Dockerd.gg").bi.me-2
+                ul.nav.col-12.col-lg-auto.me-lg-auto.mb-2.justify-content-center.mb-md-0
+                    li 
+                        a(href="#").nav-link.px-2.text-secondary.btn Home
+                    li 
+                        a(href="#").nav-link.px-2.text-white.btn Features
+                    li 
+                        a(href="#").nav-link.px-2.text-white.btn Images
+                    li 
+                        a(href="#").nav-link.px-2.text-white.btn Popular
+                    li 
+                        a(href="#").nav-link.px-2.text-white.btn About
+                form(role="search").col-12.col-lg-auto.mb-3.mb-lg-0.me-lg-3
+                    input(type="search", placeholder="Search...", aria-label="Search").form-control.form-control-dark.text-white.bg-dark
+                div.text-end
+                    button(type="button").btn.btn-outline-light.me-2 Login 
+                    button(type="button").btn.btn-warning Sign-up
+    body 
+        +content
+    footer.pt-4.my-md-5.pt-md-5.border-top 
+        div.row
+            div.col-12.col-md
+                img(src="" alt="dockerd" width="40" height="32").mb-2
+                small.d-block.mb-3.text-muted dockerd.gg 2022
+            div.col-6.col-md
+                h5 Features
+                ul.list-unstyled.text-small
+                    li.mb-1
+                        a(href="#").link-secondary.text-decoration-none Code at a glance
+                    li.mb-1
+                        a(href="#").link-secondary.text-decoration-none User submitted markup 
+            div.col-6.col-md
+                h5 Resources
+                ul.list-unstyled.text-small
+                    li.mb-1
+                        a(href="#").link-secondary.text-decoration-none Docker
+                    li.mb-1
+                        a(href="#").link-secondary.text-decoration-none Docker Hub
+            div.col-6.col-md
+                h5 About
+                ul.list-unstyled.text-small
+                    li.mb-1
+                        a(href="#").link-secondary.text-decoration-none Dev Team
+                    li.mb-1
+                        a(href="#").link-secondary.text-decoration-none Bug Reports
