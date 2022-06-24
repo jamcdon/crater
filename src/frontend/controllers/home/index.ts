@@ -6,7 +6,7 @@ const homeInterpolation = {
 
 class Home {
     public static index (req: Request, res: Response): void {
-        return res.render('pages/home.pug', homeInterpolation)
+        return res.render('home/index.pug', homeInterpolation)
     }
 }
 
