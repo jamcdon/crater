@@ -13,6 +13,7 @@ COPY ./src ./src
 RUN ./node_modules/.bin/tsc
 
 COPY ./views ./dist/views
+COPY ./public ./dist/public
 
 EXPOSE 3000
 
