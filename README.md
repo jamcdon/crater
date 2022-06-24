@@ -5,5 +5,6 @@
 ## goals
 - user auth (in progress)
 - interactive landing page
+- logo with name
 - clone over https
   - auto-gen .env file as well
