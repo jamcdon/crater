@@ -14,6 +14,7 @@ const PORT = 3000;
 
 //pug middleware
 app.set("views", path.join(__dirname, "../views"))
+app.use(express.static(path.join(__dirname, "../public")))
 app.set("views engine", "pug")
 
 //Body parsing middleware
