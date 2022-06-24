@@ -6,3 +6,4 @@
 - user auth (in progress)
 - interactive landing page
 - clone over https
+  - auto-gen .env file as well
