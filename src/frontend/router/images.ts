@@ -1,8 +1,8 @@
 import { Router, Request, Response } from 'express'
-import { homeController } from '../controllers'
+import { imageController } from '../controllers'
 
-const homeRouter = Router()
+const imageRouter = Router()
 
-homeRouter.get('/', homeController.index)
+imageRouter.get('/', imageController.index)
 
-export default homeRouter
+export default imageRouter
