@@ -1,0 +1,14 @@
+extends ../template.pug 
+mixin content
+    div#content.p-3
+        h1.h2 Sign in, sign up, or sign out
+        p.lead Log in by using an account with us, or use your GitHub
+        ul
+            li
+                p.small We do not use personal information except for authentication
+            li
+                p.small We do not share personal information
+        div.d-flex.flex-wrap.align-items-center.justify-content-around.justify-content.lg-start
+            a(href="/sign/in").d-flex.align-items-center Sign in
+            a(href="/sign/up").d-flex.align-items-center Sign up
+            a(href="/sign/out").d-flex.align-items-center Sign out

@@ -11,7 +11,7 @@ html(lang="en")
                 div.d-flex.flex-wrap.align-items-center.justify-content-center.justify-content.lg-start
                     a(href='/').d-flex.align-items-center.mb-2.mb-lg-0.text-white.text-decoration-none
                         h1.h2.text-warning.font-monospace.mt-3 dockerd
-                        img(width=60,height=48 aria-label="Dockerd.gg" src="/img/crane-yl.svg").bi.me-2
+                        img(width=30,height=48 aria-label="Dockerd.gg" src="/img/crane-yl.svg").bi.me-2
                     ul.nav.col-12.col-lg-auto.me-lg-auto.mb-2.justify-content-center.mb-md-0
                         li
                             if page == "Home"
@@ -42,8 +42,8 @@ html(lang="en")
                     form(role="search").col-12.col-lg-auto.mb-3.mb-lg-0.me-lg-3
                         input(type="search", placeholder="Search...", aria-label="Search").form-control.form-control-dark.text-white.bg-dark
                     div.text-end
-                        button(type="button").btn.btn-outline-light.me-2 Login 
-                        button(type="button").btn.btn-warning Sign-up
+                        a(href="/sign/in").btn.btn-outline-light.me-2 Sign-in
+                        a(href="/sign/up").btn.btn-warning Sign-up
         div.container-lg
             +content
             footer.pt-4.my-md-5.pt-md-5.border-top 

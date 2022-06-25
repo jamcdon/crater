@@ -1,0 +1,17 @@
+extends ../template.pug 
+mixin content
+    div#content.p-3
+        h1.h2 Sign in to dockerd 
+        form(action="")
+            div.mb-3
+                label(for="email").form-label Email address
+                input(type="email")#email.form-control
+            div.mb-3
+                label(for="password") Password
+                input(type="password")#password.form-control
+            div.d-flex.flex-wrap.align-items-center.justify-content-left.justify-content.lg-start
+                button(type="submit").btn.btn-warning
+                button(type="submit").btn.btn-secondary.ms-3
+                    span.d-flex 
+                        img(src"/img/github.svg" width="24" height="24")
+                        p.ps-2.py-0.my-0 Sign in with GitHub
