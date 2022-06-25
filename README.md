@@ -8,3 +8,4 @@
 - logo with name
 - clone over https
   - auto-gen .env file as well
+  - add dropdown for subpages of subpage youre on
