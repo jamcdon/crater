@@ -10,7 +10,7 @@ const frontEndRouter = Router()
 frontEndRouter.use('/', homeRouter)
 frontEndRouter.use('/trending', trendingRouter)
 frontEndRouter.use('/image', imageRouter)
-frontEndRouter.use('/popular', featuresRouter)
+frontEndRouter.use('/features', featuresRouter)
 frontEndRouter.use('/about', aboutRouter)
 
 export default frontEndRouter
