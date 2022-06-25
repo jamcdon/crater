@@ -1,13 +1,13 @@
 import {Request, Response } from 'express'
 
-const imageInterpolation = {
+const imagesInterpolation = {
     page: "Images"
 }
 
-class Image {
+class Images {
     public static index (req: Request, res: Response): void {
-        return res.render('image/index.pug', imageInterpolation)
+        return res.render('images/index.pug', imagesInterpolation)
     }
 }
 
-export default Image
+export default Images
