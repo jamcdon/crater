@@ -1,7 +1,7 @@
 import {Request, Response} from 'express'
 
 const accountInterpolation = {
-
+    page: "Account"
 }
 
 class Account {

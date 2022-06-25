@@ -1,7 +1,7 @@
 import {Request, Response} from 'express'
 
 const signInterpolation = {
-
+    page: "Sign"
 }
 
 class Sign {
