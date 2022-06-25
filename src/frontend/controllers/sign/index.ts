@@ -9,13 +9,13 @@ class Sign {
         return res.render('sign/index.pug', signInterpolation)
     }
     public static in(req: Request, res: Response): void {
-        return res.render('sign/in', signInterpolation)
+        return res.render('sign/in.pug', signInterpolation)
     }
     public static up(req: Request, res: Response): void {
-        return res.render('sign/up', signInterpolation)
+        return res.render('sign/up.pug', signInterpolation)
     }
     public static out(req: Request, res: Response): void {
-        return res.render('sign/out', signInterpolation)
+        return res.render('sign/out.pug', signInterpolation)
     }
 }
 
