@@ -1,0 +1,9 @@
+extends ../template.pug 
+mixin content
+    div#content.p-3
+        h1.h2 Reset password
+        form(action="")
+            div.mb-3
+                label("for="email-reset").form-label Email address
+                input(type="email")#email-reset.form-control
+                button(type="submit").btn.btn-warning Submit
