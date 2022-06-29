@@ -1,6 +1,18 @@
-import mongoose from 'mongoose';
+import {Schema, model, Types} from 'mongoose';
 
-const ComposeModelSchema = new mongoose.Schema({
+interface ICompose {
+    id: Number,
+    title: String,
+    author: String,
+    imageName: String,
+    imageID: Number,
+    tags: Types.Array<string>,
+    public: Boolean
+    content: String,
+    stars: Number
+}
+
+const ComposeModelSchema = new Schema({
     id: {
         type: Number,
         required: true
@@ -21,12 +33,10 @@ const ComposeModelSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    tags: [
-        {
-            type: String,
+    tags:{ 
+            type: [String],
             required: false
-        }
-    ],
+    },  
     public: {
         type: Boolean,
         required: true,
@@ -42,6 +52,6 @@ const ComposeModelSchema = new mongoose.Schema({
     }
 })
 
-const Compose = mongoose.model('Compose', ComposeModelSchema)
+const Compose = model<ICompose>('Compose', ComposeModelSchema)
 
 export { Compose }

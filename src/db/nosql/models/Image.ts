@@ -1,6 +1,12 @@
-import mongoose from 'mongoose';
+import {Schema, model, Types } from 'mongoose';
 
-const ImageModelSchema = new mongoose.Schema({
+interface IImage {
+    id: String,
+    image: String,
+    hyperlink: String
+}
+
+const ImageModelSchema = new Schema({
     id: {
         type: Number,
         required: true
@@ -15,6 +21,6 @@ const ImageModelSchema = new mongoose.Schema({
     }
 })
 
-const Image = mongoose.model('Image', ImageModelSchema)
+const Image = model<IImage>('Image', ImageModelSchema)
 
 export { Image }

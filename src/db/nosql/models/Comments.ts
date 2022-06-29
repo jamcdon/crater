@@ -1,6 +1,13 @@
-import mongoose from 'mongoose';
+import { Schema, model} from 'mongoose';
 
-const CommentModelSchema = new mongoose.Schema({
+interface IComment {
+    id: Number,
+    composeID: Number,
+    user: String,
+    content: String
+}
+
+const CommentSchema = new Schema<IComment>({
     id: {
         type: Number,
         required: true
@@ -18,3 +25,7 @@ const CommentModelSchema = new mongoose.Schema({
         required: true
     }
 })
+
+const Comment = model<IComment>('Comment', CommentSchema)
+
+export { Comment }
