@@ -1,3 +1,4 @@
+//sql
 import { Optional } from "sequelize/types"
 
 export type CreateUserDTO = {

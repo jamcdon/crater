@@ -1,17 +1,20 @@
 import {Schema, model, Types } from 'mongoose';
 
-interface IImage {
-    id: String,
-    image: String,
+export interface IImage {
+    id: Number,
+    name: String,
     hyperlink: String
 }
+
+export interface ImageInput extends Partial<IImage> {}
+export interface ImageOutput extends Required<IImage> {}
 
 const ImageModelSchema = new Schema({
     id: {
         type: Number,
         required: true
     },
-    image: {
+    name: {
         type: String,
         required: true
     },

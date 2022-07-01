@@ -1,6 +1,6 @@
 import {Schema, model, Types} from 'mongoose';
 
-interface ICompose {
+export interface ICompose {
     id: Number,
     title: String,
     author: String,

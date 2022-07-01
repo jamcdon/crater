@@ -1,6 +1,6 @@
 import { Schema, model} from 'mongoose';
 
-interface IComment {
+export interface IComment {
     id: Number,
     composeID: Number,
     user: String,
