@@ -1,22 +1,18 @@
 import {Schema, model, Types} from 'mongoose';
 
 export interface ICompose {
-    id: Number,
     title: String,
     author: String,
     imageName: String,
     imageID: Number,
-    tags: Types.Array<string>,
+    tag: String,
+    labels: Types.Array<string>,
     public: Boolean
     content: String,
     stars: Number
 }
 
 const ComposeModelSchema = new Schema({
-    id: {
-        type: Number,
-        required: true
-    },
     title: {
         type: String,
         required: true
@@ -30,10 +26,14 @@ const ComposeModelSchema = new Schema({
         required: true
     },
     imageID: {
-        type: Number,
+        type: String,
         required: true
     },
-    tags:{ 
+    tag:{
+        type: String,
+        required: false
+    },
+    labels:{ 
             type: [String],
             required: false
     },  

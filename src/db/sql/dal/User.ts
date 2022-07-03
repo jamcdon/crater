@@ -1,4 +1,4 @@
-// not currently being used// import {Op} from 'sequelize';
+import {Op} from 'sequelize';
 import sequelizeConnection from '../config';
 import {User} from '../models';
 import {UserInput, UserOutput} from '../models/User'
@@ -26,9 +26,12 @@ export const getById = async (id: number): Promise<UserOutput> => {
 }
 
 export const getByUsername = async(username: string): Promise<UserOutput> => {
-    const lookUp = username.toLowerCase();
     const user = await User.findOne({ 
-        where: { username: lookUp }
+        where: { 
+            username: {
+                [Op.iLike]: username
+            }
+        }
     })
     if (!user) {
         throw new Error('not found')

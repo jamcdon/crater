@@ -9,11 +9,11 @@ export const create = async(payload: CreateImageDTO): Promise<IImage> => {
     return mapper.toImage(await service.create(payload))
 }
 
-export const update = async(id: number, payload: UpdateImageDTO) => {
+export const update = async(id: string, payload: UpdateImageDTO) => {
     return mapper.toImage(await service.update(id, payload))
 }
 
-export const getById = async (id: number): Promise<IImage> => {
+export const getById = async (id: string): Promise<IImage> => {
     return mapper.toImage(await service.getById(id))
 }
 
@@ -21,7 +21,7 @@ export const getByImageName = async (imageName: string): Promise<IImage> => {
     return mapper.toImage(await service.getByImageName(imageName))
 }
 
-export const deleteById = async (id: number): Promise<Boolean> => {
+export const deleteById = async (id: string): Promise<Boolean> => {
     const isDeleted = await service.deleteById(id)
     return isDeleted
 }
