@@ -26,10 +26,11 @@ export const getById = async (id: number): Promise<UserOutput> => {
 }
 
 export const getByUsername = async(username: string): Promise<UserOutput> => {
+    //https://stackoverflow.com/questions/41728023/sequelize-case-insensitive-like
     const user = await User.findOne({ 
         where: { 
             username: {
-                [Op.iLike]: username
+                [Op.like]: `%${username}%`
             }
         }
     })

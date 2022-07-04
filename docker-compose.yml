@@ -27,6 +27,9 @@ services:
     expose:
       - 3306
   dockerd-gg:
+    depends_on:
+      - dockerd-mysql
+      - dockerd-mongo
     build: .
     container_name: dockerd-gg
     restart: always
