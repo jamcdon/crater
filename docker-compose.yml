@@ -10,8 +10,8 @@ services:
     expose:
       - 27017
     environment:
-      - MONGO_INITDB_ROOT_USERNAME: ${APP_DB_USER}
-      - MONGO_INITDB_ROOT_PASSWORD: ${APP_DB_PASSWORD}
+      - MONGO_INITDB_ROOT_USERNAME: "${APP_DB_USER}"
+      - MONGO_INITDB_ROOT_PASSWORD: "${APP_DB_PASSWORD}"
       #- MONGO_INITD_DATABASE='${DB_NAME}'
   dockerd-mysql:
     image: mysql
