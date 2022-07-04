@@ -8,7 +8,8 @@ export const create = async(payload: ImageInput): Promise<ImageOutput> => {
     }
     const createdUser: ImageOutput = {
         name: image.name!,
-        hyperlink: image.hyperlink!
+        hyperlink: image.hyperlink!,
+        composes: image.composes!
     }
     return createdUser
 }
@@ -35,9 +36,8 @@ export const getById = async(id: string): Promise<ImageOutput> => {
 
 export const getByImageName = async(imageName: string): Promise<ImageOutput> => {
     const image = await Image.findOne({
-        name: {
-            $regex: new RegExp(imageName, "i")
-        }
+        name: /imageName/i
+        
     })
     if (!image) {
         throw new Error('not found')
