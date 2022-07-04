@@ -1,7 +1,6 @@
 //nosql
 
 export type CreateImageDTO = {
-    id: Number;
     name: String;
     hyperlink: String;
 }

@@ -3,7 +3,6 @@ import {Schema, model, Types } from 'mongoose';
 export interface IImage {
     name: String,
     hyperlink: String,
-    composes: Number
 }
 
 export interface ImageInput extends Partial<IImage> {}
@@ -16,10 +15,6 @@ const ImageModelSchema = new Schema({
     },
     hyperlink: {
         type: String,
-        required: true
-    },
-    composes: {
-        type: Number,
         required: true
     }
 })

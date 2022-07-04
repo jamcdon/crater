@@ -8,8 +8,7 @@ export const create = async(payload: ImageInput): Promise<ImageOutput> => {
     }
     const createdUser: ImageOutput = {
         name: image.name!,
-        hyperlink: image.hyperlink!,
-        composes: image.composes!
+        hyperlink: image.hyperlink!
     }
     return createdUser
 }

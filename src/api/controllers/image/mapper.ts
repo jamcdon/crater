@@ -4,6 +4,5 @@ export const toImage = (image: ImageOutput): IImage => {
     return {
         name: image.name,
         hyperlink: image.hyperlink,
-        composes: image.composes
     }
 }
