@@ -3,6 +3,8 @@ import { ImageInput, ImageOutput } from '../models/Image'
 
 export const create = async(payload: ImageInput): Promise<ImageOutput> => {
     const image = await Image.create(payload)
+    console.log("src/db/nosql/dal/Image.ts")
+    console.log(image)
     if (!image){
         throw new Error('could not create')
     }

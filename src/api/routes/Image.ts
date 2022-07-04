@@ -43,7 +43,8 @@ imageRouter.post('/', async (req: Request, res: Response) => {
     //create image
 
     const payload:CreateImageDTO = req.body
-
+    console.log("src/api/routes/image.ts")
+    console.log(payload)
     const results = await imageController.create(payload)
     return res.status(200).send(results)
 })

@@ -6,6 +6,7 @@ import CreateQuery from 'mongoose'
 import * as mapper from './mapper'
 
 export const create = async(payload: CreateImageDTO): Promise<IImage> => {
+    console.log("src/api/controllers/image/index.ts")
     return mapper.toImage(await service.create(payload))
 }
 
