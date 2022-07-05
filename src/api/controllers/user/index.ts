@@ -5,8 +5,9 @@ import {User} from '../../interfaces'
 import * as mapper from './mapper'
 
 export const createUserSaltHash = async(payload: CreateUserNoSalt): Promise<CreateUserDTO> => {
+    const length = payload.password.length 
     const randomSalt = crypto.randomBytes(
-        Math.ceil(payload.password.length/2)
+        Math.ceil(length/2)
     ).toString('hex').slice(0,length);
     
     const hash = crypto.createHmac('sha512', randomSalt)
