@@ -47,10 +47,16 @@ export const updateUserSaltHash = async(payload: UpdateUserNoSalt): Promise<Upda
         const {salt, hexHash} = saltHash(payload.password)
         
         const newPayload: any = payload
+        console.log("=-=-= payload before changes")
+        console.log(newPayload)
         delete newPayload.password
         newPayload.passwordSalt = salt
         newPayload.passwordHash = hexHash
+        console.log("=-=-= payload after changes")
+        console.log(newPayload)
         const saltHashUserDTO:UpdateUserDTO = newPayload
+        console.log("=-=-= saltHashUserDTO")
+        console.log(saltHashUserDTO)
 
         return saltHashUserDTO
     }
