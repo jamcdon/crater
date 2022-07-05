@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express'
 import * as userController from '../controllers/user'
-import { CreateUserDTO, FilterUserDTO, UpdateUserDTO, CreateUserNoSalt } from '../dto/user.dto'
+import { CreateUserDTO, FilterUserDTO, UpdateUserDTO, CreateUserNoSalt, UpdateUserNoSalt } from '../dto/user.dto'
 
 const userRouter = Router()
 
@@ -20,9 +20,10 @@ userRouter.get('/:username', async (req: Request, res: Response) => {
 userRouter.put('/id/:id', async (req: Request, res: Response) => {
     // update user by id
     const id = Number(req.params.id)
-    const payload:UpdateUserDTO = req.body
+    const payload:UpdateUserNoSalt = req.body
+    const saltHashPayload = await userController.updateUserSaltHash(payload)
 
-    const result = await userController.update(id, payload)
+    const result = await userController.update(id, saltHashPayload)
     return res.status(201).send(result)
 })
 

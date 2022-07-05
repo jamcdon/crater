@@ -17,6 +17,7 @@ export type CreateUserDTO = {
 }
 
 export type UpdateUserDTO = Optional<CreateUserDTO, 'id'>
+export type UpdateUserNoSalt = Optional<CreateUserNoSalt, 'id'>
 
 export type FilterUserDTO = {
     isDeleted?: boolean
