@@ -8,7 +8,7 @@ export const createUserSaltHash = async(payload: CreateUserNoSalt): Promise<Crea
     const length = payload.password.length 
     const randomSalt = crypto.randomBytes(
         Math.ceil(length/2)
-    ).toString('hex').slice(0,length);
+    ).toString('hex');
     
     const hash = crypto.createHmac('sha512', randomSalt)
     hash.update(payload.password)
