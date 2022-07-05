@@ -2,7 +2,6 @@ import * as imageDAL from '../dal/Image'
 import { ImageInput, ImageOutput } from '../models/Image'
 
 export const create = (payload: ImageInput): Promise<ImageOutput> => {
-    console.log("src/db/nosql/services/imageService.ts")
     return imageDAL.create(payload)
 }
 

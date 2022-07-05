@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express'
 import * as userController from '../controllers/user'
-import { CreateUserDTO, FilterUserDTO, UpdateUserDTO } from '../dto/user.dto'
+import { CreateUserDTO, FilterUserDTO, UpdateUserDTO, CreateUserNoSalt } from '../dto/user.dto'
 
 const userRouter = Router()
 
@@ -38,8 +38,10 @@ userRouter.delete('/id/:id', async(req: Request, res: Response) => {
 
 userRouter.post('/', async (req: Request, res: Response) => {
     // create user
-    const payload:CreateUserDTO = req.body
-    const results = await userController.create(payload)
+    const payload:CreateUserNoSalt = req.body
+    const saltHashPayload = await userController.createUserSaltHash(payload)
+
+    const results = await userController.create(saltHashPayload)
     return res.status(200).send(results)
 })
 

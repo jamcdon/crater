@@ -1,6 +1,13 @@
 //sql
 import { Optional } from "sequelize/types"
 
+export type CreateUserNoSalt = {
+    id: number;
+    email: string;
+    username: string;
+    password: string;
+}
+
 export type CreateUserDTO = {
     id: number;
     email: string;

@@ -1,7 +1,28 @@
+import * as crypto from 'crypto'
 import * as service from '../../../db/sql/services/userService'
-import {CreateUserDTO, UpdateUserDTO, FilterUserDTO} from '../../dto/user.dto'
+import {CreateUserDTO, UpdateUserDTO, FilterUserDTO, CreateUserNoSalt } from '../../dto/user.dto'
 import {User} from '../../interfaces'
 import * as mapper from './mapper'
+
+export const createUserSaltHash = async(payload: CreateUserNoSalt): Promise<CreateUserDTO> => {
+    const randomSalt = crypto.randomBytes(
+        Math.ceil(payload.password.length/2)
+    ).toString('hex').slice(0,length);
+    
+    const hash = crypto.createHmac('sha512', randomSalt)
+    hash.update(payload.password)
+    const hexHash = hash.digest('hex')
+
+    const saltHashUserDTO:CreateUserDTO = {
+        id: payload.id,
+        email: payload.email,
+        username: payload.username,
+        passwordSalt: randomSalt,
+        passwordHash: hexHash
+    }
+
+    return saltHashUserDTO
+}
 
 export const create = async(payload: CreateUserDTO): Promise<User> => {
     return mapper.toUser(await service.create(payload))
