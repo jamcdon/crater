@@ -14,13 +14,6 @@ const saltHash = (password: string):  { salt: string, hexHash: string }=> {
 }
 
 export const createUserSaltHash = async(payload: CreateUserNoSalt): Promise<CreateUserDTO> => {
-    /*const randomSalt = crypto.randomBytes(64)
-        .toString('hex');
-    
-    const hash = crypto.createHmac('sha512', randomSalt)
-    hash.update(payload.password)
-    const hexHash = hash.digest('hex')
-    */
     const {salt, hexHash} = saltHash(payload.password)
 
     const saltHashUserDTO:CreateUserDTO = {
@@ -39,7 +32,7 @@ export const create = async(payload: CreateUserDTO): Promise<User> => {
 }
 
 export const updateUserSaltHash = async(payload: UpdateUserNoSalt): Promise<UpdateUserDTO> => {
-    // let output: UpdateUserDTO | UpdateUserNoSalt;
+    // if payload.password does not exist return, else resalt and rehash
     if (!payload.password) {
         return payload as unknown as UpdateUserDTO
     }

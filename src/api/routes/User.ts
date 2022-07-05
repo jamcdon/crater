@@ -21,6 +21,7 @@ userRouter.put('/id/:id', async (req: Request, res: Response) => {
     // update user by id
     const id = Number(req.params.id)
     const payload:UpdateUserNoSalt = req.body
+    // tests if new password and converts NoSalt payload to UpdateUserDTO type
     const saltHashPayload = await userController.updateUserSaltHash(payload)
 
     const result = await userController.update(id, saltHashPayload)
@@ -40,6 +41,7 @@ userRouter.delete('/id/:id', async(req: Request, res: Response) => {
 userRouter.post('/', async (req: Request, res: Response) => {
     // create user
     const payload:CreateUserNoSalt = req.body
+    // converts password to salt & hashed values to return CreateUserDTO type
     const saltHashPayload = await userController.createUserSaltHash(payload)
 
     const results = await userController.create(saltHashPayload)
