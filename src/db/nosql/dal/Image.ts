@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import { Image } from '../models'
 import { ImageInput, ImageOutput } from '../models/Image'
 
@@ -8,12 +9,13 @@ export const create = async(payload: ImageInput): Promise<ImageOutput> => {
     if (!image){
         throw new Error('could not create')
     }
-    image.save()
+    image._id = new mongoose.Types.ObjectId
     const createdUser: ImageOutput = {
         _id: image._id,
         name: image.name!,
         hyperlink: image.hyperlink!
     }
+    image.save()
     return createdUser
 }
 

@@ -1,7 +1,7 @@
-import {Schema, model, Types } from 'mongoose';
+import mongoose, {Schema, model, Types } from 'mongoose';
 
 export interface IImage {
-    _id?: String,
+    _id: mongoose.Types.ObjectId,
     name: String,
     hyperlink: String,
 }
@@ -11,8 +11,8 @@ export interface ImageOutput extends Required<IImage> {}
 
 const ImageModelSchema = new Schema({
     _id: {
-        type: String,
-        required: false
+        type: mongoose.Types.ObjectId,
+        required: true
     },
     name: {
         type: String,
