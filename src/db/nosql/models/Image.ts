@@ -12,7 +12,7 @@ export interface ImageOutput extends Required<IImage> {}
 const ImageModelSchema = new Schema({
     _id: {
         type: String,
-        required: true
+        required: false
     },
     name: {
         type: String,
