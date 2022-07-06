@@ -14,7 +14,7 @@ imageRouter.get('/name/:imageName', async (req: Request, res: Response) => {
 
 imageRouter.get('/:id', async (req: Request, res: Response) => {
     // get router by image name
-    const id = String(req.params.image)
+    const id = String(req.params.id)
 
     const result = await imageController.getById(id)
     return res.status(200).send(result)
