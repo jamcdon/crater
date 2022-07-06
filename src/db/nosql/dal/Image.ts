@@ -40,7 +40,9 @@ export const getById = async(id: string): Promise<ImageOutput> => {
 
 export const getByImageName = async(imageName: string): Promise<ImageOutput> => {
     const image = await Image.findOne({
-        name: /imageName/i
+        name: {
+            $regex: new RegExp(`^${imageName}$i`)
+        }
         
     }).exec()
     if (!image) {
