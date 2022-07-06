@@ -42,7 +42,7 @@ export const getByImageName = async(imageName: string): Promise<ImageOutput> => 
     const image = await Image.findOne({
         name: /imageName/i
         
-    })
+    }).exec()
     if (!image) {
         throw new Error('not found')
     }
