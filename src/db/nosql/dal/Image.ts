@@ -8,7 +8,9 @@ export const create = async(payload: ImageInput): Promise<ImageOutput> => {
     if (!image){
         throw new Error('could not create')
     }
+    image.save()
     const createdUser: ImageOutput = {
+        _id: image._id,
         name: image.name!,
         hyperlink: image.hyperlink!
     }

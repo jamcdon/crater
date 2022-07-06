@@ -1,7 +1,7 @@
 import {Schema, model, Types } from 'mongoose';
 
 export interface IImage {
-    _id: String,
+    _id?: String,
     name: String,
     hyperlink: String,
 }
