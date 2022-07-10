@@ -116,7 +116,8 @@ services:
     environment:
       MINIO_ROOT_USER: ${APP_DB_USER}
       MINIO_ROOT_PASSWORD: ${APP_DB_PASSWORD}
-    networks: dockerd-net
+    networks: 
+      - dockerd-net
     expose:
       - 9000
       - 9001
