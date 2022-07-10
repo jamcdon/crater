@@ -1,7 +1,7 @@
 ## resources:
  - [sequelize](https://blog.logrocket.com/using-sequelize-with-typescript/)
  - [mongoose](https://medium.com/swlh/typescript-with-mongoose-and-node-express-24073d51d2ee)
- = [mongoose docs](https://mongoosejs.com/docs/typescript/schemas.html)
+ - [mongoose docs](https://mongoosejs.com/docs/typescript/schemas.html)
  - [markdown](https://medium.com/geekculture/how-to-make-a-next-js-blog-with-markdown-and-typescript-1624a54f1b9e)
 
 ## goals
