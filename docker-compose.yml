@@ -111,7 +111,7 @@ services:
 
   dockerd-minio-dev:
     image: quay.io/minio/minio
-    container_name: minio-dev
+    container_name: dockerd-minio-dev
     restart: always
     environment:
       MINIO_ROOT_USER: ${APP_DB_USER}
