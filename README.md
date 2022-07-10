@@ -34,6 +34,9 @@
 - logo with name
 - clone over https
   - auto-gen .env file as well
+  - Resources:
+    - [MIT 2006 git http article](https://web.mit.edu/git/git-doc/git-http-backend.html)
+    - [MIT git-http-backend](https://web.mit.edu/git/git-doc/git-http-backend.html)
 - add dropdown for subpages of subpage youre on
 - read sequelize documentation for something similar to [mongoose methods](https://mongoosejs.com/docs/typescript/statics-and-methods.html#methods)
 - create unique usernames and passwords for all related applications when in prod

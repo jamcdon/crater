@@ -111,6 +111,7 @@ services:
 
   dockerd-minio-dev:
     image: quay.io/minio/minio
+    command: server /data --console-address ":9001"
     container_name: dockerd-minio-dev
     restart: always
     environment:
