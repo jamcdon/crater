@@ -14,7 +14,7 @@ RUN ./node_modules/.bin/tsc
 
 COPY ./views ./dist/views
 COPY ./public ./dist/public
-COPY ./healtcheck.js /healthcheck.js
+COPY ./healthcheck.js /healthcheck.js
 
 HEALTHCHECK --interval=120s --timeout=4s CMD node /healthcheck.js 
 
