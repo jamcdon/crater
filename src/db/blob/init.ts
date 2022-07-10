@@ -4,7 +4,7 @@ const minioHost = process.env.MINIO_HOST as string;
 const dbUser = process.env.DB_USER as string;
 const dbPassword = process.env.DB_PASSWORD as string;
 
-const minioCLient = new minio.Client({
+export const minioClient = new minio.Client({
     endPoint: minioHost,
     port: 9000,
     useSSL: false,
