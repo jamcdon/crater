@@ -62,7 +62,7 @@ services:
       MYSQL_PASSWORD: ${APP_DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     healthcheck:
-      test: ['CMD', 'mysql', '${DB_NAME}', '--user=${APP_DB_USER}', '--password=${APP_DB_PASSWORD}', '--silent', '--execute', '"SELECT 1;"']
+      test: mysql ${DB_NAME} --user=${APP_DB_USER} --password=${APP_DB_PASSWORD} --silent --execute "SELECT 1;"
       interval: 120s
       timeout: 20s
       retries: 3
