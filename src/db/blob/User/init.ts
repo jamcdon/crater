@@ -1,0 +1,1 @@
+import { minioClient } from "../init";

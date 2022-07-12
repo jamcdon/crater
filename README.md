@@ -40,3 +40,4 @@
 - add dropdown for subpages of subpage youre on
 - read sequelize documentation for something similar to [mongoose methods](https://mongoosejs.com/docs/typescript/statics-and-methods.html#methods)
 - create unique usernames and passwords for all related applications when in prod
+- pornography testing on uploaded images via [nsfwjs](https://www.npmjs.com/package/nsfwjs)

@@ -1,13 +1,63 @@
-import * as minio from 'minio';
+import { minioClient } from "./config";
 
-const minioHost = process.env.MINIO_HOST as string;
-const dbUser = process.env.DB_USER as string;
-const dbPassword = process.env.DB_PASSWORD as string;
+const createBucket = (bucketName: string) => {
+    minioClient.bucketExists(bucketName, (err, exists) => {
+        if (err) {
+            return console.log(err)
+        }
+        if (exists) {
+            return console.log(`${bucketName} bucket already exists.`)
+        }
+        else {
+            minioClient.makeBucket(bucketName, '', (err) => {
+                if (err) {
+                    console.log(`error creating ${bucketName}`, err)
+                }
+                console.log(`${bucketName} bucket created`)
+            })
+        }
+    })
+}
 
-export const minioClient = new minio.Client({
-    endPoint: minioHost,
-    port: 9000,
-    useSSL: false,
-    accessKey: dbUser,
-    secretKey: dbPassword
-})
+const setBucketPolicyRO = (bucketName: string) => {
+    const policy = {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Action": [
+                    "s3:GetBucketLocation",
+                    "s3:ListBucket"
+                ],
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": [
+                        "*"
+                    ]
+                },
+                "Resource": [
+                    `arn:aws:s3:::${bucketName}`
+                ],
+                "Sid": ""
+            },
+            {
+                "Action": [
+                    "s3:GetObject"
+                ],
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": [
+                        "*"
+                    ]
+                },
+                "Resource": [
+                    `arn:aws:s3:::${bucketName}/*`
+                ],
+                "Sid": ""
+            }
+        ]
+    }
+    minioClient.setBucketPolicy(bucketName, JSON.stringify(policy), (err) => {
+        if (err) throw err;
+        console.log(`${bucketName} bucket policy set to RO`)
+    })
+}
