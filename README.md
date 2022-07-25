@@ -68,3 +68,9 @@
 - read sequelize documentation for something similar to [mongoose methods](https://mongoosejs.com/docs/typescript/statics-and-methods.html#methods)
 - create unique usernames and passwords for all related applications when in prod
 - pornography testing on uploaded images via [nsfwjs](https://www.npmjs.com/package/nsfwjs)
+- explore testing options?
+  - `npm i jest --save=dev`
+  - `npm i ts-jest --save-dev`
+  - `npm i @types/jest --save-dev`
+  - [guide](https://www.testim.io/blog/typescript-unit-testing-101/)
+  - [docs](https://jestjs.io/docs/getting-started)

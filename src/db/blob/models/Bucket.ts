@@ -9,7 +9,8 @@ export class Bucket {
         this.region = region;
     }
 
-    createIfNotExists(): boolean {
+    // async added to handle async/await .then()((bool)=>{setPolicyRO()}) fn
+    async createIfNotExists(): Promise<boolean> {
         let created: boolean = false;
         minioClient.bucketExists(this.name, (err, exists) => {
             if (err) {
@@ -17,6 +18,8 @@ export class Bucket {
             }
             if (exists) {
                 console.log(`${this.name} already exists. Bucket not created`)
+                // required for .then() function - established bucket created
+                created = true
             }
             else {
                 minioClient.makeBucket(this.name, this.region, (err) => {
