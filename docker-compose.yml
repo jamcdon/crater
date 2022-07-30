@@ -124,6 +124,7 @@ services:
       - 9001
     ports:
       - '9081:9001'
+      - '9080:9000'
 
 #  ddgg-minio-nginx:
 #    depends_on:
@@ -148,6 +149,7 @@ services:
 #      - 9001
 #    ports:
 #      - '9001:9001'
+#      - '9000:9000'
     
 #  ddgg-minio1:
 #    <<: *minio-common
