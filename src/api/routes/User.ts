@@ -47,8 +47,9 @@ userRouter.post('/', async (req: Request, res: Response) => {
     const saltHashPayload = await userController.createUserSaltHash(payload)
     const results = await userController.create(saltHashPayload)
     // creates random pixelart and sends to blob storage
-    const pixel = generateImage()
-    new BlobObject('user', results.id.toString(), pixel.size, pixel.buffer) 
+    const pixelGen = generateImage()
+    const pixel = new BlobObject('user', results.id.toString(), pixelGen.size, pixelGen.buffer) 
+    pixel.upload()
 
     return res.status(200).send(results)
 })
