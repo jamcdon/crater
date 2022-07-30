@@ -4,7 +4,6 @@ type bucketType = 'user' | 'image'
 
 export class BlobObject {
     bucket: bucketType;
-    //bucket: 'user' | 'image';
     name: string;
     size: number;
     buffer: Buffer;

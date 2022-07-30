@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express'
 import * as userController from '../controllers/user'
 import { CreateUserDTO, FilterUserDTO, UpdateUserDTO, CreateUserNoSalt, UpdateUserNoSalt } from '../dto/user.dto'
+import { BlobObject } from '../../db/blob/models'
 
 const userRouter = Router()
 
@@ -43,9 +44,22 @@ userRouter.post('/', async (req: Request, res: Response) => {
     const payload:CreateUserNoSalt = req.body
     // converts password to salt & hashed values to return CreateUserDTO type
     const saltHashPayload = await userController.createUserSaltHash(payload)
-
+    //randpix goes here
     const results = await userController.create(saltHashPayload)
     return res.status(200).send(results)
+})
+
+userRouter.put('/blob/:id', async (req: Request, res: Response) => {
+    const payload = new BlobObject('user', req.params.id, req.body.size, req.body.buffer)
+    const uploadStatus = payload.upload()
+
+    return(uploadStatus ? res.status(201) : res.status(500))
+})
+
+userRouter.post('/blob/:id', async (req: Request, res: Response) => {
+    const payload= new BlobObject('user', req.params.id, req.body.size, req.body.buffer)
+    const uploadStatus = payload.upload()
+    return(uploadStatus ? res.status(200) : res.status(500))
 })
 
 export default userRouter

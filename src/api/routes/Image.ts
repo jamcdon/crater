@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express'
+import { BlobObject } from '../../db/blob/models'
 import * as imageController from '../controllers/image'
 import { CreateImageDTO, UpdateImageDTO } from '../dto/image.dto'
 
@@ -43,11 +44,24 @@ imageRouter.post('/', async (req: Request, res: Response) => {
     //create image
     const payload:CreateImageDTO = req.body
     console.log(payload)
-
+    //randpix? - try to get elsewhere first.
     const results = await imageController.create(payload)
     return res.status(200).send(results)
 })
+/*
+imageRouter.put('/blob/:id', async (req: Request, res: Response) => {
+    const payload = new BlobObject('image', req.params.id, req.body.size, req.body.buffer)
+    const uploadStatus = payload.upload()
 
+    return(uploadStatus ? res.status(201) : res.status(500))
+})
+
+imageRouter.post('/blob/:id', async (req: Request, res: Response) => {
+    const payload = new BlobObject('image', req.params.id, req.body.size, req.body.buffer)
+    const uploadStatus = payload.upload()
+    return(uploadStatus ? res.status(200) : res.status(500))
+})
+*/
 imageRouter.get('/paginate', async (req: Request, res: Response) => {
     //get paginated images by amount of composes
 })
