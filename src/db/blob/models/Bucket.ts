@@ -35,7 +35,7 @@ export class Bucket {
         })
         return created
     }
-    async setPoicyRO(): Promise<boolean> {
+    async setPoicyRO(success: boolean): Promise<boolean> {
         let changed: boolean = false;
         const policy = {
             "Version": "2012-10-17",
@@ -83,5 +83,11 @@ export class Bucket {
             }
         })
         return changed;
+    }
+    validatePolicy = (policyInit: boolean): boolean => {
+        const expectedPolicy = `{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Principal":{"AWS":["*"]},"Action":["s3:GetBucketLocation","s3:ListBucket"],"Resource":["arn:aws:s3:::${this.name}"]},{"Effect":"Allow","Principal":{"AWS":["*"]},"Action":["s3:GetObject"],"Resource":["arn:aws:s3:::${this.name}/*"]}]}`
+        const actualPolicy = await minioClient.getBucketPolicy(this.name)
+
+        return (expectedPolicy == actualPolicy) ? true : false
     }
 }

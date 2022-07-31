@@ -6,22 +6,22 @@ const buckets: Array<Bucket> = [
     ImageBucket
 ]
 
-export default async function blobInit() {//: Promise<boolean> {
-    //let successes: Array<boolean> = []
+export default async function blobInit(): Promise<boolean> {
+    let successes: Array<boolean> = []
+    
     for (let bucket of buckets) {
         //let success: boolean = false;
-        await bucket.createIfNotExists()
-            //.then(
-            //    () => {
-                       await bucket.setPoicyRO()
-            //    }
-            //)
-        //successes.push(success)
+        const bucketExists = await bucket.createIfNotExists()
+        // creating dependency requires function to wait for create function
+        const policyInit = await bucket.setPoicyRO(bucketExists)
+        const policySet = await bucket.validatePolicy(policyInit)
+
+        successes.push(policySet)
     }
-    //if (successes.includes(false)){
-    //    return false
-    //}
-    //else {
-    //    return true
-    //}
+    if(successes.includes(false)){
+        return false
+    }
+    else{
+        return true
+    }
 }
