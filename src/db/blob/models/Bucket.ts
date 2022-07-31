@@ -84,7 +84,7 @@ export class Bucket {
         })
         return changed;
     }
-    validatePolicy = (policyInit: boolean): boolean => {
+    validatePolicy = async (policyInit: boolean): Promise<boolean> => {
         const expectedPolicy = `{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Principal":{"AWS":["*"]},"Action":["s3:GetBucketLocation","s3:ListBucket"],"Resource":["arn:aws:s3:::${this.name}"]},{"Effect":"Allow","Principal":{"AWS":["*"]},"Action":["s3:GetObject"],"Resource":["arn:aws:s3:::${this.name}/*"]}]}`
         const actualPolicy = await minioClient.getBucketPolicy(this.name)
 
