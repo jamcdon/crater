@@ -6,25 +6,22 @@ const buckets: Array<Bucket> = [
     ImageBucket
 ]
 
-export default async function blobInit(): Promise<boolean> {
-    let successes: Array<boolean> = []
+export default async function blobInit() {//: Promise<boolean> {
+    //let successes: Array<boolean> = []
     for (let bucket of buckets) {
-        let success: boolean = false;
+        //let success: boolean = false;
         await bucket.createIfNotExists()
-            .then(
-                (created) => {
-                    // only runs if bucket exists
-                    if (created) {
-                        success = bucket.setPoicyRO()
-                    }
-                }
-            )
-        successes.push(success)
+            //.then(
+            //    () => {
+                       await bucket.setPoicyRO()
+            //    }
+            //)
+        //successes.push(success)
     }
-    if (successes.includes(false)){
-        return false
-    }
-    else {
-        return true
-    }
+    //if (successes.includes(false)){
+    //    return false
+    //}
+    //else {
+    //    return true
+    //}
 }
