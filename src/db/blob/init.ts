@@ -10,13 +10,18 @@ export default async function blobInit(): Promise<boolean> {
     let successes: Array<boolean> = []
     
     for (let bucket of buckets) {
-        //let success: boolean = false;
-        const bucketExists = await bucket.createIfNotExists()
-        // creating dependency requires function to wait for create function
-        const policyInit = await bucket.setPoicyRO(bucketExists)
-        const policySet = await bucket.validatePolicy(policyInit)
+        let success: boolean = false;
+        let policyInit: boolean | undefined
 
-        successes.push(policySet)
+        const bucketExists = await bucket.createIfNotExists()
+        if (bucketExists){
+            policyInit = await bucket.setPoicyRO(bucketExists)
+        }
+        if (policyInit){
+            const policySet = await bucket.validatePolicy(policyInit)
+            successes.push(policySet)
+        }
+
     }
     if(successes.includes(false)){
         return false
