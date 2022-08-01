@@ -11,9 +11,10 @@ export async function blobInit(): Promise<boolean> {
     
     for (let bucket of buckets){
         const created = await bucket.createIfNotExists()
+        console.log(`bucket: ${bucket}\ncreated: ${created}`)
         successes.push(created)
     }
-    return (successes.includes(false)) ? false : true
+    return successes.includes(false) ? false : true
 }
 
 export async function blobPolicy(): Promise<boolean> {
