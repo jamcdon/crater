@@ -30,7 +30,7 @@ export class Bucket {
         //            else {
                         console.log(`${this.name} bucket created`)
                         created = true;
-                    }
+        //            }
         //        })
         //    }
         //})
@@ -83,6 +83,7 @@ export class Bucket {
                 //changed = true;
             }
         })
+    }
         //return changed
     }
     async validatePolicy (policySet: boolean): Promise<boolean> {
