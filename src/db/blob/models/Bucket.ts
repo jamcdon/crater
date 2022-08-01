@@ -10,7 +10,7 @@ export class Bucket {
     }
 
     // async added to handle async/await .then()((bool)=>{setPolicyRO()}) fn
-    async createIfNotExists(): Promise<boolean> {
+    async createIfNotExists(): Promise<void> {//Promise<boolean> {
         let created: boolean = false;
         minioClient.bucketExists(this.name, (err, exists) => {
             if (err) {
@@ -33,10 +33,10 @@ export class Bucket {
                 })
             }
         })
-        return created
-    }
-    async setPoicyRO  (lastComplete: boolean):  Promise<boolean> {
-        let changed: boolean = false;
+    //    return created
+    //}
+    //async setPoicyRO  (lastComplete: boolean):  Promise<boolean> {
+    //    let changed: boolean = false;
         const policy = {
             "Version": "2012-10-17",
             "Statement": [
@@ -79,10 +79,10 @@ export class Bucket {
             }
             else {
                 console.log(`${this.name} bucket policy set to global RO`)
-                changed = true;
+                //changed = true;
             }
         })
-        return changed
+        //return changed
     }
     async validatePolicy (policySet: boolean): Promise<boolean> {
         let expectedPolicy: string | undefined;

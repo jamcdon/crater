@@ -24,9 +24,9 @@ export default async function blobInit(): Promise<boolean> {
         await bucket.createIfNotExists()
     }
 
-    for (let bucket of buckets){
-        await bucket.setPoicyRO(true)
-    }
+    //for (let bucket of buckets){
+    //    await bucket.setPoicyRO(true)
+    //}
 
     for (let bucket of buckets){
         const policySet = await bucket.validatePolicy(true)
