@@ -10,7 +10,8 @@ export async function blobInit(): Promise<boolean> {
     let successes: Array<boolean> = []
     
     for (let bucket of buckets){
-        await bucket.createIfNotExists()
+        const created = await bucket.createIfNotExists()
+        successes.push(created)
     }
     return (successes.includes(false)) ? false : true
 }
