@@ -22,6 +22,7 @@ export class Bucket {
         //        created = true
         //    }
         //    else {
+            if (await minioClient.bucketExists(this.name)) {
                 minioClient.makeBucket(this.name, this.region) //{, (err) => {
         //            if (err) {
         //                console.log(err)
@@ -29,7 +30,7 @@ export class Bucket {
         //            else {
                         console.log(`${this.name} bucket created`)
                         created = true;
-        //            }
+                    }
         //        })
         //    }
         //})
