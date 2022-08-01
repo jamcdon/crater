@@ -32,7 +32,7 @@ export class Bucket {
                     }
                 }
             })
-        return created
+        return Promise.resolve(created)
     }
     async setPoicyRO  ():  Promise<boolean> {
         let changed: boolean = false
