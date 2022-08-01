@@ -9,6 +9,7 @@ import path from 'path'
 sqlInit()
 noSqlInit()
 blobInit().then((changed) => {
+	console.log(changed)
 	if (changed){
 		blobPolicy()
 	}
