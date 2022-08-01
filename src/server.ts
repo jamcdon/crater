@@ -3,12 +3,13 @@ import apiRoutes from './api/routes'
 import frontEndRoutes from './frontend/router'
 import sqlInit from './db/sql/init'
 import noSqlInit from './db/nosql/init'
-import blobInit from './db/blob/init';
+import { blobInit, blobPolicy } from './db/blob/init';
 import path from 'path'
 
 sqlInit()
 noSqlInit()
 blobInit()
+blobPolicy()
 
 const app: Application = express();
 const HOST = '0.0.0.0';

@@ -10,35 +10,32 @@ export class Bucket {
     }
 
     // async added to handle async/await .then()((bool)=>{setPolicyRO()}) fn
-    async createIfNotExists(): Promise<void> {//Promise<boolean> {
+    async createIfNotExists(): Promise<boolean> {
         let created: boolean = false;
-        //minioClient.bucketExists(this.name, (err, exists) => {
-        //    if (err) {
-        //        console.log(err)
-        //    }
-        //    if (exists) {
-        //        console.log(`${this.name} already exists. Bucket not created`)
-        //        // required for .then() function - established bucket created
-        //        created = true
-        //    }
-        //    else {
-            if (await minioClient.bucketExists(this.name)) {
+        minioClient.bucketExists(this.name, (err, exists) => {
+            if (err) {
+                console.log(err)
+            }
+            if (exists) {
+                console.log(`${this.name} already exists. Bucket not created`)
+                // required for .then() function - established bucket created
+                created = true
+            }
+            else {
                 minioClient.makeBucket(this.name, this.region) //{, (err) => {
-        //            if (err) {
-        //                console.log(err)
-        //            }
-        //            else {
+                    if (err) {
+                        console.log(err)
+                    }
+                    else {
                         console.log(`${this.name} bucket created`)
                         created = true;
-        //            }
-        //        })
-        //    }
-        //})
-    //    return created
-    //}
-    //async setPoicyRO  (lastComplete: boolean):  Promise<boolean> {
-    //    let changed: boolean = false;
-        setTimeout(() => {
+                    }
+                }
+            })
+        return created
+    }
+    async setPoicyRO  ():  Promise<boolean> {
+        let changed: boolean = false
         const policy = {
             "Version": "2012-10-17",
             "Statement": [
@@ -84,9 +81,7 @@ export class Bucket {
                 //changed = true;
             }
         })
-            }, 8000)
-    }
-        //return changed
+        return changed
     }
     async validatePolicy (policySet: boolean): Promise<boolean> {
         let expectedPolicy: string | undefined;
