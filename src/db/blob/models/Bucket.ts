@@ -38,6 +38,7 @@ export class Bucket {
     //}
     //async setPoicyRO  (lastComplete: boolean):  Promise<boolean> {
     //    let changed: boolean = false;
+        setTimeout(() => {
         const policy = {
             "Version": "2012-10-17",
             "Statement": [
@@ -83,6 +84,7 @@ export class Bucket {
                 //changed = true;
             }
         })
+            }, 8000)
     }
         //return changed
     }
