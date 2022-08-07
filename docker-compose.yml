@@ -99,9 +99,12 @@ services:
       - DB_NAME=${DB_NAME}
       - DB_USER=${APP_DB_USER}
       - SQL_HOST=dockerd-mysql
+      - SQL_PORT=3306
       - NO_SQL_HOST=dockerd-mongo
+      - NO_SQL_PORT=27017
       - DB_DRIVER=mysql
       - DB_PASSWORD=${APP_DB_PASSWORD}
+      - MINIO_PORT=9000
 #      - MINIO_HOST=ddgg-minio-nginx
       - MINIO_HOST=dockerd-minio-dev
     networks:

@@ -20,7 +20,8 @@ export async function blobInit(): Promise<boolean> {
 export async function blobPolicy(): Promise<boolean> {
     let successes: Array<boolean> = []
     for (let bucket of buckets){
-        await bucket.setPoicyRO()
+        const policySet = await bucket.setPoicyRO()
+        successes.push(policySet)
     }
 
     //for (let bucket of buckets){

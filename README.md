@@ -1,6 +1,8 @@
 # Dockerd
 > the opensource docker-compose webapp
 
+_Now under the GNU AGPLv3 license_ 
+
 ## Tooling
 ### Node.js
 - Typescript
@@ -78,3 +80,6 @@
   - `npm i @types/jest --save-dev`
   - [guide](https://www.testim.io/blog/typescript-unit-testing-101/)
   - [docs](https://jestjs.io/docs/getting-started)
+
+## known issues
+- Blob storage requires starting and stopping app for bucket and policy to be set

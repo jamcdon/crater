@@ -8,12 +8,8 @@ import path from 'path'
 
 sqlInit()
 noSqlInit()
-blobInit().then((changed) => {
-	console.log(`blobInit return: ${changed}`)
-	if (changed){
-		blobPolicy()
-	}
-})
+blobInit()
+blobPolicy()
 
 const app: Application = express();
 const HOST = '0.0.0.0';
