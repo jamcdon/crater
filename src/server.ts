@@ -1,6 +1,6 @@
 import express, {Application, Request, Response} from 'express';
 import apiRoutes from './api/routes'
-import frontEndRoutes from './frontend/router'
+import frontEndRoutes from './frontend/routes'
 import sqlInit from './db/sql/init'
 import noSqlInit from './db/nosql/init'
 import { blobInit, blobPolicy } from './db/blob/init';

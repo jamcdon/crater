@@ -4,7 +4,7 @@
   "description": "Web application for docker-compose sharing",
   "scripts": {
     "start": "./node_modules/.bin/tsc && node ./dist/server/server.js",
-    "dev": "export $(cat .env | xargs) && ./node_modules/.bin/tsc && node ./dist/server/server.js"
+    "dev": "export $(cat .env | xargs) && ./node_modules/.bin/tsc && rm -r ./dist/public/* && rm -r ./dist/views/* && cp -r public/* ./dist/public/ && cp -r views/* ./dist/views/ && node ./dist/server/server.js"
   },
   "repository": {
     "type": "git",

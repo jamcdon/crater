@@ -1,12 +1,16 @@
 import {Request, Response} from 'express'
 
-const accountInterpolation = {
+let accountInterpolation: {page: string, username?: string } = {
     page: "Account"
-}
+} 
 
 class Account {
     public static index (req: Request, res: Response): void {
-        return res.render('acount/index.pug', accountInterpolation)
+        return res.render('account/index.pug', accountInterpolation)
+    }
+    public static user (req: Request, res: Response): void {
+        accountInterpolation.username = req.params.username;
+        return res.render('account/user.pug', accountInterpolation)
     }
 }
 

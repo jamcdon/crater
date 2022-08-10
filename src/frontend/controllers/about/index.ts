@@ -1,5 +1,6 @@
 import {Request, Response } from 'express'
 
+
 const aboutInterpolation = {
     page: "About"
 }
