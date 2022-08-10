@@ -83,3 +83,4 @@ _Now under the GNU AGPLv3 license_
 
 ## known issues
 - Blob storage requires starting and stopping app for bucket and policy to be set
+- User account page image is being grabbed from internal IP
