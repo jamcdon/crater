@@ -34,7 +34,7 @@ export class Bucket {
             })
         return Promise.resolve(created)
     }
-    async setPoicyRO  ():  Promise<boolean> {
+    async setPoicyRO(): Promise<boolean> {
         let changed: boolean = false
         const policy = {
             "Version": "2012-10-17",

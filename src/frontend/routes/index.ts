@@ -1,4 +1,5 @@
-import { Router } from 'express'
+import { Router, Request, Response } from 'express'
+import { nextTick } from 'process'
 import aboutRouter from './about'
 import accountRouter from './account'
 import featuresRouter from './features'
@@ -6,15 +7,17 @@ import homeRouter from './home'
 import imageRouter from './images'
 import signRouter from './sign'
 import trendingRouter from './trending'
+import errorRouter from './error'
 
-const frontEndRoutes = Router()
+const frontEndRouter = Router()
 
-frontEndRoutes.use('/', homeRouter)
-frontEndRoutes.use('/about', aboutRouter)
-frontEndRoutes.use('/account', accountRouter)
-frontEndRoutes.use('/features', featuresRouter)
-frontEndRoutes.use('/images', imageRouter)
-frontEndRoutes.use('/sign', signRouter)
-frontEndRoutes.use('/trending', trendingRouter)
+frontEndRouter.use('/', homeRouter)
+frontEndRouter.use('/about', aboutRouter)
+frontEndRouter.use('/account', accountRouter)
+frontEndRouter.use('/features', featuresRouter)
+frontEndRouter.use('/images', imageRouter)
+frontEndRouter.use('/sign', signRouter)
+frontEndRouter.use('/trending', trendingRouter)
+frontEndRouter.use(errorRouter)
 
-export default frontEndRoutes
+export default frontEndRouter

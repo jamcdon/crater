@@ -4,8 +4,13 @@ import * as service from '../../../db/sql/services/userService'
 import {User} from '../../../api/interfaces'
 import { UserOutput } from '../../../db/sql/models/User'
 
-let accountInterpolation: {page: string, username?: number } = {
-    page: "Account"
+let accountInterpolation: {
+    page: string,
+    id?: number,
+    username?: string,
+    createdAt?: string
+} = {
+        page: "Account"
 } 
 
 class Account {
@@ -13,11 +18,19 @@ class Account {
         return res.render('account/index.pug', accountInterpolation)
     }
     public static async user (req: Request, res: Response): Promise<void> {
-        const userObject: User = await mapper.toUser(
-            await service.getByUsername(req.params.username)
-        )
-        accountInterpolation.username = userObject.id;
-        return res.render('account/user.pug', accountInterpolation)
+        try {
+            const userObject: User = await mapper.toUser(
+                await service.getByUsername(req.params.username)
+            )
+            accountInterpolation.username = userObject.username
+            accountInterpolation.id = userObject.id;
+            accountInterpolation.createdAt = userObject.createdAt.toDateString()
+            return res.render('account/user.pug', accountInterpolation)
+        }
+        catch{
+            res.status(404)
+            return res.render('error/404.pug', {errorPage: "Account"})
+        }
     }
 }
 

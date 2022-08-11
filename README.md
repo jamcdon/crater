@@ -84,3 +84,4 @@ _Now under the GNU AGPLv3 license_
 ## known issues
 - Blob storage requires starting and stopping app for bucket and policy to be set
 - User account page image is being grabbed from internal IP
+- api router needs better 404 etc error handling instead of timing out (i.e. dont stall when hitting /api/v1/user/{not_a_user})

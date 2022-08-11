@@ -1,0 +1,9 @@
+extends ../template.pug
+mixin content
+    div#content
+        h1 Error 404
+        if errorPage
+            p #{errorPage} not found
+        else
+            p Page not found
+        button(onclick="history.go(-1)") Go back

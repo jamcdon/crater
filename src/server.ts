@@ -1,6 +1,6 @@
 import express, {Application, Request, Response} from 'express';
-import apiRoutes from './api/routes'
-import frontEndRoutes from './frontend/routes'
+import apiRouter from './api/routes'
+import frontEndRouter from './frontend/routes'
 import sqlInit from './db/sql/init'
 import noSqlInit from './db/nosql/init'
 import { blobInit, blobPolicy } from './db/blob/init';
@@ -25,8 +25,8 @@ export const get = () => {
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: true }));
 
-	app.use('/', frontEndRoutes)
-	app.use('/api/v1', apiRoutes)
+	app.use('/api/v1', apiRouter)
+	app.use('/', frontEndRouter)
 	return app
 }
 
