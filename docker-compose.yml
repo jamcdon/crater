@@ -17,12 +17,12 @@ version: '3'
 #    timeout: 20s
 #    retries: 3
 #  networks:
-#    - dockerd-net
+#    - dockerc-net
 
 services:
-  dockerd-mongo:
+  dockerc-mongo:
     image: mongo:latest
-    container_name: dockerd-mongo
+    container_name: dockerc-mongo
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: "${APP_DB_USER}"
@@ -33,28 +33,28 @@ services:
       timeout: 20s
       retries: 3
     networks:
-      - dockerd-net
+      - dockerc-net
     expose:
       - 27017
 #    volumes:
-#      - dockerd-mongo-data:/data/db
-#  dockerd-mongo-express:
+#      - dockerc-mongo-data:/data/db
+#  dockerc-mongo-express:
 #    image: mongo-express
-#    container_name: dockerd-mongo-express
+#    container_name: dockerc-mongo-express
 #    restart: always
 #    environment:
-#      - ME_CONFIG_MONGODB_SERVER=dockerd-mongo
+#      - ME_CONFIG_MONGODB_SERVER=dockerc-mongo
 #      - ME_CONFIG_MONGODB_PORT=27017
 #      - ME_CONFIG_MONGODB_BASICAUTH_USERNAME=${APP_DB_USER}
 #      - ME_CONFIG_MONGODB_BASICAUTH_PASSWORD=${APP_DB_PASSWORD}
 #      - ME_CONFIG_MONGODB_ENABLE_ADMIN='true'
 #    networks:
-#      - dockerd-net
+#      - dockerc-net
 #    ports:
 #      - '6000:8081'
-  dockerd-mysql:
+  dockerc-mysql:
     image: mysql
-    container_name: dockerd-mysql
+    container_name: dockerc-mysql
     restart: always
     environment:
       MYSQL_DATABASE: ${DB_NAME}
@@ -67,61 +67,61 @@ services:
       timeout: 20s
       retries: 3
     networks:
-      - dockerd-net
+      - dockerc-net
     expose:
       - 3306
 #    volumes:
-#      - dockerd-mysql-data:/var/lib/mysql
-#  dockerd-phpmyadmin:
+#      - dockerc-mysql-data:/var/lib/mysql
+#  dockerc-phpmyadmin:
 #    image: phpmyadmin/phpmyadmin
-#    container_name: dockerd-phpmyadmin
+#    container_name: dockerc-phpmyadmin
 #    restart: always
 #    environment:
-#      PMA_HOST: dockerd-mysql
+#      PMA_HOST: dockerc-mysql
 #      PMA_PORT: 3306
 #      PMA_ARBITRARY: 1
 #      PMA_USER: ${APP_DB_USER}
 #      PMA_PASSWORD: ${APP_DB_PASSWORD}
 #    networks:
-#      - dockerd-net
+#      - dockerc-net
 #    ports:
 #      - '5000:80'
 
-  dockerd-gg:
+  dockerc-gg:
     depends_on:
-      - dockerd-mysql
-      - dockerd-mongo
-#      - dockerd-minio-nginx
+      - dockerc-mysql
+      - dockerc-mongo
+#      - dockerc-minio-nginx
     build: .
-    container_name: dockerd-gg
+    container_name: dockerc-gg
     restart: always
     environment:
       - DB_NAME=${DB_NAME}
       - DB_USER=${APP_DB_USER}
-      - SQL_HOST=dockerd-mysql
+      - SQL_HOST=dockerc-mysql
       - SQL_PORT=3306
-      - NO_SQL_HOST=dockerd-mongo
+      - NO_SQL_HOST=dockerc-mongo
       - NO_SQL_PORT=27017
       - DB_DRIVER=mysql
       - DB_PASSWORD=${APP_DB_PASSWORD}
       - MINIO_PORT=9000
-#      - MINIO_HOST=ddgg-minio-nginx
-      - MINIO_HOST=dockerd-minio-dev
+#      - MINIO_HOST=dcgg-minio-nginx
+      - MINIO_HOST=dockerc-minio-dev
     networks:
-      - dockerd-net
+      - dockerc-net
     ports:
       - '80:3000'
 
-  dockerd-minio-dev:
+  dockerc-minio-dev:
     image: quay.io/minio/minio
     command: server /data --console-address ":9001"
-    container_name: dockerd-minio-dev
+    container_name: dockerc-minio-dev
     restart: always
     environment:
       MINIO_ROOT_USER: ${APP_DB_USER}
       MINIO_ROOT_PASSWORD: ${APP_DB_PASSWORD}
     networks: 
-      - dockerd-net
+      - dockerc-net
     expose:
       - 9000
       - 9001
@@ -129,14 +129,14 @@ services:
       - '9081:9001'
       - '9080:9000'
 
-#  ddgg-minio-nginx:
+#  dcgg-minio-nginx:
 #    depends_on:
-#      - ddgg-minio1
-#      - ddgg-minio2
-#      - ddgg-minio3
-#      - ddgg-minio4
+#      - dcgg-minio1
+#      - dcgg-minio2
+#      - dcgg-minio3
+#      - dcgg-minio4
 #    image: nginx:alpine
-#    container_name: dockerd-minio-nginx
+#    container_name: dockerc-minio-nginx
 #    restart: always
 #    volumes:
 #      - ./nginx.conf:/etc/nginx/nginx.conf:ro
@@ -146,7 +146,7 @@ services:
 #      timeout: 20s
 #      retries: 3
 #    networks:
-#      - dockerd-net
+#      - dockerc-net
 #    expose:
 #      - 9000
 #      - 9001
@@ -154,95 +154,95 @@ services:
 #      - '9001:9001'
 #      - '9000:9000'
     
-#  ddgg-minio1:
+#  dcgg-minio1:
 #    <<: *minio-common
-#    hostname: ddgg-minio1
-#    container_name: dockerd-minio1
+#    hostname: dcgg-minio1
+#    container_name: dockerc-minio1
 #    volumes:
-#      - ddgg-minio1-1:/data1
-#      - ddgg-minio1-2:/data2
-#  ddgg-minio2:
+#      - dcgg-minio1-1:/data1
+#      - dcgg-minio1-2:/data2
+#  dcgg-minio2:
 #    <<: *minio-common
-#    hostname: ddgg-minio2
-#    container_name: dockerd-minio2
+#    hostname: dcgg-minio2
+#    container_name: dockerc-minio2
 #    volumes:
-#      - ddgg-minio2-1:/data1
-#      - ddgg-minio2-2:/data2
-#  ddgg-minio3:
+#      - dcgg-minio2-1:/data1
+#      - dcgg-minio2-2:/data2
+#  dcgg-minio3:
 #    <<: *minio-common
-#    hostname: ddgg-minio3
-#    container_name: dockerd-minio3
+#    hostname: dcgg-minio3
+#    container_name: dockerc-minio3
 #    volumes:
-#      - ddgg-minio3-1:/data1
-#      - ddgg-minio3-2:/data2
-#  ddgg-minio4:
+#      - dcgg-minio3-1:/data1
+#      - dcgg-minio3-2:/data2
+#  dcgg-minio4:
 #    <<: *minio-common
-#    hostname: ddgg-minio4
-#    container_name: dockerd-minio4
+#    hostname: dcgg-minio4
+#    container_name: dockerc-minio4
 #    volumes:
-#      - ddgg-minio4-1:/data1
-#      - ddgg-minio4-2:/data2
+#      - dcgg-minio4-1:/data1
+#      - dcgg-minio4-2:/data2
 networks:
-  dockerd-net:
+  dockerc-net:
     driver: bridge
 #volumes:
-#  dockerd-mongo-data:
+#  dockerc-mongo-data:
 #    driver: local
 #    driver_opts:
 #      type: none
 #      o: bind
-#      device: /raid/dockerd/db/mongo
-#  dockerd-mysql-data:
+#      device: /raid/dockerc/db/mongo
+#  dockerc-mysql-data:
 #    driver: local
 #      driver_opts:
 #        type: none
 #        o: bind
-#        device: /raid/dockerd/db/mysql
-#  ddgg-minio1-1:
+#        device: /raid/dockerc/db/mysql
+#  dcgg-minio1-1:
 #    driver: local
 #    driver_opts:
 #      type: none
 #      o: bind
-#      device: /raid/dockerd/minio/1/1-1
-#  ddgg-minio1-2:
+#      device: /raid/dockerc/minio/1/1-1
+#  dcgg-minio1-2:
 #    driver: local
 #    driver_opts:
 #      type: none
 #      o: bind
-#      device: /raid/dockerd/minio/2/1-2
-#  ddgg-minio2-1:
+#      device: /raid/dockerc/minio/2/1-2
+#  dcgg-minio2-1:
 #    driver: local
 #    driver_opts:
 #      type: none
 #      o: bind
-#      device: /raid/dockerd/minio/3/2-1
-#  ddgg-minio2-2:
+#      device: /raid/dockerc/minio/3/2-1
+#  dcgg-minio2-2:
 #    driver: local
 #    driver_opts:
 #      type: none
 #      o: bind
-#      device: /raid/dockerd/minio/4/2-2
-#  ddgg-minio3-1:
+#      device: /raid/dockerc/minio/4/2-2
+#  dcgg-minio3-1:
 #    driver: local
 #    driver_opts:
 #      type: none
 #      o: bind
-#      device: /raid/dockerd/minio/1/3-1
-#  ddgg-minio3-2:
+#      device: /raid/dockerc/minio/1/3-1
+#  dcgg-minio3-2:
 #    driver: local
 #    driver_opts:
 #      type: none
 #      o: bind
-#      device: /raid/dockerd/minio/2/3-2
-#  ddgg-minio4-1:
+#      device: /raid/dockerc/minio/2/3-2
+#  dcgg-minio4-1:
 #    driver: local
 #    driver_opts:
 #      type: none
 #      o: bind
-#      device: /raid/dockerd/minio/3/4-1
-#  ddgg-minio4-2:
+#      device: /raid/dockerc/minio/3/4-1
+#  dcgg-minio4-2:
 #    driver: local
 #    driver_opts:
 #      type: none
 #      o: bind
-#      device: /raid/dockerd/minio/4/4-2
+#      device: /raid/dockerc/minio/4/4-2

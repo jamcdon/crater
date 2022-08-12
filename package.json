@@ -1,5 +1,5 @@
 {
-  "name": "dockerd",
+  "name": "dockerc",
   "version": "1.0.0",
   "description": "Web application for docker-compose sharing",
   "scripts": {
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jamcdon/dockerd.git"
+    "url": "git+https://github.com/jamcdon/dockerc.git"
   },
   "author": "Jared McDonald",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jamcdon/dockerd/issues"
+    "url": "https://github.com/jamcdon/dockerc/issues"
   },
-  "homepage": "https://github.com/jamcdon/dockerd#readme",
+  "homepage": "https://github.com/jamcdon/dockerc#readme",
   "dependencies": {
     "express": "^4.18.1",
     "minio": "^7.0.29",
