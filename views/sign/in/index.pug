@@ -2,7 +2,7 @@ extends ../../template.pug
 mixin content
     div#content.p-3
         h1.h2 Sign in to dockerc 
-        form(action="")
+        form(action="").userInfo
             div.mb-3
                 label(for="email").form-label Email address
                 input(type="email")#email.form-control
@@ -21,3 +21,4 @@ mixin content
                         p.ps-2.py-0.my-0 Sign in with GitHub
         p.p-2 Don't have an account?
             a(href="/sign/up").text-primary.ps-1 Sign up
+    script(src="/script/in/index.js")

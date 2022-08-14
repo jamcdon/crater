@@ -54,6 +54,20 @@ userRouter.post('/', async (req: Request, res: Response) => {
     return res.status(200).send(results)
 })
 
+userRouter.get('/user-exists/:username', async (req: Request, res: Response) => {
+    const username = String(req.params.username)
+    const validated = await userController.validateUsername(username)
+
+    return(validated ? res.status(200).send('exists') : res.status(200).send('notExists'))
+})
+
+userRouter.get('/email-exists/:email', async (req: Request, res: Response) => {
+    const email = String(req.params.email)
+    const validated = await userController.validateEmail(email)
+
+    return( validated ? res.status(200).send('exists') : res.status(200).send('notExists'))
+})
+
 userRouter.put('/blob/:id', async (req: Request, res: Response) => {
     const payload = new BlobObject('user', req.params.id, req.body.size, req.body.buffer)
     const uploadStatus = payload.upload()

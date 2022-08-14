@@ -40,6 +40,28 @@ export const getByUsername = async(username: string): Promise<UserOutput> => {
     return user
 }
 
+export const validateUsername = async(username: string): Promise<boolean> => {
+    const user = await User.findOne({
+        where: {
+            username: {
+                [Op.like]: `%${username}%`
+            }
+        }
+    })
+    return (user ? true : false)
+}
+
+export const validateEmail = async(email: string): Promise<boolean> => {
+    const user = await User.findOne({
+        where: {
+            email: {
+                [Op.like]: `%${email}%`
+            }
+        }
+    })
+    return (user ? true : false)
+}
+
 export const deleteById = async (id: number): Promise<boolean> => {
     const deletedUserCount = await User.destroy({
         where: {id}

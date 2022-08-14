@@ -61,6 +61,14 @@ export const getByUsername = async(username: string): Promise<User> => {
     return mapper.toUser(await service.getByUsername(username))
 }
 
+export const validateUsername = async(username: string): Promise<boolean> => {
+    return (await service.validateUsername(username))
+}
+
+export const validateEmail = async(email: string): Promise<boolean> => {
+    return (await service.validateEmail(email))
+}
+
 export const deleteById = async (id: number): Promise<Boolean> => {
     const isDeleted = await service.deleteById(id)
     return isDeleted

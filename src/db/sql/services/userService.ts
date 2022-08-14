@@ -17,6 +17,14 @@ export const getByUsername = (username: string): Promise<UserOutput> => {
     return userDAL.getByUsername(username)
 }
 
+export const validateUsername = (username: string): Promise<boolean> => {
+    return userDAL.validateUsername(username)
+}
+
+export const validateEmail = (email: string): Promise<boolean> => {
+    return userDAL.validateEmail(email)
+}
+
 export const deleteById = (id: number): Promise<Boolean> => {
     return userDAL.deleteById(id)
 }
