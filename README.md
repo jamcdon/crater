@@ -80,6 +80,7 @@ _Now under the GNU AGPLv3 license_
   - `npm i @types/jest --save-dev`
   - [guide](https://www.testim.io/blog/typescript-unit-testing-101/)
   - [docs](https://jestjs.io/docs/getting-started)
+- add javascript minifying for frontend code
 
 ## known issues
 - Blob storage requires starting and stopping app for bucket and policy to be set

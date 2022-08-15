@@ -1,5 +1,6 @@
 import * as userDAL from '../dal/User'
-import { UserInput, UserOutput } from '../models/User'
+import { UserInput, UserOutput} from '../models/User'
+import { SignInUserDTO } from '../../../api/dto/user.dto'
 
 export const create = (payload: UserInput): Promise<UserOutput> => {
     return userDAL.create(payload)
@@ -23,6 +24,14 @@ export const validateUsername = (username: string): Promise<boolean> => {
 
 export const validateEmail = (email: string): Promise<boolean> => {
     return userDAL.validateEmail(email)
+}
+
+export const getSaltFromEmail = (email: string): Promise<string> => {
+    return userDAL.getSaltFromEmail(email)
+}
+
+export const authenticateByEmail = (payload: SignInUserDTO): Promise<boolean> => {
+    return userDAL.authenticateByEmail(payload)
 }
 
 export const deleteById = (id: number): Promise<Boolean> => {

@@ -1,6 +1,13 @@
 import { Router, Request, Response } from 'express'
 import * as userController from '../controllers/user'
-import { CreateUserDTO, FilterUserDTO, UpdateUserDTO, CreateUserNoSalt, UpdateUserNoSalt } from '../dto/user.dto'
+import {
+    CreateUserDTO,
+    FilterUserDTO,
+    UpdateUserDTO,
+    CreateUserNoSalt,
+    UpdateUserNoSalt,
+    SignInUserDTO
+} from '../dto/user.dto'
 import { BlobObject } from '../../db/blob/models'
 import { generateImage } from '../../db/blob/services/RandomPixelArt'
 
@@ -66,6 +73,13 @@ userRouter.get('/email-exists/:email', async (req: Request, res: Response) => {
     const validated = await userController.validateEmail(email)
 
     return( validated ? res.status(200).send('exists') : res.status(200).send('notExists'))
+})
+
+userRouter.post('/authenticate', async (req: Request, res: Response) => {
+    const payload: SignInUserDTO = req.body
+    const signInStatus = await userController.authenticateByEmail(payload)
+
+    return ( signInStatus ? res.status(200).send() : res.status(401).send() )
 })
 
 userRouter.put('/blob/:id', async (req: Request, res: Response) => {

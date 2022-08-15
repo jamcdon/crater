@@ -44,7 +44,7 @@ async function testfn(){
     }
 
     function sendOrUpdate(){
-        if (emailObject.response == "" && usernameObject.response == ""){
+        if (emailObject.response == "" || usernameObject.response == ""){
             setTimeout(() => {
                 sendOrUpdate()
             }, 350)
@@ -82,7 +82,6 @@ async function testfn(){
                 }
                 if (!passwordValidate){
                     if (document.getElementById('password').value.length < 8){
-                        console.log(document.getElementById('password').value.length)
                         document.getElementById('passwordValidation').innerHTML = "Password must be 8 or more characters";
                     }
                     else {
@@ -97,6 +96,11 @@ async function testfn(){
 
 function sendUser(jsonStr, route) {
     var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4 && xhr.status == 200){
+            document.location.href = `/account/${usernameObject.element}`
+        }
+    }
     xhr.open('POST', route)
     xhr.setRequestHeader("Content-Type", "application/json")
     xhr.send(jsonStr)
@@ -117,7 +121,6 @@ async function newGetValid(self) {
                 }
             }
             else{
-                console.log(xhrObj)
                 setTimeout(() => {
                     loadResponse((xhrObj.readyState === 4 && xhr.status === 200), xhrObj)
                 }, 350)
