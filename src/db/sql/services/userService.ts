@@ -30,7 +30,7 @@ export const getSaltFromEmail = (email: string): Promise<string> => {
     return userDAL.getSaltFromEmail(email)
 }
 
-export const authenticateByEmail = (payload: SignInUserDTO): Promise<boolean> => {
+export const authenticateByEmail = (payload: SignInUserDTO): Promise<string> => {
     return userDAL.authenticateByEmail(payload)
 }
 

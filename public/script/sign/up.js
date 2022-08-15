@@ -20,7 +20,7 @@ class validator {
 }
 
 
-async function testfn(){
+async function createOrError(){
 
     if (document.getElementById('username').value != ""){
         usernameObject = new validator(document.getElementById('username').value, "user")

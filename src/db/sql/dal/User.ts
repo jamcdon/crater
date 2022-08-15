@@ -74,7 +74,7 @@ export const getSaltFromEmail = async (email: string): Promise<string> => {
     return (user ? user.passwordSalt : '')
 }
 
-export const authenticateByEmail = async (payload: SignInUserDTO): Promise<boolean> => {
+export const authenticateByEmail = async (payload: SignInUserDTO): Promise<string> => {
     const user = await User.findOne({
         where: {
             email: {
@@ -85,7 +85,7 @@ export const authenticateByEmail = async (payload: SignInUserDTO): Promise<boole
             }
         }
     })
-    return (user ? true : false)
+    return (user ? user.username: '')
 }
 
 export const deleteById = async (id: number): Promise<boolean> => {

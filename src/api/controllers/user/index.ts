@@ -83,7 +83,7 @@ export const validateEmail = async(email: string): Promise<boolean> => {
     return (await service.validateEmail(email))
 }
 
-export const authenticateByEmail = async(payload: SignInUserDTO): Promise <boolean> => {
+export const authenticateByEmail = async(payload: SignInUserDTO): Promise <string> => {
     const salt = await service.getSaltFromEmail(payload.email)
     const hash = saltHash(payload.password as string, salt).hexHash
     const newPayload: SignInUserDTO = {
