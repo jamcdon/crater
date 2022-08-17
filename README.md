@@ -37,7 +37,7 @@ _Now under the GNU AGPLv3 license_
   - [npm](https://www.npmjs.com/package/nsfwjs)
   - [GitHub](https://github.com/infinitered/nsfwjs)
   - Pornography detection and blocking for user submitted images
--randpix
+- randpix
   - [npm](https://www.npmjs.com/package/randpix)
   - [GitHub](https://github.com/LIMPIX31/randpix)
   - Random pixelart generator for default profile pictures

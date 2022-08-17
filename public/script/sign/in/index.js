@@ -18,10 +18,7 @@ async function authenticate(){
 }
 
 async function logInOrError(self) {
-    var apiStr = `{
-       "email": "${self.email}",
-       "password": "${self.password}" 
-    }`
+    var apiStr = `{\n"email": "${self.email}","password": "${self.password}"\n}`
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
         if (xhr.readyState === 4){

@@ -55,11 +55,7 @@ async function createOrError(){
                     document.getElementById('emailValidation').innerHTML = "&nbsp;"
                     document.getElementById('passwordValidation').innerHTML = "&nbsp;"
 
-                var apiStr = `{
-                    "username": "${document.getElementById('username').value}",
-                    "email": "${document.getElementById('email').value}",
-                    "password": "${document.getElementById('password').value}"
-                }`
+                var apiStr = `{\n"username": "${document.getElementById('username').value}",\n"email": "${document.getElementById('email').value}",\n"password": "${document.getElementById('password').value}"\n}`
                 sendUser(apiStr, '/api/v1/user/')
             }
             else{
