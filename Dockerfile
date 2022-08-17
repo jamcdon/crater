@@ -19,7 +19,7 @@ COPY ./public ./dist/public
 
 COPY ./minify.sh .
 COPY ./public ./public
-RUN ./minify.sh
+RUN chmod +x minify.sh && ./minify.sh
 
 COPY ./healthcheck.js /healthcheck.js
 
