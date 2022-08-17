@@ -1,6 +1,6 @@
 FROM node:18-alpine
 
-RUN apk --no-cache add dpkg g++ make gcc libc-dev cairo-dev pango-dev libjpeg-turbo-dev libpng-dev giflib-dev librsvg-dev
+RUN apk --no-cache add dpkg g++ make gcc libc-dev cairo-dev pango-dev libjpeg-turbo-dev libpng-dev giflib-dev librsvg-dev bash
 
 WORKDIR /app
 # grab [ package.json, package-lock.json, tsconfig.json ]
@@ -19,7 +19,7 @@ COPY ./public ./dist/public
 
 COPY ./minify.sh .
 COPY ./public ./public
-RUN minify.sh
+RUN ./minify.sh
 
 COPY ./healthcheck.js /healthcheck.js
 

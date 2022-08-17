@@ -1,3 +1,5 @@
+#!/bin/bash
+
 declare -a dirs
 declare -a jsIndex
 declare -a jsFiles
@@ -21,4 +23,3 @@ do
     file=${jsFiles[$i]}
     ./node_modules/.bin/minify $fileDir$file > ./dist/$fileDir$file
 done
-
