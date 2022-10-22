@@ -29,10 +29,6 @@ _Now under the GNU AGPLv3 license_
   - [npm](https://www.npmjs.com/package/pug)
   - [GitHub](https://github.com/pugjs/pug/tree/master/packages/pug)
   - Storing HTML as HAML for high reusability and extensibility
-- Multer
-  - [npm](https://www.npmjs.com/package/multer)
-  - [GitHub](https://github.com/expressjs/multer)
-  - Handling transactions between API and Minio bucket for BLOBs
 - nsfwjs
   - [npm](https://www.npmjs.com/package/nsfwjs)
   - [GitHub](https://github.com/infinitered/nsfwjs)
@@ -41,6 +37,10 @@ _Now under the GNU AGPLv3 license_
   - [npm](https://www.npmjs.com/package/randpix)
   - [GitHub](https://github.com/LIMPIX31/randpix)
   - Random pixelart generator for default profile pictures
+- redis
+  - [npm](https://www.npmjs.com/package/redis)
+  - [GitHub](https://github.com/redis/node-redis)
+  - Client for accessing Redis cache database
 
 #### MySQL
 - [Docker Hub](https://hub.docker.com/_/mysql)
@@ -54,6 +54,9 @@ _Now under the GNU AGPLv3 license_
 - [Docker Hub](https://hub.docker.com/r/minio/minio)
 - [GitHub](https://github.com/minio/minio)
 - Storing BLOBs such as images
+#### Redis
+- [Docker Hub](https://hub.docker.com/_/redis)
+- [GitHub](https://github.com/redis/redis)
 
 ## resources:
  - [sequelize](https://blog.logrocket.com/using-sequelize-with-typescript/)

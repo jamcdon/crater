@@ -1,19 +1,23 @@
 import express, {Application, Request, Response} from 'express';
+import cookieParser from 'cookie-parser';
 import apiRouter from './api/routes'
 import frontEndRouter from './frontend/routes'
 import sqlInit from './db/sql/init'
 import noSqlInit from './db/nosql/init'
 import { blobInit, blobPolicy } from './db/blob/init';
+import { cacheInit } from './db/cache/init'
 import path from 'path'
 
 sqlInit()
 noSqlInit()
 blobInit()
 blobPolicy()
+cacheInit()
 
 const app: Application = express();
 const HOST = '0.0.0.0';
 const PORT = 3000;
+const cookieSignature = process.env.COOKIE_SIGNATURE as string;
 
 //pug middleware
 app.set("views", path.join(__dirname, "../views"))
@@ -29,6 +33,9 @@ export const get = () => {
 	app.use('/', frontEndRouter)
 	return app
 }
+
+//Cookie middleware
+app.use(cookieParser(cookieSignature))
 
 export const start = () => {
 	const app = get()

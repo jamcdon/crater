@@ -86,6 +86,21 @@ services:
 #      - dockerc-net
 #    ports:
 #      - '5000:80'
+  dockerc-redis:
+    image: redis:alpine
+    command: redis-server --save 20 1 --loglevel warning --requirepass ${DB_PASSWORD}
+    container_name: dockerc-redis
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 120s
+      timeout: 20s
+      retries: 3
+    networks:
+      - dockerc-net
+    expose:
+      - 6379
+
 
   dockerc-gg:
     depends_on:
@@ -107,6 +122,9 @@ services:
       - MINIO_PORT=9000
 #      - MINIO_HOST=dcgg-minio-nginx
       - MINIO_HOST=dockerc-minio-dev
+      - REDIS_HOST=dockerc-redis
+      - REDIS_PORT=6379
+      - COOKIE_SIGNATURE=${COOKIE_SIGNATURE}
     networks:
       - dockerc-net
     ports:
