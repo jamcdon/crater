@@ -57,6 +57,7 @@ _Now under the GNU AGPLv3 license_
 #### Redis
 - [Docker Hub](https://hub.docker.com/_/redis)
 - [GitHub](https://github.com/redis/redis)
+- storing key value data in memory such as cookies
 
 ## resources:
  - [sequelize](https://blog.logrocket.com/using-sequelize-with-typescript/)
@@ -73,6 +74,10 @@ _Now under the GNU AGPLv3 license_
   - Resources:
     - [MIT 2006 git http article](https://web.mit.edu/git/git-doc/git-http-backend.html)
     - [MIT git-http-backend](https://web.mit.edu/git/git-doc/git-http-backend.html)
+    - rust webserver with git instance on alpine container?
+      - HTTP only
+      - no remote pushes allowed to repos
+      - delete after x timing? store most used longer?
 - add dropdown for subpages of subpage youre on
 - read sequelize documentation for something similar to [mongoose methods](https://mongoosejs.com/docs/typescript/statics-and-methods.html#methods)
 - create unique usernames and passwords for all related applications when in prod
@@ -84,6 +89,7 @@ _Now under the GNU AGPLv3 license_
   - [guide](https://www.testim.io/blog/typescript-unit-testing-101/)
   - [docs](https://jestjs.io/docs/getting-started)
 - add javascript minifying for frontend code
+- headless cms? strapi?
 
 ## known issues
 - Blob storage requires starting and stopping app for bucket and policy to be set
