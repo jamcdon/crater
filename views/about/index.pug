@@ -1,4 +1,10 @@
 extends ../template.pug
 mixin content 
-    div#content
-        #{page}
+    div#content.p-3
+        h1.pb-1 What is dockerc?
+        p dockerc is an open source web application designed to help the developer community build containers faster and with better practices.<br>Using a crowd-sourcing model users are able to upload, rate, and use container scripts from a centralized location.
+        h1.pb-1 Why is dockerc open source?
+        p The team behind dockerc is a firm believer in the open source community, and while this application may have little use to be self-hosted, forks and modifications to the source code may help suit other needs. The dockerc team also likes to see the inner-workings of applications and believe that other developers may find benefit in seeing the application architecture or code used in this project to help build the next big thing. This application was able to be built due to many open source projects such as node, mysql, many npm projects, and much, much more. dockerc uses no proprietary code or tooling.
+        h1.pb-1 How can I get involved in dockerc?
+        span The best way to get involved in dockerc is to help the community by uploading, using, and rating scripts on the site for containers. We are also open to all incoming pull requests and issues posted on our 
+            a(href="https://github.com/jamcdon/dockerc" target="_blank").link-secondary GitHub

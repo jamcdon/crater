@@ -29,10 +29,6 @@ _Now under the GNU AGPLv3 license_
   - [npm](https://www.npmjs.com/package/pug)
   - [GitHub](https://github.com/pugjs/pug/tree/master/packages/pug)
   - Storing HTML as HAML for high reusability and extensibility
-- Multer
-  - [npm](https://www.npmjs.com/package/multer)
-  - [GitHub](https://github.com/expressjs/multer)
-  - Handling transactions between API and Minio bucket for BLOBs
 - nsfwjs
   - [npm](https://www.npmjs.com/package/nsfwjs)
   - [GitHub](https://github.com/infinitered/nsfwjs)
@@ -41,6 +37,10 @@ _Now under the GNU AGPLv3 license_
   - [npm](https://www.npmjs.com/package/randpix)
   - [GitHub](https://github.com/LIMPIX31/randpix)
   - Random pixelart generator for default profile pictures
+- redis
+  - [npm](https://www.npmjs.com/package/redis)
+  - [GitHub](https://github.com/redis/node-redis)
+  - Client for accessing Redis cache database
 
 #### MySQL
 - [Docker Hub](https://hub.docker.com/_/mysql)
@@ -54,6 +54,10 @@ _Now under the GNU AGPLv3 license_
 - [Docker Hub](https://hub.docker.com/r/minio/minio)
 - [GitHub](https://github.com/minio/minio)
 - Storing BLOBs such as images
+#### Redis
+- [Docker Hub](https://hub.docker.com/_/redis)
+- [GitHub](https://github.com/redis/redis)
+- storing key value data in memory such as cookies
 
 ## resources:
  - [sequelize](https://blog.logrocket.com/using-sequelize-with-typescript/)
@@ -70,6 +74,10 @@ _Now under the GNU AGPLv3 license_
   - Resources:
     - [MIT 2006 git http article](https://web.mit.edu/git/git-doc/git-http-backend.html)
     - [MIT git-http-backend](https://web.mit.edu/git/git-doc/git-http-backend.html)
+    - rust webserver with git instance on alpine container?
+      - HTTP only
+      - no remote pushes allowed to repos
+      - delete after x timing? store most used longer?
 - add dropdown for subpages of subpage youre on
 - read sequelize documentation for something similar to [mongoose methods](https://mongoosejs.com/docs/typescript/statics-and-methods.html#methods)
 - create unique usernames and passwords for all related applications when in prod
@@ -81,6 +89,7 @@ _Now under the GNU AGPLv3 license_
   - [guide](https://www.testim.io/blog/typescript-unit-testing-101/)
   - [docs](https://jestjs.io/docs/getting-started)
 - add javascript minifying for frontend code
+- headless cms? strapi?
 
 ## known issues
 - Blob storage requires starting and stopping app for bucket and policy to be set
