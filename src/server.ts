@@ -1,4 +1,5 @@
 import express, {Application, Request, Response} from 'express';
+import cookieParser from 'cookie-parser'
 import apiRouter from './api/routes'
 import frontEndRouter from './frontend/routes'
 import sqlInit from './db/sql/init'
@@ -14,11 +15,13 @@ blobPolicy()
 const app: Application = express();
 const HOST = '0.0.0.0';
 const PORT = 3000;
+const cookieSignature = process.env.COOKIE_SIGNATURE as string;
 
 //pug middleware
 app.set("views", path.join(__dirname, "../views"))
 app.use(express.static(path.join(__dirname, "../public")))
 app.set("views engine", "pug")
+app.use(cookieParser(cookieSignature))
 
 //Body parsing middleware
 export const get = () => {

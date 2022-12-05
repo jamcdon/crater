@@ -78,8 +78,11 @@ userRouter.get('/email-exists/:email', async (req: Request, res: Response) => {
 userRouter.post('/authenticate', async (req: Request, res: Response) => {
     const payload: SignInUserDTO = req.body
     const username = await userController.authenticateByEmail(payload)
-
-    return ( username != ''? res.status(200).send(username) : res.status(401).send() )
+    if (username != ""){
+        res.cookie("loginToken", id, {signed: true})
+        res.status(200).send(username)
+    }
+    res.status(401).send()
 })
 
 userRouter.put('/blob/:id', async (req: Request, res: Response) => {
