@@ -4,7 +4,7 @@ const dbPass = process.env.DB_PASSWORD as string;
 const dbHost = process.env.REDIS_HOST as string;
 const dbPort = process.env.REDIS_PORT as string;
 
-const redisClient = createClient({
+export const redisClient = createClient({
     url: `redis://default:${dbPass}@${dbHost}:${dbPort}`
 })
 

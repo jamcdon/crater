@@ -11,6 +11,8 @@ import {
 } from '../../dto/user.dto'
 import {User} from '../../interfaces'
 import * as mapper from './mapper'
+import {redisClient} from '../../../db/cache/init'
+import { createToken } from '../../../db/cache/dal/User'
 
 const saltHash = (password: string, passedSalt?: string):  { salt: string, hexHash: string }=> {
     let salt;
@@ -96,4 +98,11 @@ export const authenticateByEmail = async(payload: SignInUserDTO): Promise <strin
 export const deleteById = async (id: number): Promise<Boolean> => {
     const isDeleted = await service.deleteById(id)
     return isDeleted
+}
+
+export const setCookie = async (username: string): Promise<string> => {
+    const id = await createToken()
+    redisClient.set(id, username)
+    redisClient.expire(id, 259200) // set TLL to 3 days
+    return id
 }

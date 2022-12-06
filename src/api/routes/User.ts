@@ -10,6 +10,8 @@ import {
 } from '../dto/user.dto'
 import { BlobObject } from '../../db/blob/models'
 import { generateImage } from '../../db/blob/services/RandomPixelArt'
+import { createToken } from '../../db/cache/dal/User'
+import { redisClient } from '../../db/cache/init'
 
 const userRouter = Router()
 
@@ -58,6 +60,8 @@ userRouter.post('/', async (req: Request, res: Response) => {
     const pixel = new BlobObject('user', `${results.id}.png`, pixelGen.size, pixelGen.buffer) 
     pixel.upload()
 
+    const id = await userController.setCookie(payload.username)
+    res.cookie("loginToken", id, {signed: true})
     return res.status(200).send(results)
 })
 
@@ -79,10 +83,13 @@ userRouter.post('/authenticate', async (req: Request, res: Response) => {
     const payload: SignInUserDTO = req.body
     const username = await userController.authenticateByEmail(payload)
     if (username != ""){
+        const id = await userController.setCookie(username)
         res.cookie("loginToken", id, {signed: true})
         res.status(200).send(username)
     }
-    res.status(401).send()
+    else {
+        res.status(401).send()
+    }
 })
 
 userRouter.put('/blob/:id', async (req: Request, res: Response) => {
