@@ -10,8 +10,6 @@ import {
 } from '../dto/user.dto'
 import { BlobObject } from '../../db/blob/models'
 import { generateImage } from '../../db/blob/services/RandomPixelArt'
-import { createToken } from '../../db/cache/dal/User'
-import { redisClient } from '../../db/cache/init'
 
 const userRouter = Router()
 
