@@ -11,3 +11,4 @@ steps:
       sonar_token:
         from_secret: sonar_token
       sources: .
+      use_node_version: 18
