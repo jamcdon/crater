@@ -2,13 +2,12 @@ kind: pipeline
 name: sonar-test 
 
 steps:
-- name: code-analysis
+- name: perform code-analysis
   pull: if-not-exists
-  image: aosapps/drone-sonar-plugin
+  image: kytay/sonar-node-plugin
   settings:
       sonar_host:
         from_secret: sonar_host
       sonar_token:
         from_secret: sonar_token
-      sources: .
       use_node_version: 18
