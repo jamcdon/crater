@@ -4,21 +4,21 @@ import * as service from '../../../db/sql/services/userService'
 import {User} from '../../../api/interfaces'
 import { UserOutput } from '../../../db/sql/models/User'
 import {redisClient} from '../../../db/cache/init'
-import {getUserToken} from '../common'
+import {getUserToken, interpolationObject} from '../common'
 
-let accountInterpolation: {
-    page: string,
+type accountInterpolationObject = interpolationObject & {
     id?: number,
     username?: string,
     createdAt?: string,
-    userToken?: string
-} = {
+}
+
+let accountInterpolation: accountInterpolationObject = {
         page: "Account"
 } 
 
 class Account {
     public static async index (req: Request, res: Response): Promise<void> {
-        accountInterpolation.userToken = await getUserToken(req)
+        [accountInterpolation.usernameToken, accountInterpolation.userIDToken] = await getUserToken(req);
         return res.render('account/user.pug', accountInterpolation)
     }
     public static async user (req: Request, res: Response): Promise<void> {
@@ -28,13 +28,13 @@ class Account {
             )
             accountInterpolation.username = userObject.username
             accountInterpolation.id = userObject.id;
-            accountInterpolation.createdAt = userObject.createdAt.toDateString()
-            accountInterpolation.userToken = await getUserToken(req)
+            accountInterpolation.createdAt = userObject.createdAt.toDateString();
+            [accountInterpolation.usernameToken, accountInterpolation.userIDToken] = await getUserToken(req);
             return res.render('account/user.pug', accountInterpolation)
         }
         catch{
             res.status(404)
-            return res.render('error/404.pug', {errorPage: "Account", userID: accountInterpolation.userToken})
+            return res.render('error/404.pug', accountInterpolation/*{errorPage: "Account", userID: accountInterpolation.userToken}*/)
         }
     }
 }

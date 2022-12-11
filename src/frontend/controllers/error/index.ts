@@ -1,16 +1,15 @@
 import { Request, Response } from "express";
-import {getUserToken} from '../common'
+import {getUserToken, interpolationObject} from '../common'
 
-let errorInterpolation: {
-    page: string,
-    userToken?: string
-} = {
+type errorInterpolationObject = interpolationObject
+
+let errorInterpolation: errorInterpolationObject = {
     page: "404"
 }
 
 class Error {
     public static async index (req: Request, res: Response): Promise<void> {
-        errorInterpolation.userToken = await getUserToken(req)
+        [errorInterpolation.usernameToken, errorInterpolation.userIDToken] = await getUserToken(req);
         res.status(404)
         res.render('error/404.pug', errorInterpolation)
     }

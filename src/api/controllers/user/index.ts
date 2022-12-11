@@ -7,7 +7,8 @@ import {
     FilterUserDTO,
     CreateUserNoSalt,
     UpdateUserNoSalt,
-    SignInUserDTO
+    SignInUserDTO,
+    UserCookieDTO
 } from '../../dto/user.dto'
 import {User} from '../../interfaces'
 import * as mapper from './mapper'
@@ -102,9 +103,15 @@ export const deleteById = async (id: number): Promise<Boolean> => {
 
 export const setCookie = async (username: string): Promise<string> => {
     const id = await createToken()
-    redisClient.set(id, username)
+    const user = await service.getByUsername(username)
+    const userObject: UserCookieDTO = {
+        username: username,
+        id: user.id
+    }
+    const userObjectString = JSON.stringify(userObject)
+    redisClient.set(id, userObjectString)
     redisClient.expire(id, 259200) // set TLL to 3 days
-    return id
+    return id 
 }
 
 export const delCookie = async(id: string): Promise<boolean> => {

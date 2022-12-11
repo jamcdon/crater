@@ -1,16 +1,15 @@
 import {Request, Response } from 'express'
-import {getUserToken} from '../common'
+import {getUserToken, interpolationObject} from '../common'
 
-let imagesInterpolation: {
-    page: string,
-    userToken?: string 
-} = {
+type imagesInterpolationObject = interpolationObject
+
+let imagesInterpolation: imagesInterpolationObject = {
     page: "Images"
 }
 
 class Images {
     public static async index (req: Request, res: Response): Promise<void> {
-        imagesInterpolation.userToken = await getUserToken(req)
+        [imagesInterpolation.usernameToken, imagesInterpolation.userIDToken] = await getUserToken(req)
         return res.render('images/index.pug', imagesInterpolation)
     }
 }
