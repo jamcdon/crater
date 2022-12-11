@@ -1,11 +1,16 @@
 import {Request, Response } from 'express'
+import {getUserToken} from '../common'
 
-const trendingInterpolation = {
+let trendingInterpolation: {
+    page: string,
+    userToken?: string
+} = {
     page: "Trending"
 }
 
 class Trending {
-    public static index (req: Request, res: Response): void {
+    public static async index (req: Request, res: Response): Promise<void> {
+        trendingInterpolation.userToken = await getUserToken(req)
         return res.render('trending/index.pug', trendingInterpolation)
     }
 }

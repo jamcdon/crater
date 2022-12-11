@@ -106,3 +106,8 @@ export const setCookie = async (username: string): Promise<string> => {
     redisClient.expire(id, 259200) // set TLL to 3 days
     return id
 }
+
+export const delCookie = async(id: string): Promise<boolean> => {
+    const deleted = await redisClient.del(id)
+    return (deleted == 1 ? true : false)
+}

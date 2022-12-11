@@ -90,6 +90,18 @@ userRouter.post('/authenticate', async (req: Request, res: Response) => {
     }
 })
 
+userRouter.get('/log/out', async (req: Request, res: Response) => {
+    if (req.signedCookies != null) {
+        if (req.signedCookies.loginToken){
+            const id = req.signedCookies.loginToken
+            const deleted = await userController.delCookie(id)
+            res.clearCookie("loginToken")
+            return (deleted ? res.status(200).send() : res.status(400).send())
+        }
+    }
+    return res.status(406).send()
+})
+
 userRouter.put('/blob/:id', async (req: Request, res: Response) => {
     const payload = new BlobObject('user', req.params.id, req.body.size, req.body.buffer)
     const uploadStatus = payload.upload()

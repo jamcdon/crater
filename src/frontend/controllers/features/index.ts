@@ -1,17 +1,24 @@
 import {Request, Response } from 'express'
+import {getUserToken} from '../common'
 
-const featuresInterpolation = {
+let featuresInterpolation: {
+    page: string,
+    userToken?: string
+}  = {
     page: "Features"
 }
 
 class Features {
-    public static index (req: Request, res: Response): void {
+    public static async index (req: Request, res: Response): Promise<void> {
+        featuresInterpolation.userToken = await getUserToken(req)
         return res.render('features/index.pug', featuresInterpolation)
     }
-    public static glance(req: Request, res: Response): void {
+    public static async glance(req: Request, res: Response): Promise<void> {
+        featuresInterpolation.userToken = await getUserToken(req)
         return res.render('features/glance.pug', featuresInterpolation)
     }
-    public static submissions(req: Request, res: Response): void {
+    public static async submissions(req: Request, res: Response): Promise<void> {
+        featuresInterpolation.userToken = await getUserToken(req)
         return res.render('features/submissions.pug', featuresInterpolation)
     }
 }
