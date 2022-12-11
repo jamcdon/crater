@@ -41,10 +41,12 @@ html(lang="en")
 
                     form(role="search").col-12.col-lg-auto.mb-3.mb-lg-0.me-lg-3
                         input(type="search", placeholder="Search...", aria-label="Search").form-control.form-control-dark.text-white.bg-dark
-                    div.text-end.d-flex
+                    div.text-end
                         if (usernameToken && userIDToken)
-                            p.mb-0.px-1 #{usernameToken}
-                            img(width=30,height=30 aria-label="#{userIDToken}" src="http://10.0.0.25:90/user/" + userIDToken + ".png").bg-light
+                            button.btn.btn-dark
+                                span.d-flex
+                                    p.my-1.px-1 #{usernameToken}&nbsp;&nbsp;
+                                    img(width=36,height=36 aria-label="#{userIDToken}" src="http://10.0.0.25:90/user/" + userIDToken + ".png").bg-light.img-thumbnail
                         else
                             a(href="/sign/in").btn.btn-outline-light.me-2 Sign in
                             a(href="/sign/up").btn.btn-warning Sign up
