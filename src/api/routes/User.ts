@@ -90,7 +90,7 @@ userRouter.post('/authenticate', async (req: Request, res: Response) => {
     }
 })
 
-userRouter.get('/log/out', async (req: Request, res: Response) => {
+userRouter.post('/log/out', async (req: Request, res: Response) => {
     if (req.signedCookies != null) {
         if (req.signedCookies.loginToken){
             const id = req.signedCookies.loginToken
@@ -99,6 +99,7 @@ userRouter.get('/log/out', async (req: Request, res: Response) => {
             return (deleted ? res.status(200).send() : res.status(400).send())
         }
     }
+    res.clearCookie("loginToken")
     return res.status(406).send()
 })
 

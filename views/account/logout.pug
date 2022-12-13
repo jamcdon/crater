@@ -1,0 +1,11 @@
+extends ../template.pug
+mixin content
+    div#content
+        if status == "200"
+            h3 You have been logged out!
+        else if status == "400"
+            h3 There has been an error. Problem signing you out.
+        else if status == "406"
+            h3 There has been an error. You were not signed in.
+        else
+            h3 Unknown error occured.
