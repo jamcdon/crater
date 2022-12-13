@@ -94,7 +94,7 @@ function sendUser(jsonStr, route) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status == 200){
-            document.location.href = `/account/${usernameObject.element}`
+            document.location.href = '/account/'
         }
     }
     xhr.open('POST', route)

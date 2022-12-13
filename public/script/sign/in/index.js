@@ -24,7 +24,7 @@ async function logInOrError(self) {
         if (xhr.readyState === 4){
             if (xhr.status === 200){
                 username = xhr.responseText
-                document.location.href = `/account/${username}`
+                document.location.href = '/account/'
             }
             else if (xhr.status === 401){
                 document.getElementById('error').innerHTML = "Email or password incorrect"
