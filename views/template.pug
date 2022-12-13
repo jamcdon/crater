@@ -42,11 +42,10 @@ html(lang="en")
                     form(role="search").col-12.col-lg-auto.mb-3.mb-lg-0.me-lg-3
                         input(type="search", placeholder="Search...", aria-label="Search").form-control.form-control-dark.text-white.bg-dark
                     div.text-end
-                        if (usernameToken && userIDToken)
+                        if (userIDToken)
                                 div.dropdown
-                                    button(type="button" data-bs-toggle="dropdown" aria-expanded="false").btn.btn-warning.dropdown-toggle.d-flex#profile
-                                            p.my-1.px-1 #{usernameToken}&nbsp;
-                                            img(width=32,height=32 aria-label="#{userIDToken}" src="http://10.0.0.25:90/user/" + userIDToken + ".png").bg-light.img-thumbnail
+                                    button(type="button" data-bs-toggle="dropdown" aria-expanded="false").btn.btn-warning.dropdown-toggle#profile
+                                            img(width=32,height=32 aria-label="profile" src="http://10.0.0.25:90/user/" + userIDToken + ".png").bg-light.img-thumbnail
                                             span.visually-hidden Toggle Profile Dropdown
                                     ul(aria-labelledby="profile").dropdown-menu
                                         li
