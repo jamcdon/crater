@@ -14,6 +14,7 @@ export type CreateUserDTO = {
     username: string;
     passwordSalt: string;
     passwordHash: string;
+    isGithub: boolean;
 }
 
 export type SignInUserDTO = {

@@ -5,8 +5,9 @@ interface UserAttributes {
 	id: number;
 	email: string;
 	username: string;
-	passwordSalt: string;
-	passwordHash: string;
+	passwordSalt?: string;
+	passwordHash?: string;
+	isGithub: boolean;
 	createdAt?: Date;
 	updatedAt?: Date;
 	deletedAt?: Date;
@@ -21,6 +22,7 @@ class User extends Model<UserAttributes, UserInput> implements UserAttributes{
 	public username!: string
 	public passwordSalt!: string
 	public passwordHash!: string
+	public isGithub!: boolean
 
 	// timestamps!
 	public readonly createdAt!: Date;
@@ -51,6 +53,11 @@ User.init({
 	passwordHash: {
 		type: DataTypes.STRING,
 		allowNull: false,
+	},
+	isGithub: {
+		type: DataTypes.BOOLEAN,
+		allowNull: false,
+		unique: false
 	}
 },
 {

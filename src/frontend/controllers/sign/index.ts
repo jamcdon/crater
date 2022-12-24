@@ -22,7 +22,11 @@ class Sign {
     }
     public static async up(req: Request, res: Response): Promise<void> {
         [signInterpolation.usernameToken, signInterpolation.userIDToken] = await getUserToken(req);
-        return res.render('sign/up.pug', signInterpolation)
+        return res.render('sign/up/index.pug', signInterpolation)
+    }
+    public static async up_github(req: Request, res: Response): Promise<void> {
+        [signInterpolation.usernameToken, signInterpolation.userIDToken] = await getUserToken(req);
+        return res.render('/sign/up/github.pug', signInterpolation)
     }
     public static async out(req: Request, res: Response): Promise<void> {
         [signInterpolation.usernameToken, signInterpolation.userIDToken] = await getUserToken(req);
