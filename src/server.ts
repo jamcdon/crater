@@ -23,6 +23,7 @@ const cookieSignature = process.env.COOKIE_SIGNATURE as string;
 app.set("views", path.join(__dirname, "../views"))
 app.use(express.static(path.join(__dirname, "../public")))
 app.set("views engine", "pug")
+app.use(cookieParser(cookieSignature))
 
 //Body parsing middleware
 export const get = () => {

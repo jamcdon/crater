@@ -58,6 +58,8 @@ userRouter.post('/', async (req: Request, res: Response) => {
     const pixel = new BlobObject('user', `${results.id}.png`, pixelGen.size, pixelGen.buffer) 
     pixel.upload()
 
+    const id = await userController.setCookie(payload.username)
+    res.cookie("loginToken", id, {signed: true})
     return res.status(200).send(results)
 })
 
@@ -78,8 +80,27 @@ userRouter.get('/email-exists/:email', async (req: Request, res: Response) => {
 userRouter.post('/authenticate', async (req: Request, res: Response) => {
     const payload: SignInUserDTO = req.body
     const username = await userController.authenticateByEmail(payload)
+    if (username != ""){
+        const id = await userController.setCookie(username)
+        res.cookie("loginToken", id, {signed: true})
+        res.status(200).send(username)
+    }
+    else {
+        res.status(401).send()
+    }
+})
 
-    return ( username != ''? res.status(200).send(username) : res.status(401).send() )
+userRouter.post('/log/out', async (req: Request, res: Response) => {
+    if (req.signedCookies != null) {
+        if (req.signedCookies.loginToken){
+            const id = req.signedCookies.loginToken
+            const deleted = await userController.delCookie(id)
+            res.clearCookie("loginToken")
+            return (deleted ? res.status(200).send() : res.status(400).send())
+        }
+    }
+    res.clearCookie("loginToken")
+    return res.status(406).send()
 })
 
 userRouter.put('/blob/:id', async (req: Request, res: Response) => {

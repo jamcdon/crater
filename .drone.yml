@@ -1,0 +1,13 @@
+kind: pipeline
+name: sonar-test 
+
+steps:
+- name: perform code-analysis
+  pull: if-not-exists
+  image: kytay/sonar-node-plugin
+  settings:
+      sonar_host:
+        from_secret: sonar_host
+      sonar_token:
+        from_secret: sonar_token
+      use_node_version: 18

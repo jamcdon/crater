@@ -1,0 +1,13 @@
+extends ../template.pug
+mixin content
+    div#content.p-3
+        h1.h3 Almost finished!
+        p We just need a username to get you started!
+        form(action="javascript:setUsername()")#githubUsername
+            div.mb-3
+                label(for="username").form-label Username
+                input(type="text")#username.form-control
+                p#usernameValidation.text-danger &nbsp;
+            div.justify-content-left.lg-start
+                button(type="submit").btn.btn-warning Submit
+    script(src="/script/sign/up/github.js")

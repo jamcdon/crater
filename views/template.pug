@@ -42,8 +42,19 @@ html(lang="en")
                     form(role="search").col-12.col-lg-auto.mb-3.mb-lg-0.me-lg-3
                         input(type="search", placeholder="Search...", aria-label="Search").form-control.form-control-dark.text-white.bg-dark
                     div.text-end
-                        a(href="/sign/in").btn.btn-outline-light.me-2 Sign in
-                        a(href="/sign/up").btn.btn-warning Sign up
+                        if (userIDToken)
+                                div.dropdown
+                                    button(type="button" data-bs-toggle="dropdown" aria-expanded="false").btn.btn-warning.dropdown-toggle#profile
+                                            img(width=32,height=32 aria-label="profile" src="http://10.0.0.25:90/user/" + userIDToken + ".png").bg-light.img-thumbnail
+                                            span.visually-hidden Toggle Profile Dropdown
+                                    ul(aria-labelledby="profile").dropdown-menu
+                                        li
+                                            a(href="/account/").dropdown-item Profile
+                                        li
+                                            button(onclick="logout()").dropdown-item Logout
+                        else
+                            a(href="/sign/in").btn.btn-outline-light.me-2 Sign in
+                            a(href="/sign/up").btn.btn-warning Sign up
         div.container-lg
             +content
             footer.pt-4.my-md-5.pt-md-5.border-top 
@@ -72,3 +83,5 @@ html(lang="en")
                                 a(href="/about/team").link-secondary.text-decoration-none Dev Team
                             li.mb-1
                                 a(href="https://github.com/jamcdon/crater/issues" target="_blank").link-secondary.text-decoration-none Bug Reports
+script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js", integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4", crossorigin="anonymous")
+script(src="/script/template.js")

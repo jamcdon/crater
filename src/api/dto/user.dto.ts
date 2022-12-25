@@ -1,5 +1,4 @@
 //sql
-import { StringExpressionOperatorReturningBoolean } from "mongoose";
 import { Optional } from "sequelize/types"
 
 export type CreateUserNoSalt = {
@@ -15,6 +14,7 @@ export type CreateUserDTO = {
     username: string;
     passwordSalt: string;
     passwordHash: string;
+    isGithub: boolean;
 }
 
 export type SignInUserDTO = {
@@ -29,4 +29,9 @@ export type UpdateUserNoSalt = Optional<CreateUserNoSalt, 'id'>
 export type FilterUserDTO = {
     isDeleted?: boolean
     includeDeleted?: boolean
+}
+
+export type UserCookieDTO = {
+    username: string,
+    id: number
 }

@@ -1,15 +1,19 @@
 import {Request, Response } from 'express'
+import {getUserToken, interpolationObject} from '../common'
 
+type aboutInterpolationObject = interpolationObject
 
-const aboutInterpolation = {
+let aboutInterpolation: aboutInterpolationObject = {
     page: "About"
 }
 
 class About {
-    public static index (req: Request, res: Response): void {
+    public static async index (req: Request, res: Response): Promise<void> {
+        [aboutInterpolation.usernameToken, aboutInterpolation.userIDToken] = await getUserToken(req)
         return res.render('about/index.pug', aboutInterpolation)
     }
-    public static team (req: Request, res: Response): void {
+    public static async team (req: Request, res: Response): Promise<void> {
+        [aboutInterpolation.usernameToken, aboutInterpolation.userIDToken] = await getUserToken(req)
         return res.render('about/team.pug', aboutInterpolation)
     }
 }

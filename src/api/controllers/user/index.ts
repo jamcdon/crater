@@ -7,10 +7,13 @@ import {
     FilterUserDTO,
     CreateUserNoSalt,
     UpdateUserNoSalt,
-    SignInUserDTO
+    SignInUserDTO,
+    UserCookieDTO
 } from '../../dto/user.dto'
 import {User} from '../../interfaces'
 import * as mapper from './mapper'
+import {redisClient} from '../../../db/cache/init'
+import { createToken } from '../../../db/cache/dal/User'
 
 const saltHash = (password: string, passedSalt?: string):  { salt: string, hexHash: string }=> {
     let salt;
@@ -35,7 +38,8 @@ export const createUserSaltHash = async(payload: CreateUserNoSalt): Promise<Crea
         email: payload.email,
         username: payload.username,
         passwordSalt: salt,
-        passwordHash: hexHash
+        passwordHash: hexHash,
+        isGithub: false
     }
 
     return saltHashUserDTO
@@ -96,4 +100,22 @@ export const authenticateByEmail = async(payload: SignInUserDTO): Promise <strin
 export const deleteById = async (id: number): Promise<Boolean> => {
     const isDeleted = await service.deleteById(id)
     return isDeleted
+}
+
+export const setCookie = async (username: string): Promise<string> => {
+    const id = await createToken()
+    const user = await service.getByUsername(username)
+    const userObject: UserCookieDTO = {
+        username: username,
+        id: user.id
+    }
+    const userObjectString = JSON.stringify(userObject)
+    redisClient.set(id, userObjectString)
+    redisClient.expire(id, 259200) // set TLL to 3 days
+    return id 
+}
+
+export const delCookie = async(id: string): Promise<boolean> => {
+    const deleted = await redisClient.del(id)
+    return (deleted == 1 ? true : false)
 }

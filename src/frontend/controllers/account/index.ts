@@ -1,21 +1,30 @@
-import {Request, Response} from 'express'
+import {application, Request, Response} from 'express'
 import * as mapper from '../../../api/controllers/user/mapper'
 import * as service from '../../../db/sql/services/userService'
 import {User} from '../../../api/interfaces'
 import { UserOutput } from '../../../db/sql/models/User'
+import {redisClient} from '../../../db/cache/init'
+import {getUserToken, interpolationObject} from '../common'
 
-let accountInterpolation: {
-    page: string,
+type accountInterpolationObject = interpolationObject & {
     id?: number,
     username?: string,
-    createdAt?: string
-} = {
+    createdAt?: string,
+    status?: string
+}
+
+let accountInterpolation: accountInterpolationObject = {
         page: "Account"
 } 
 
 class Account {
-    public static index (req: Request, res: Response): void {
-        return res.render('account/index.pug', accountInterpolation)
+    public static async index (req: Request, res: Response): Promise<void> {
+        [accountInterpolation.usernameToken, accountInterpolation.userIDToken] = await getUserToken(req);
+        if (typeof(accountInterpolation.usernameToken) === "string"){
+            req.params.username = accountInterpolation.usernameToken
+            return Account.user(req, res)
+        }
+        return res.status(404).render('error/404.pug', accountInterpolation)
     }
     public static async user (req: Request, res: Response): Promise<void> {
         try {
@@ -24,13 +33,19 @@ class Account {
             )
             accountInterpolation.username = userObject.username
             accountInterpolation.id = userObject.id;
-            accountInterpolation.createdAt = userObject.createdAt.toDateString()
+            accountInterpolation.createdAt = userObject.createdAt.toDateString();
+            [accountInterpolation.usernameToken, accountInterpolation.userIDToken] = await getUserToken(req);
             return res.render('account/user.pug', accountInterpolation)
         }
         catch{
             res.status(404)
-            return res.render('error/404.pug', {errorPage: "Account"})
+            return res.render('error/404.pug', accountInterpolation)
         }
+    }
+    public static async logout (req: Request, res: Response): Promise<void> {
+        accountInterpolation.status = req.params.status;
+        [accountInterpolation.usernameToken, accountInterpolation.userIDToken] = await getUserToken(req);
+        res.render('account/logout.pug', accountInterpolation)
     }
 }
 
