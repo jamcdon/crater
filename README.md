@@ -1,4 +1,4 @@
-# dockerc <img alt="dockerc crane" src="public/img/crane-yl.svg" witdth="30" height="48"/>
+# crater <img alt="crater crane" src="public/img/crane-yl.svg" witdth="30" height="48"/>
 > the opensource docker-compose webapp
 
 _Now under the GNU AGPLv3 license_ 

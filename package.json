@@ -1,5 +1,5 @@
 {
-  "name": "dockerc",
+  "name": "crater",
   "version": "1.0.0",
   "description": "Web application for docker-compose sharing",
   "scripts": {
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jamcdon/dockerc.git"
+    "url": "git+https://github.com/jamcdon/crater.git"
   },
   "author": "Jared McDonald",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jamcdon/dockerc/issues"
+    "url": "https://github.com/jamcdon/crater/issues"
   },
-  "homepage": "https://github.com/jamcdon/dockerc#readme",
+  "homepage": "https://github.com/jamcdon/crater#readme",
   "dependencies": {
     "cookie-parser": "^1.4.6",
     "express": "^4.18.1",

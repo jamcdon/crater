@@ -17,12 +17,12 @@ version: '3'
 #    timeout: 20s
 #    retries: 3
 #  networks:
-#    - dockerc-net
+#    - crater-net
 
 services:
-  dockerc-mongo:
+  crater-mongo:
     image: mongo:latest
-    container_name: dockerc-mongo
+    container_name: crater-mongo
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: "${APP_DB_USER}"
@@ -33,28 +33,28 @@ services:
       timeout: 20s
       retries: 3
     networks:
-      - dockerc-net
+      - crater-net
     expose:
       - 27017
 #    volumes:
-#      - dockerc-mongo-data:/data/db
-#  dockerc-mongo-express:
+#      - crater-mongo-data:/data/db
+#  crater-mongo-express:
 #    image: mongo-express
-#    container_name: dockerc-mongo-express
+#    container_name: crater-mongo-express
 #    restart: always
 #    environment:
-#      - ME_CONFIG_MONGODB_SERVER=dockerc-mongo
+#      - ME_CONFIG_MONGODB_SERVER=crater-mongo
 #      - ME_CONFIG_MONGODB_PORT=27017
 #      - ME_CONFIG_MONGODB_BASICAUTH_USERNAME=${APP_DB_USER}
 #      - ME_CONFIG_MONGODB_BASICAUTH_PASSWORD=${APP_DB_PASSWORD}
 #      - ME_CONFIG_MONGODB_ENABLE_ADMIN='true'
 #    networks:
-#      - dockerc-net
+#      - crater-net
 #    ports:
 #      - '6000:8081'
-  dockerc-mysql:
+  crater-mysql:
     image: mysql
-    container_name: dockerc-mysql
+    container_name: crater-mysql
     restart: always
     environment:
       MYSQL_DATABASE: ${DB_NAME}
@@ -67,29 +67,29 @@ services:
       timeout: 20s
       retries: 3
     networks:
-      - dockerc-net
+      - crater-net
     expose:
       - 3306
 #    volumes:
-#      - dockerc-mysql-data:/var/lib/mysql
-#  dockerc-phpmyadmin:
+#      - crater-mysql-data:/var/lib/mysql
+#  crater-phpmyadmin:
 #    image: phpmyadmin/phpmyadmin
-#    container_name: dockerc-phpmyadmin
+#    container_name: crater-phpmyadmin
 #    restart: always
 #    environment:
-#      PMA_HOST: dockerc-mysql
+#      PMA_HOST: crater-mysql
 #      PMA_PORT: 3306
 #      PMA_ARBITRARY: 1
 #      PMA_USER: ${APP_DB_USER}
 #      PMA_PASSWORD: ${APP_DB_PASSWORD}
 #    networks:
-#      - dockerc-net
+#      - crater-net
 #    ports:
 #      - '5000:80'
-  dockerc-redis:
+  crater-redis:
     image: redis:alpine
     command: redis-server --save 20 1 --loglevel warning --requirepass ${DB_PASSWORD}
-    container_name: dockerc-redis
+    container_name: crater-redis
     restart: always
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
@@ -97,49 +97,49 @@ services:
       timeout: 20s
       retries: 3
     networks:
-      - dockerc-net
+      - crater-net
     expose:
       - 6379
 
 
-  dockerc-gg:
+  crater-sh:
     depends_on:
-      - dockerc-mysql
-      - dockerc-mongo
-#      - dockerc-minio-nginx
+      - crater-mysql
+      - crater-mongo
+#      - crater-minio-nginx
     build: .
-    container_name: dockerc-gg
+    container_name: crater-sh
     restart: always
     environment:
       - DB_NAME=${DB_NAME}
       - DB_USER=${APP_DB_USER}
-      - SQL_HOST=dockerc-mysql
+      - SQL_HOST=crater-mysql
       - SQL_PORT=3306
-      - NO_SQL_HOST=dockerc-mongo
+      - NO_SQL_HOST=crater-mongo
       - NO_SQL_PORT=27017
       - DB_DRIVER=mysql
       - DB_PASSWORD=${APP_DB_PASSWORD}
       - MINIO_PORT=9000
-#      - MINIO_HOST=dcgg-minio-nginx
-      - MINIO_HOST=dockerc-minio-dev
-      - REDIS_HOST=dockerc-redis
+#      - MINIO_HOST=crsh-minio-nginx
+      - MINIO_HOST=crater-minio-dev
+      - REDIS_HOST=crater-redis
       - REDIS_PORT=6379
       - COOKIE_SIGNATURE=${COOKIE_SIGNATURE}
     networks:
-      - dockerc-net
+      - crater-net
     ports:
       - '80:3000'
 
-  dockerc-minio-dev:
+  crater-minio-dev:
     image: quay.io/minio/minio
     command: server /data --console-address ":9001"
-    container_name: dockerc-minio-dev
+    container_name: crater-minio-dev
     restart: always
     environment:
       MINIO_ROOT_USER: ${APP_DB_USER}
       MINIO_ROOT_PASSWORD: ${APP_DB_PASSWORD}
     networks: 
-      - dockerc-net
+      - crater-net
     expose:
       - 9000
       - 9001
@@ -147,14 +147,14 @@ services:
       - '9081:9001'
       - '9080:9000'
 
-#  dcgg-minio-nginx:
+#  crsh-minio-nginx:
 #    depends_on:
-#      - dcgg-minio1
-#      - dcgg-minio2
-#      - dcgg-minio3
-#      - dcgg-minio4
+#      - crsh-minio1
+#      - crsh-minio2
+#      - crsh-minio3
+#      - crsh-minio4
 #    image: nginx:alpine
-#    container_name: dockerc-minio-nginx
+#    container_name: crater-minio-nginx
 #    restart: always
 #    volumes:
 #      - ./nginx.conf:/etc/nginx/nginx.conf:ro
@@ -164,7 +164,7 @@ services:
 #      timeout: 20s
 #      retries: 3
 #    networks:
-#      - dockerc-net
+#      - crater-net
 #    expose:
 #      - 9000
 #      - 9001
@@ -172,95 +172,95 @@ services:
 #      - '9001:9001'
 #      - '9000:9000'
     
-#  dcgg-minio1:
+#  crsh-minio1:
 #    <<: *minio-common
-#    hostname: dcgg-minio1
-#    container_name: dockerc-minio1
+#    hostname: crsh-minio1
+#    container_name: crater-minio1
 #    volumes:
-#      - dcgg-minio1-1:/data1
-#      - dcgg-minio1-2:/data2
-#  dcgg-minio2:
+#      - crsh-minio1-1:/data1
+#      - crsh-minio1-2:/data2
+#  crsh-minio2:
 #    <<: *minio-common
-#    hostname: dcgg-minio2
-#    container_name: dockerc-minio2
+#    hostname: crsh-minio2
+#    container_name: crater-minio2
 #    volumes:
-#      - dcgg-minio2-1:/data1
-#      - dcgg-minio2-2:/data2
-#  dcgg-minio3:
+#      - crsh-minio2-1:/data1
+#      - crsh-minio2-2:/data2
+#  crsh-minio3:
 #    <<: *minio-common
-#    hostname: dcgg-minio3
-#    container_name: dockerc-minio3
+#    hostname: crsh-minio3
+#    container_name: crater-minio3
 #    volumes:
-#      - dcgg-minio3-1:/data1
-#      - dcgg-minio3-2:/data2
-#  dcgg-minio4:
+#      - crsh-minio3-1:/data1
+#      - crsh-minio3-2:/data2
+#  crsh-minio4:
 #    <<: *minio-common
-#    hostname: dcgg-minio4
-#    container_name: dockerc-minio4
+#    hostname: crsh-minio4
+#    container_name: crater-minio4
 #    volumes:
-#      - dcgg-minio4-1:/data1
-#      - dcgg-minio4-2:/data2
+#      - crsh-minio4-1:/data1
+#      - crsh-minio4-2:/data2
 networks:
-  dockerc-net:
+  crater-net:
     driver: bridge
 #volumes:
-#  dockerc-mongo-data:
+#  crater-mongo-data:
 #    driver: local
 #    driver_opts:
 #      type: none
 #      o: bind
-#      device: /raid/dockerc/db/mongo
-#  dockerc-mysql-data:
+#      device: /raid/crater/db/mongo
+#  crater-mysql-data:
 #    driver: local
 #      driver_opts:
 #        type: none
 #        o: bind
-#        device: /raid/dockerc/db/mysql
-#  dcgg-minio1-1:
+#        device: /raid/crater/db/mysql
+#  crsh-minio1-1:
 #    driver: local
 #    driver_opts:
 #      type: none
 #      o: bind
-#      device: /raid/dockerc/minio/1/1-1
-#  dcgg-minio1-2:
+#      device: /raid/crater/minio/1/1-1
+#  crsh-minio1-2:
 #    driver: local
 #    driver_opts:
 #      type: none
 #      o: bind
-#      device: /raid/dockerc/minio/2/1-2
-#  dcgg-minio2-1:
+#      device: /raid/crater/minio/2/1-2
+#  crsh-minio2-1:
 #    driver: local
 #    driver_opts:
 #      type: none
 #      o: bind
-#      device: /raid/dockerc/minio/3/2-1
-#  dcgg-minio2-2:
+#      device: /raid/crater/minio/3/2-1
+#  crsh-minio2-2:
 #    driver: local
 #    driver_opts:
 #      type: none
 #      o: bind
-#      device: /raid/dockerc/minio/4/2-2
-#  dcgg-minio3-1:
+#      device: /raid/crater/minio/4/2-2
+#  crsh-minio3-1:
 #    driver: local
 #    driver_opts:
 #      type: none
 #      o: bind
-#      device: /raid/dockerc/minio/1/3-1
-#  dcgg-minio3-2:
+#      device: /raid/crater/minio/1/3-1
+#  crsh-minio3-2:
 #    driver: local
 #    driver_opts:
 #      type: none
 #      o: bind
-#      device: /raid/dockerc/minio/2/3-2
-#  dcgg-minio4-1:
+#      device: /raid/crsh/minio/2/3-2
+#  crsh-minio4-1:
 #    driver: local
 #    driver_opts:
 #      type: none
 #      o: bind
-#      device: /raid/dockerc/minio/3/4-1
-#  dcgg-minio4-2:
+#      device: /raid/crsh/minio/3/4-1
+#  crsh-minio4-2:
 #    driver: local
 #    driver_opts:
 #      type: none
 #      o: bind
-#      device: /raid/dockerc/minio/4/4-2
+#      device: /raid/crater/minio/4/4-2
