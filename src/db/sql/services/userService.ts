@@ -14,7 +14,7 @@ export const getById = (id: number): Promise<UserOutput> => {
     return userDAL.getById(id)
 }
 
-export const getByUsername = (username: string): Promise<UserOutput> => {
+export const getByUsername = (username: string): Promise<UserOutput | null> => {
     return userDAL.getByUsername(username)
 }
 

@@ -1,24 +1,27 @@
-import {Schema, model, Types} from 'mongoose';
+import mongoose, {Schema, model, Types} from 'mongoose';
 
 export interface ICompose {
+    _id: mongoose.Types.ObjectId,
     title: String,
-    author: String,
+    authorID: Number,
     imageName: String,
-    imageID: Number,
-    tag: String,
-    labels: Types.Array<string>,
+    imageID: mongoose.Types.ObjectId,
+    tags: Types.Array<String>,
     public: Boolean
-    content: String,
+    yaml: String,
     stars: Number
 }
+
+export interface ComposeInput extends Partial<ICompose> {}
+export interface ComposeOutput extends Required<ICompose> {}
 
 const ComposeModelSchema = new Schema({
     title: {
         type: String,
         required: true
     },
-    author: {
-        type: String,
+    authorID: {
+        type: Number,
         required: true
     },
     imageName: {

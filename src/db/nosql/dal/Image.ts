@@ -7,7 +7,7 @@ export const create = async(payload: ImageInput): Promise<ImageOutput> => {
     const image = await Image.create(payload)
     console.log(image)
     if (!image){
-        throw new Error('could not create')
+        throw new Error('Could not create image')
     }
     const createdUser: ImageOutput = {
         _id: image._id,
@@ -38,7 +38,7 @@ export const getById = async(id: string): Promise<ImageOutput> => {
     return image
 }
 
-export const getByImageName = async(imageName: string): Promise<ImageOutput> => {
+export const getByImageName = async(imageName: string): Promise<ImageOutput | undefined > => {
     const image = await Image.findOne({
         name: {
             $regex: new RegExp(`^${imageName}$`, "i")
@@ -46,7 +46,7 @@ export const getByImageName = async(imageName: string): Promise<ImageOutput> => 
         
     }).exec()
     if (!image) {
-        throw new Error('not found')
+        return undefined
     }
     return image
 }

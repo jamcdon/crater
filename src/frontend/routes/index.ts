@@ -6,7 +6,7 @@ import featuresRouter from './features'
 import homeRouter from './home'
 import imageRouter from './images'
 import signRouter from './sign'
-import trendingRouter from './trending'
+import scriptsRouter from './scripts'
 import composeRouter from './compose'
 import errorRouter from './error'
 
@@ -18,8 +18,8 @@ frontEndRouter.use('/account', accountRouter)
 frontEndRouter.use('/compose', composeRouter)
 frontEndRouter.use('/features', featuresRouter)
 frontEndRouter.use('/images', imageRouter)
+frontEndRouter.use('/scripts', scriptsRouter)
 frontEndRouter.use('/sign', signRouter)
-frontEndRouter.use('/trending', trendingRouter)
 frontEndRouter.use(errorRouter)
 
 export default frontEndRouter

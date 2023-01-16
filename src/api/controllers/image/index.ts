@@ -17,8 +17,12 @@ export const getById = async (id: string): Promise<IImage> => {
     return mapper.toImage(await service.getById(id))
 }
 
-export const getByImageName = async (imageName: string): Promise<IImage> => {
-    return mapper.toImage(await service.getByImageName(imageName))
+export const getByImageName = async (imageName: string): Promise<IImage | undefined> => {
+    const image = await service.getByImageName(imageName)
+    if (image != undefined){
+        return mapper.toImage(image)
+    }
+    return image
 }
 
 export const deleteById = async (id: string): Promise<Boolean> => {

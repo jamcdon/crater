@@ -13,7 +13,7 @@ export const getById = (id: string): Promise<ImageOutput> => {
     return imageDAL.getById(id)
 }
 
-export const getByImageName = (imageName: string): Promise<ImageOutput> => {
+export const getByImageName = (imageName: string): Promise<ImageOutput | undefined> => {
     return imageDAL.getByImageName(imageName)
 }
 

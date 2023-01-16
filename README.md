@@ -46,7 +46,7 @@ _Now under the GNU AGPLv3 license_
   - [npm](https://www.npmjs.com/package/ace-code)
   - [GitHub](https://github.com/ajaxorg/ace)
   - [CDNJS](https://cdnjs.com/libraries/ace)
-  - Frontend syntax highlighting/lightweight IDE for creating YAML scripts on crater
+  - Frontend syntax highlighting/lightweight IDE for creating and displaying YAML scripts on crater
 
 #### MySQL
 - [Docker Hub](https://hub.docker.com/_/mysql)

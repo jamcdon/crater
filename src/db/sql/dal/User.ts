@@ -26,7 +26,7 @@ export const getById = async (id: number): Promise<UserOutput> => {
     return user
 }
 
-export const getByUsername = async(username: string): Promise<UserOutput> => {
+export const getByUsername = async(username: string): Promise<UserOutput | null> => {
     //https://stackoverflow.com/questions/41728023/sequelize-case-insensitive-like
     const user = await User.findOne({ 
         where: { 
@@ -35,9 +35,6 @@ export const getByUsername = async(username: string): Promise<UserOutput> => {
             }
         }
     })
-    if (!user) {
-        throw new Error('not found')
-    }
     return user
 }
 

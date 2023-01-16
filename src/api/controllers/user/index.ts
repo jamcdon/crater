@@ -75,8 +75,12 @@ export const getById = async (id: number): Promise<User> => {
     return mapper.toUser(await service.getById(id))
 }
 
-export const getByUsername = async(username: string): Promise<User> => {
-    return mapper.toUser(await service.getByUsername(username))
+export const getByUsername = async(username: string): Promise<User | null> => {
+    const userObject = await service.getByUsername(username)
+    if (userObject != null){
+        return mapper.toUser(userObject)
+    }
+    return null
 }
 
 export const validateUsername = async(username: string): Promise<boolean> => {
@@ -104,7 +108,7 @@ export const deleteById = async (id: number): Promise<Boolean> => {
 
 export const setCookie = async (username: string): Promise<string> => {
     const id = await createToken()
-    const user = await service.getByUsername(username)
+    const user = await service.getByUsername(username) as any // dangerous! but should be safe
     const userObject: UserCookieDTO = {
         username: username,
         id: user.id
