@@ -1,0 +1,31 @@
+extends ../template.pug
+mixin content
+    div#content.p-3
+        h1.h2 Add a compose script to crater
+        form(action="javascript:uploadOrFail()")#composeInfo
+            div.d-flex.flex-wrap.justify-content-between.w-100
+                div.mb-3
+                    label(for="title").form-label Title
+                    input(type="text")#title.form-control
+                    p#titleValidation.text-danger &nbsp;
+                div.mb-3
+                    label(for="name").form-label Primary Image
+                    input(type="text")#name.form-control
+                    p#nameValidation.text-danger &nbsp;
+                div.mb-3
+                    label(for="lablels").form-label Labels
+                    input(type="text")#labels.form-control
+                    p#labelsValidation.text-danger &nbsp;
+                div.mb-3
+                    label(for="public").form-label.px-2 Public
+                    input(type="checkbox" checked)#public.form-control.form-check-input.mx-auto
+                    p#publicValidation.text-danger &nbsp;
+            div.mb-3
+                label(for="yaml").form-label YAML
+                div(style="height:50vh;")#yaml.w-100.
+
+                p#yamlValidation.text-danger &nbsp;
+            div.d-flex.flex-wrap.align-items-center.justify-content-left.justify-content.lg-start
+                button(type="submit").btn.btn-warning Submit
+    script(src="/script/lib/ace/ace.js")
+    script(src="/script/compose/new.js")

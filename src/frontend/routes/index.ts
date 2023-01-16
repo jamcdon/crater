@@ -7,6 +7,7 @@ import homeRouter from './home'
 import imageRouter from './images'
 import signRouter from './sign'
 import trendingRouter from './trending'
+import composeRouter from './compose'
 import errorRouter from './error'
 
 const frontEndRouter = Router()
@@ -14,6 +15,7 @@ const frontEndRouter = Router()
 frontEndRouter.use('/', homeRouter)
 frontEndRouter.use('/about', aboutRouter)
 frontEndRouter.use('/account', accountRouter)
+frontEndRouter.use('/compose', composeRouter)
 frontEndRouter.use('/features', featuresRouter)
 frontEndRouter.use('/images', imageRouter)
 frontEndRouter.use('/sign', signRouter)

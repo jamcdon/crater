@@ -29,20 +29,16 @@ const ComposeModelSchema = new Schema({
         type: String,
         required: true
     },
-    tag:{
-        type: String,
+    tags:{
+        type: [String],
         required: false
     },
-    labels:{ 
-            type: [String],
-            required: false
-    },  
     public: {
         type: Boolean,
         required: true,
         default: true
     },
-    content: {
+    yaml: {
         type: String,
         required: true
     },

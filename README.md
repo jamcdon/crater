@@ -12,7 +12,7 @@ _Now under the GNU AGPLv3 license_
 - Express
   - [npm](https://www.npmjs.com/package/express)
   - [GitHub](https://github.com/expressjs/express)
-  - Web framework for managing routing and HTTP related commands
+  - Web framework for managing routing and HTTP related operations
 - Sequelize
   - [npm](https://www.npmjs.com/package/sequelize)
   - [GitHub](https://github.com/sequelize/sequelize)
@@ -41,6 +41,12 @@ _Now under the GNU AGPLv3 license_
   - [npm](https://www.npmjs.com/package/redis)
   - [GitHub](https://github.com/redis/node-redis)
   - Client for accessing Redis cache database
+
+- ace
+  - [npm](https://www.npmjs.com/package/ace-code)
+  - [GitHub](https://github.com/ajaxorg/ace)
+  - [CDNJS](https://cdnjs.com/libraries/ace)
+  - Frontend syntax highlighting/lightweight IDE for creating YAML scripts on crater
 
 #### MySQL
 - [Docker Hub](https://hub.docker.com/_/mysql)
