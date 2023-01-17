@@ -2,11 +2,11 @@ import mongoose from 'mongoose'
 import { Compose } from '../models'
 import { ComposeInput, ComposeOutput } from '../models/Compose'
 
-export const create = async(payload: ComposeInput): Promise<ComposeOutput> => {
+export const create = async(payload: ComposeInput): Promise<ComposeOutput | undefined> => {
     payload._id = new mongoose.Types.ObjectId
     const compose = await Compose.create(payload)
     if (!compose){
-        throw new Error("Could not create Compose")
+        return undefined
     }
     const createdCompose: ComposeOutput = {
         _id: compose._id,

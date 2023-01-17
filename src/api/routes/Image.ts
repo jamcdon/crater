@@ -10,7 +10,10 @@ imageRouter.get('/name/:imageName', async (req: Request, res: Response) => {
     const image = String(req.params.imageName)
 
     const result = await imageController.getByImageName(image)
-    return res.status(200).send(result)
+    if (result != undefined) {
+        return res.status(200).send(result)
+    }
+    return res.status(400).send('"Error": "Image not found"')
 })
 
 imageRouter.get('/:id', async (req: Request, res: Response) => {
@@ -18,7 +21,10 @@ imageRouter.get('/:id', async (req: Request, res: Response) => {
     const id = String(req.params.id)
 
     const result = await imageController.getById(id)
-    return res.status(200).send(result)
+    if (result != undefined) {
+        return res.status(200).send(result)
+    }
+    return res.status(400).send('"Error": "Image not found"')
 })
 
 imageRouter.put('/:id', async (req: Request, res: Response) => {
@@ -26,6 +32,7 @@ imageRouter.put('/:id', async (req: Request, res: Response) => {
     const id = String(req.params.id)
     const payload:UpdateImageDTO = req.body
 
+    //this should be a bool
     const result = await imageController.update(id, payload)
     return res.status(201).send(result)
 })
@@ -45,8 +52,11 @@ imageRouter.post('/', async (req: Request, res: Response) => {
     const payload:CreateImageDTO = req.body
     console.log(payload)
     //randpix? - try to get elsewhere first.
-    const results = await imageController.create(payload)
-    return res.status(200).send(results)
+    const result = await imageController.create(payload)
+    if (result != undefined) {
+        return res.status(200).send(result)
+    }
+    return res.status(400).send('"Error": "Image not created"')
 })
 /*
 imageRouter.put('/blob/:id', async (req: Request, res: Response) => {

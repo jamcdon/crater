@@ -5,16 +5,29 @@ import { CreateImageDTO, UpdateImageDTO } from '../../dto/image.dto'
 import CreateQuery from 'mongoose'
 import * as mapper from './mapper'
 
-export const create = async(payload: CreateImageDTO): Promise<IImage> => {
-    return mapper.toImage(await service.create(payload))
+export const create = async(payload: CreateImageDTO): Promise<IImage | undefined> => {
+    const image = await service.create(payload)
+    if (image != undefined){
+        return mapper.toImage(image)
+    }
+    return undefined
 }
 
-export const update = async(id: string, payload: UpdateImageDTO) => {
-    return mapper.toImage(await service.update(id, payload))
+export const update = async(id: string, payload: UpdateImageDTO): Promise<Boolean> => {
+    const image = await service.update(id, payload)
+    if (image != undefined){
+        mapper.toImage(image)
+        return true
+    }
+    return false
 }
 
-export const getById = async (id: string): Promise<IImage> => {
-    return mapper.toImage(await service.getById(id))
+export const getById = async (id: string): Promise<IImage | undefined> => {
+    const image = await service.getById(id)
+    if (image != undefined){
+        return mapper.toImage(image)
+    }
+    return undefined
 }
 
 export const getByImageName = async (imageName: string): Promise<IImage | undefined> => {
@@ -22,7 +35,7 @@ export const getByImageName = async (imageName: string): Promise<IImage | undefi
     if (image != undefined){
         return mapper.toImage(image)
     }
-    return image
+    return undefined
 }
 
 export const deleteById = async (id: string): Promise<Boolean> => {

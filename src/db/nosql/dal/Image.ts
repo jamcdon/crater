@@ -2,12 +2,12 @@ import mongoose from 'mongoose'
 import { Image } from '../models'
 import { ImageInput, ImageOutput } from '../models/Image'
 
-export const create = async(payload: ImageInput): Promise<ImageOutput> => {
+export const create = async(payload: ImageInput): Promise<ImageOutput | undefined> => {
     payload._id = new mongoose.Types.ObjectId
     const image = await Image.create(payload)
     console.log(image)
     if (!image){
-        throw new Error('Could not create image')
+        return undefined
     }
     const createdUser: ImageOutput = {
         _id: image._id,
@@ -18,22 +18,22 @@ export const create = async(payload: ImageInput): Promise<ImageOutput> => {
     return createdUser
 }
 
-export const update = async(id: string, payload: Partial<ImageInput>): Promise<ImageOutput> => {
+export const update = async(id: string, payload: Partial<ImageInput>): Promise<ImageOutput | undefined> => {
     const image = await Image.findById(id)
     if (!image) {
-        throw new Error('not found')
+        return undefined
     }
     const updatedImage = await Image.findByIdAndUpdate(id, payload)
     if (!updatedImage) {
-        throw new Error('could not update')
+        return undefined
     }
     return updatedImage
 }
 
-export const getById = async(id: string): Promise<ImageOutput> => {
+export const getById = async(id: string): Promise<ImageOutput | undefined> => {
     const image = await Image.findById(id)
     if (!image) {
-        throw new Error('not found')
+        return undefined
     }
     return image
 }

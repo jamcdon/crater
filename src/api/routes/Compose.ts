@@ -50,7 +50,10 @@ composeRouter.post('/', async(req: Request, res: Response) => {
         }
 
         const results = await composeController.create(payload)
-        return res.status(200).send(results)
+        if (results != undefined){
+            return res.status(200).send(results)
+        }
+        return res.status(400).send('"Error": "Image for compose not created"')
     }
     else if (authorName == undefined){
         return res.status(401).send('"Error": "User not logged in. Unable to create new compose entry"')

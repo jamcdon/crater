@@ -1,4 +1,17 @@
 extends ../template.pug
 mixin content 
     div#content
-        #{page}
+        div#content-header.d-flex.flex-wrap
+            div#preamble.w-25
+                h2 Containers made easy with crater.
+                p
+                    | The crowd-sourced docker-compose for containerization software such as 
+                    a(href="https://www.docker.com/") docker
+                    | ,&nbsp;
+                    a(href="https://podman.io/") podman
+                    | ,
+                    | and even support for 
+                    a(href="https://kubernetes.io/") kubernetes
+                    | . Sort by architecture, see whats popular, or browse by the latest posts to help find hidden gems and bubble them to the top here.
+            div#script-search
+                h2 Find what you're looking for...
