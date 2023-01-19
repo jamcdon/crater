@@ -2,30 +2,46 @@ extends ../../template.pug
 mixin content
     div#content.p-3
         h1.h2 Add a compose script to crater
+        hr
         form(action="javascript:uploadOrFail()")#composeInfo
-            div.d-flex.flex-wrap.justify-content-between.w-100
+            div.d-flex.flex-wrap.justify-content-between.w-100#form-div
                 div.mb-3
                     label(for="title").form-label Title
                     input(type="text")#title.form-control
                     p#titleValidation.text-danger &nbsp;
                 div.mb-3
-                    label(for="name").form-label Primary Image
-                    input(type="text")#name.form-control
+                    label(for="image").form-label Primary Image
+                    input(type="text" list="image")#image.form-control
+                    datalist#image-list
+                        option(value="test1")
+                        option(value="test2")
                     p#nameValidation.text-danger &nbsp;
                 div.mb-3
-                    label(for="lablels").form-label Tags
-                    input(type="text")#tags.form-control
+                    label(for="tags").form-label Tags
+                    input(type="text" list="tag-list")#tags.form-control
+                    datalist#tag-list
+                        option(value="test1")
+                        option(value="test2")
                     p#tagsValidation.text-danger &nbsp;
                 div.mb-3
                     label(for="public").form-label.px-2 Public
                     input(type="checkbox" checked)#public.form-control.form-check-input.mx-auto
                     p#publicValidation.text-danger &nbsp;
+            div#preview-div
+                h2#title-preview
+                h2#image-preview
+                h2#public-preview
+                ul#tags-preview
             div.mb-3
                 label(for="yaml").form-label YAML
-                div(style="height:50vh;")#yaml.w-100.
+                div(style="height:50vh;")#yaml.w-100.border.border-primary
 
                 p#yamlValidation.text-danger &nbsp;
-            div.d-flex.flex-wrap.align-items-center.justify-content-left.justify-content.lg-start
+            div.d-flex.flex-wrap.align-items-center.justify-content-left.justify-content.lg-start#form-buttons
                 button(type="submit").btn.btn-warning Submit
+                button(onclick="setPreview()").btn.btn-secondary.mx-2 Preview
+        div(style="hieght:0;")#preview-buttons.invisible
+            button(onclick="setEdit()").btn.btn-warning Edit
+
     script(src="/script/lib/ace/ace.js")
     script(src="/script/scripts/compose/new.js")

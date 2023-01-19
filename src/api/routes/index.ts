@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express'
+import { Router } from 'express'
 import userRouter from './User'
 import imageRouter from './Image'
 import commentsRouter from './Comments'
