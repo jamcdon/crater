@@ -1,11 +1,15 @@
 import mongoose from 'mongoose'
 import { Compose } from '../models'
 import { ComposeInput, ComposeOutput } from '../models/Compose'
+import { incrementScriptsUsing } from '../services/imageService'
 
 export const create = async(payload: ComposeInput): Promise<ComposeOutput | undefined> => {
     payload._id = new mongoose.Types.ObjectId
-    const compose = await Compose.create(payload)
-    if (!compose){
+    let compose
+    try {
+        compose = await Compose.create(payload)
+    }
+    catch (err){
         return undefined
     }
     const createdCompose: ComposeOutput = {
@@ -20,5 +24,8 @@ export const create = async(payload: ComposeInput): Promise<ComposeOutput | unde
         stars: compose.stars!
     }
     compose.save()
+
+    incrementScriptsUsing(createdCompose.imageID.toString())
+
     return createdCompose
 }

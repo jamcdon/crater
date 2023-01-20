@@ -1,5 +1,5 @@
 import * as service from '../../../db/nosql/services/imageService'
-import { Image } from '../../../db/nosql/models'
+import { Image, QueryObject } from '../../../db/nosql/models'
 import { IImage } from '../../../db/nosql/models/Image'
 import { CreateImageDTO, UpdateImageDTO } from '../../dto/image.dto'
 import CreateQuery from 'mongoose'
@@ -41,4 +41,13 @@ export const getByImageName = async (imageName: string): Promise<IImage | undefi
 export const deleteById = async (id: string): Promise<Boolean> => {
     const isDeleted = await service.deleteById(id)
     return isDeleted
+}
+
+export const paginate = async(page: number): Promise< QueryObject | undefined> => {
+    const imageNames = await service.paginate(page)
+    return imageNames
+}
+
+export const getCount = async(): Promise<number> => {
+    return await service.getCount()
 }

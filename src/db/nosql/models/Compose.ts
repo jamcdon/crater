@@ -3,13 +3,13 @@ import mongoose, {Schema, model, Types} from 'mongoose';
 export interface ICompose {
     _id: mongoose.Types.ObjectId,
     title: String,
-    authorID: Number,
+    authorID: number,
     imageName: String,
     imageID: mongoose.Types.ObjectId,
     tags: Types.Array<String>,
     public: Boolean
     yaml: String,
-    stars: Number
+    stars: number
 }
 
 export interface ComposeInput extends Partial<ICompose> {}

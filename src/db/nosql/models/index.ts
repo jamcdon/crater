@@ -9,3 +9,9 @@ export {
     Comment,
     Manifest
 }
+
+export type QueryObject = [
+    {
+        [key: string]: string
+    }
+]

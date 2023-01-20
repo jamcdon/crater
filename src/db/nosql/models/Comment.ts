@@ -1,7 +1,7 @@
 import { Schema, model} from 'mongoose';
 
 export interface IComment {
-    composeID: Number,
+    composeID: number,
     user: String,
     content: String
 }

@@ -16,7 +16,7 @@ imageRouter.get('/name/:imageName', async (req: Request, res: Response) => {
     return res.status(400).send('"Error": "Image not found"')
 })
 
-imageRouter.get('/:id', async (req: Request, res: Response) => {
+imageRouter.get('/id/:id', async (req: Request, res: Response) => {
     // get router by image name
     const id = String(req.params.id)
 
@@ -27,7 +27,7 @@ imageRouter.get('/:id', async (req: Request, res: Response) => {
     return res.status(400).send('"Error": "Image not found"')
 })
 
-imageRouter.put('/:id', async (req: Request, res: Response) => {
+imageRouter.put('/id/:id', async (req: Request, res: Response) => {
     // update image by image id
     const id = String(req.params.id)
     const payload:UpdateImageDTO = req.body
@@ -37,7 +37,7 @@ imageRouter.put('/:id', async (req: Request, res: Response) => {
     return res.status(201).send(result)
 })
 
-imageRouter.delete('/:id', async (req: Request, res: Response) => {
+imageRouter.delete('/id/:id', async (req: Request, res: Response) => {
     //delete image by id
     const id = String(req.params.id)
 
@@ -49,8 +49,11 @@ imageRouter.delete('/:id', async (req: Request, res: Response) => {
 
 imageRouter.post('/', async (req: Request, res: Response) => {
     //create image
-    const payload:CreateImageDTO = req.body
-    console.log(payload)
+    const payload:CreateImageDTO = {
+        name: req.body.name,
+        hyperlink: req.body.hyperlink,
+        scriptsUsing: 0
+    }
     //randpix? - try to get elsewhere first.
     const result = await imageController.create(payload)
     if (result != undefined) {
@@ -72,8 +75,26 @@ imageRouter.post('/blob/:id', async (req: Request, res: Response) => {
     return(uploadStatus ? res.status(200) : res.status(500))
 })
 */
-imageRouter.get('/paginate', async (req: Request, res: Response) => {
+imageRouter.get('/paginate/:page', async (req: Request, res: Response) => {
+    const page: number = parseInt(req.params.page)
+    if (!Number.isNaN(page)){
+        const result = await imageController.paginate(page)
+        if (result != undefined){
+            let imageArray = []
+            for (let index=0; index < result.length; index++){
+                imageArray.push(result[index].name)
+            }
+            return res.status(200).json(imageArray)
+        }
+        return res.status(400).send('"Error": "Result undefined"')
+    }
+    return res.status(400).send(`"Error": "Paginate requires page parameter to be a number, '${req.params.page}' provided"`)
     //get paginated images by amount of composes
+})
+
+imageRouter.get('/count', async(req: Request, res: Response) => {
+    let count = await imageController.getCount()
+    return res.status(200).json(count)
 })
 
 export default imageRouter

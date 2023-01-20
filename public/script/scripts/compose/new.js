@@ -7,10 +7,12 @@ let titlePreview = document.getElementById("title-preview")
 let titleForm= document.getElementById("title")
 let imagePreview = document.getElementById("image-preview")
 let imageForm= document.getElementById("image")
+let imageList = document.getElementById("image-list-span")
 let publicPreview = document.getElementById("public-preview")
 let publicForm= document.getElementById("public")
 let tagsPreview = document.getElementById("tags-preview")
 let tagsForm = document.getElementById("tags")
+let tagsList = document.getElementById("tags-list-span")
 let yamlPreview = document.getElementById("yaml-preview")
 let previewButtonDiv = document.getElementById("preview-buttons")
 let formButtonDiv = document.getElementById("form-buttons")
@@ -60,7 +62,28 @@ function setEdit(){
 }
 
 function getCurrentlyUsedOptions(label){
+    //code
 
+    //xhr request for paginate
+    //check if returned object < 25
+    // if so stop xhr paginating
+
+    if (label == "tags"){
+        tagsList.innerHTML =`
+        <datalist id="tags-list">
+            <option value="tag1"></option>
+            <option value="tag2"></option/>
+        </datalist>
+        `
+    }
+    else if (label == "image"){
+        imageList.innerHTML =`
+        <datalist id="image-list">
+            <option value="image1"></option>
+            <option value="image2"></option/>
+        </datalist>
+        `
+    }
 }
 getCurrentlyUsedOptions("image")
 getCurrentlyUsedOptions("tags")

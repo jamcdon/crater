@@ -3,7 +3,7 @@ import mongoose, {Schema, model, Types} from 'mongoose';
 export interface IManifest {
     _id: mongoose.Types.ObjectId,
     title: String,
-    authorID: Number,
+    authorID: number,
     imageName: String,
     imageID: mongoose.Types.ObjectId,
     tags: Types.Array<String>,
@@ -11,7 +11,7 @@ export interface IManifest {
     yamls: {
         [key: string]: String
     }
-    stars: Number
+    stars: number
 }
 
 export interface ManifestInput extends Partial<IManifest> {}

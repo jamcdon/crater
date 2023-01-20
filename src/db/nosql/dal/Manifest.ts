@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { Manifest } from "../models";
 import { ManifestInput, ManifestOutput } from '../models/Manifest'
+import { incrementScriptsUsing } from "../services/imageService";
 
 export const create = async(payload: ManifestInput): Promise<ManifestOutput | undefined> => {
     payload._id = new mongoose.Types.ObjectId
@@ -21,5 +22,8 @@ export const create = async(payload: ManifestInput): Promise<ManifestOutput | un
         stars: manifest.stars!
     }
     manifest.save()
+
+    incrementScriptsUsing(createdManifest.imageID.toString())
+
     return createdManifest
 }

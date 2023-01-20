@@ -1,4 +1,5 @@
 import * as imageDAL from '../dal/Image'
+import { QueryObject } from '../models'
 import { ImageInput, ImageOutput } from '../models/Image'
 
 export const create = (payload: ImageInput): Promise<ImageOutput | undefined> => {
@@ -19,4 +20,20 @@ export const getByImageName = (imageName: string): Promise<ImageOutput | undefin
 
 export const deleteById = (id: string): Promise<boolean> => {
     return imageDAL.deleteById(id)
+}
+
+export const paginate = (page: number): Promise< QueryObject | undefined> => {
+    return imageDAL.paginate(page)
+}
+
+export const getCount = (): Promise<number> => {
+    return imageDAL.getCount()
+}
+
+export const incrementScriptsUsing = async(imageID: string): Promise<void> => {
+    let image = await imageDAL.getById(imageID)
+    if (image != undefined){
+        image.scriptsUsing++
+        imageDAL.update(imageID, image)
+    }
 }

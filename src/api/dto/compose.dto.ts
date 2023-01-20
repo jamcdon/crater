@@ -3,11 +3,11 @@ import mongoose, { Types } from 'mongoose';
 
 export type CreateComposeDTO = {
     title: String;
-    authorID: Number;
+    authorID: number;
     imageName: String;
     imageID: mongoose.Types.ObjectId;
     tags?: Types.Array<String>,
     public: Boolean;
     yaml: String;
-    stars: Number
+    stars: number
 }

@@ -4,6 +4,7 @@ export interface IImage {
     _id: mongoose.Types.ObjectId,
     name: String,
     hyperlink: String,
+    scriptsUsing: number
 }
 
 export interface ImageInput extends Partial<IImage> {}
@@ -16,10 +17,16 @@ const ImageModelSchema = new Schema({
     },
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     hyperlink: {
         type: String,
+        required: true,
+        unique: true
+    },
+    scriptsUsing: {
+        type: Number,
         required: true
     }
 })
