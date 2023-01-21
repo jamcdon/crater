@@ -4,8 +4,8 @@ import Types from 'mongoose'
 
 export type CreateImageDTO = {
     _id?: mongoose.Types.ObjectId;
-    name: String;
-    hyperlink: String;
+    name: string;
+    hyperlink: string;
     scriptsUsing: number;
 }
 

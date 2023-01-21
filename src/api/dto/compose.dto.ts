@@ -2,12 +2,12 @@
 import mongoose, { Types } from 'mongoose';
 
 export type CreateComposeDTO = {
-    title: String;
+    title: string;
     authorID: number;
-    imageName: String;
+    imageName: string;
     imageID: mongoose.Types.ObjectId;
-    tags?: Types.Array<String>,
+    tags?: Types.Array<string>,
     public: Boolean;
-    yaml: String;
+    yaml: string;
     stars: number
 }

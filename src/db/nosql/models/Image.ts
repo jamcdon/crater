@@ -2,8 +2,8 @@ import mongoose, {Schema, model, Types } from 'mongoose';
 
 export interface IImage {
     _id: mongoose.Types.ObjectId,
-    name: String,
-    hyperlink: String,
+    name: string,
+    hyperlink: string,
     scriptsUsing: number
 }
 

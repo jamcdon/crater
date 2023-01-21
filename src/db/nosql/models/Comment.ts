@@ -2,8 +2,8 @@ import { Schema, model} from 'mongoose';
 
 export interface IComment {
     composeID: number,
-    user: String,
-    content: String
+    user: string,
+    content: string
 }
 
 const CommentSchema = new Schema<IComment>({

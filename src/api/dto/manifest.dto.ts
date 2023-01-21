@@ -2,12 +2,12 @@
 import mongoose, { Types } from 'mongoose';
 
 export type CreateManifestDTO = {
-    title: String;
+    title: string;
     authorID: number;
-    imageName: String;
+    imageName: string;
     imageID: mongoose.Types.ObjectId;
-    tags?: Types.Array<String>,
+    tags?: Types.Array<string>,
     public: Boolean;
-    yamls: Record<string, String>
+    yamls: Record<string, string>
     stars: number
 }

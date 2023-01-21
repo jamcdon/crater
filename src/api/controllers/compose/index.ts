@@ -10,3 +10,20 @@ export const create = async(payload: CreateComposeDTO): Promise<ICompose | undef
     }
     return undefined
 }
+
+export const getById = async (id: string): Promise<ICompose | undefined> => {
+    const compose = await service.getById(id)
+    if (compose != undefined){
+        return mapper.toCompose(compose)
+    }
+    return undefined
+}
+
+export const createRaw = async (id: string): Promise<string | undefined> => {
+    const compose = await service.getById(id)
+    if (compose != undefined){
+        const composeYaml = compose.yaml
+        return composeYaml
+    }
+    return undefined
+}

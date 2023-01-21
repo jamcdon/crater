@@ -29,3 +29,16 @@ export const create = async(payload: ComposeInput): Promise<ComposeOutput | unde
 
     return createdCompose
 }
+
+export const getById = async (id: string): Promise<ComposeOutput | undefined> => {
+    let compose
+    try {
+        compose = await Compose.findById(id)
+    }
+    catch (err) {
+        return undefined
+    }
+    if (compose != null){
+        return compose
+    }
+}

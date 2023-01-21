@@ -5,12 +5,17 @@ import {
 import { getUserToken } from '../../frontend/controllers/common'
 import * as composeController from '../controllers/compose'
 import * as imageController from '../controllers/image'
+import { writeFile } from 'fs'
 
 const composeRouter = Router()
 
-composeRouter.get('/:id', async(req: Request, res: Response) => {
+composeRouter.get('/id/:id', async(req: Request, res: Response) => {
     // get compose script by id
-    const id = Number(req.params.id)
+    const compose = await composeController.getById(req.params.id)
+    if (compose != undefined){
+        return res.status(200).send(compose)
+    }
+    return res.status(400).send(`"Error": "Compose ${req.params.id} not found."`)
 })
 
 composeRouter.get('/view/:username/', async(req: Request, res: Response) => {
@@ -61,8 +66,33 @@ composeRouter.post('/', async(req: Request, res: Response) => {
     return res.status(400).send('"Error": "Image for compose not created."')
 })
 
-composeRouter.get('/:imageName/pagination', async(req: Request, res: Response) => {
+composeRouter.get('/pagination/:imageName', async(req: Request, res: Response) => {
     // get paginated compose scripts by imageName 
+})
+
+composeRouter.get('/download/:id/docker-compose.yml', async (req: Request, res: Response) => {
+    const composeYaml = await composeController.createRaw(req.params.id)
+    if (composeYaml != undefined){
+        res.set({"Content-Disposition": "attachment; filename=\"docker-compose.yml\""})
+        return res.status(200).send(composeYaml)
+    }
+    return res.status(400).send(`"Error": "${req.params.id} not found."`)
+})
+
+composeRouter.get('/raw/:id/docker-compose.yml', async (req: Request, res: Response) => {
+    const composeYaml = await composeController.createRaw(req.params.id)
+    if (composeYaml != undefined){
+        const isFirefox = req.get('User-Agent')?.includes("Firefox")
+        if (isFirefox){
+            res.set({"Content-Type": "text/plain"})
+        }
+        else {
+            res.set({"Content-Type": "text/yaml"})
+        }
+        res.set({"Content-Disposition": "inline; filename=\"docker-compose.yml\""})
+        return res.status(200).send(composeYaml)
+    }
+    return res.status(400).send(`"Error": "${req.params.id} not found."`)
 })
 
 export default composeRouter

@@ -2,13 +2,13 @@ import mongoose, {Schema, model, Types} from 'mongoose';
 
 export interface ICompose {
     _id: mongoose.Types.ObjectId,
-    title: String,
+    title: string,
     authorID: number,
-    imageName: String,
+    imageName: string,
     imageID: mongoose.Types.ObjectId,
-    tags: Types.Array<String>,
+    tags: Types.Array<string>,
     public: Boolean
-    yaml: String,
+    yaml: string,
     stars: number
 }
 
