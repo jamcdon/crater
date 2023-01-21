@@ -87,6 +87,5 @@ export const paginate = async (page: number): Promise< QueryObject | undefined> 
 }
 
 export const getCount = async(): Promise<number> => {
-    console.log(Image.count())
     return await Image.count()
 }

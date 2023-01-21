@@ -43,9 +43,21 @@ export const deleteById = async (id: string): Promise<Boolean> => {
     return isDeleted
 }
 
-export const paginate = async(page: number): Promise< QueryObject | undefined> => {
+export const paginate = async(page: number): Promise<QueryObject | undefined> => {
     const imageNames = await service.paginate(page)
     return imageNames
+}
+
+export const paginateNameOnly = async(page:number): Promise<Array<string> | undefined> => {
+    const queryOject = await paginate(page)
+    if (queryOject != undefined){
+        let imageArray = []
+        for (let i=0; i < queryOject.length; i++){
+            imageArray.push(queryOject[i].name)
+        }
+        return imageArray
+    }
+    return undefined
 }
 
 export const getCount = async(): Promise<number> => {

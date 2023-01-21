@@ -76,20 +76,16 @@ imageRouter.post('/blob/:id', async (req: Request, res: Response) => {
 })
 */
 imageRouter.get('/paginate/:page', async (req: Request, res: Response) => {
+    //get paginated images by amount of composes/manifests
     const page: number = parseInt(req.params.page)
     if (!Number.isNaN(page)){
-        const result = await imageController.paginate(page)
-        if (result != undefined){
-            let imageArray = []
-            for (let index=0; index < result.length; index++){
-                imageArray.push(result[index].name)
-            }
-            return res.status(200).json(imageArray)
+        const pageImages = await imageController.paginateNameOnly(page)
+        if (pageImages != undefined){
+            return res.status(200).json(pageImages)
         }
         return res.status(400).send('"Error": "Result undefined"')
     }
     return res.status(400).send(`"Error": "Paginate requires page parameter to be a number, '${req.params.page}' provided"`)
-    //get paginated images by amount of composes
 })
 
 imageRouter.get('/count', async(req: Request, res: Response) => {
