@@ -2,19 +2,19 @@ import * as userDAL from '../dal/User'
 import { UserInput, UserOutput} from '../models/User'
 import { SignInUserDTO } from '../../../api/dto/user.dto'
 
-export const create = (payload: UserInput): Promise<UserOutput> => {
+export const create = (payload: UserInput): Promise<UserOutput | undefined> => {
     return userDAL.create(payload)
 }
 
-export const update = (id: number, payload: Partial<UserInput>): Promise<UserOutput> => {
+export const update = (id: number, payload: Partial<UserInput>): Promise<UserOutput | undefined> => {
     return userDAL.update(id, payload)
 }
 
-export const getById = (id: number): Promise<UserOutput> => {
+export const getById = (id: number): Promise<UserOutput | undefined> => {
     return userDAL.getById(id)
 }
 
-export const getByUsername = (username: string): Promise<UserOutput | null> => {
+export const getByUsername = (username: string): Promise<UserOutput | undefined> => {
     return userDAL.getByUsername(username)
 }
 

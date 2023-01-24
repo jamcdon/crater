@@ -16,14 +16,20 @@ const userRouter = Router()
 userRouter.get('/id/:id', async (req: Request, res: Response) => {
     // get user by id
     const id = Number(req.params.id)
-    const result = await userController.getById(id)
-    return res.status(200).send(result)
+    const user = await userController.getById(id)
+    if (user != undefined){
+        return res.status(200).send(user)
+    }
+    return res.status(400).send('{"Error": "user not found"}')
 })
 
 userRouter.get('/:username', async (req: Request, res: Response) => {
     const username = String(req.params.username)
-    const result = await userController.getByUsername(username)
-    return res.status(200).send(result)
+    const user = await userController.getByUsername(username)
+    if (user != undefined){
+        return res.status(200).send(user)
+    }
+    return res.status(400).send('{"Error": "user not found"}')
 })
 
 userRouter.put('/id/:id', async (req: Request, res: Response) => {
@@ -33,18 +39,22 @@ userRouter.put('/id/:id', async (req: Request, res: Response) => {
     // tests if new password and converts NoSalt payload to UpdateUserDTO type
     const saltHashPayload = await userController.updateUserSaltHash(payload)
 
-    const result = await userController.update(id, saltHashPayload)
-    return res.status(201).send(result)
+    const user = await userController.update(id, saltHashPayload)
+    if (user != undefined){
+        return res.status(201).send(user)
+    }
+    return res.status(400).send('{"Error": "User could not be updated"}')
 })
 
 userRouter.delete('/id/:id', async(req: Request, res: Response) => {
     // delete user by id
     const id = Number(req.params.id)
 
-    const result = await userController.deleteById(id)
-    return res.status(204).send({
-        success: result
-    })
+    const deleted = await userController.deleteById(id)
+    if (deleted){
+        return res.status(200).send(`{"user": ${id},"deleted": true}`)
+    }
+    return res.status(400).send(`{"user": ${id},"deleted": false}`)
 })
 
 userRouter.post('/', async (req: Request, res: Response) => {
@@ -54,13 +64,16 @@ userRouter.post('/', async (req: Request, res: Response) => {
     const saltHashPayload = await userController.createUserSaltHash(payload)
     const results = await userController.create(saltHashPayload)
     // creates random pixelart and sends to blob storage
-    const pixelGen = generateImage()
-    const pixel = new BlobObject('user', `${results.id}.png`, pixelGen.size, pixelGen.buffer) 
-    pixel.upload()
+    if (results != undefined){
+        const pixelGen = generateImage()
+        const pixel = new BlobObject('user', `${results.id}.png`, pixelGen.size, pixelGen.buffer) 
+        pixel.upload()
 
-    const id = await userController.setCookie(payload.username)
-    res.cookie("loginToken", id, {signed: true})
-    return res.status(200).send(results)
+        const id = await userController.setCookie(payload.username)
+        res.cookie("loginToken", id, {signed: true})
+        return res.status(200).send(results)
+    }
+    return res.status(400).send('{"Error": "could not create user"}')
 })
 
 userRouter.get('/user-exists/:username', async (req: Request, res: Response) => {

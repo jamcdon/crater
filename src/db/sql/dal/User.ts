@@ -5,28 +5,34 @@ import {UserInput, UserOutput} from '../models/User'
 import Sequelize from 'sequelize'
 import { SignInUserDTO } from '../../../api/dto/user.dto';
 
-export const create = async (payload:UserInput): Promise<UserOutput> => {
+export const create = async (payload:UserInput): Promise<UserOutput | undefined> => {
     const user = await User.create(payload)
-    return user
+    if (user){
+        return user
+    }
+    return undefined
 }
-export const update = async (id: number, payload: Partial<UserInput>): Promise<UserOutput> => {
+export const update = async (id: number, payload: Partial<UserInput>): Promise<UserOutput | undefined> => {
     const user = await User.findByPk(id)
     if (!user) {
-        throw new Error('not found')
+        return undefined
     }
     const updatedUser = await (user as User).update(payload)
-    return updatedUser
-}
-
-export const getById = async (id: number): Promise<UserOutput> => {
-    const user = await User.findByPk(id)
-    if (!user) {
-        throw new Error('not found')
+    if (updatedUser) {
+        return updatedUser
     }
-    return user
+    return undefined
 }
 
-export const getByUsername = async(username: string): Promise<UserOutput | null> => {
+export const getById = async (id: number): Promise<UserOutput | undefined> => {
+    const user = await User.findByPk(id)
+    if (user) {
+        return user
+    }
+    return undefined
+}
+
+export const getByUsername = async(username: string): Promise<UserOutput | undefined> => {
     //https://stackoverflow.com/questions/41728023/sequelize-case-insensitive-like
     const user = await User.findOne({ 
         where: { 
@@ -35,7 +41,10 @@ export const getByUsername = async(username: string): Promise<UserOutput | null>
             }
         }
     })
-    return user
+    if (user) {
+        return user
+    }
+    return undefined
 }
 
 export const validateUsername = async(username: string): Promise<boolean> => {

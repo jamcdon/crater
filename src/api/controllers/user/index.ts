@@ -45,8 +45,12 @@ export const createUserSaltHash = async(payload: CreateUserNoSalt): Promise<Crea
     return saltHashUserDTO
 }
 
-export const create = async(payload: CreateUserDTO): Promise<User> => {
-    return mapper.toUser(await service.create(payload))
+export const create = async(payload: CreateUserDTO): Promise<User | undefined> => {
+    const user = await service.create(payload)
+    if (user != undefined){
+        return mapper.toUser(user)
+    }
+    return undefined
 }
 
 export const updateUserSaltHash = async(payload: UpdateUserNoSalt): Promise<UpdateUserDTO> => {
@@ -67,20 +71,28 @@ export const updateUserSaltHash = async(payload: UpdateUserNoSalt): Promise<Upda
     }
 }
 
-export const update = async (id: number, payload: UpdateUserDTO) => {
-    return mapper.toUser(await service.update(id, payload))
+export const update = async (id: number, payload: UpdateUserDTO): Promise<User | undefined> => {
+    const user = await service.update(id, payload)
+    if (user != undefined){
+        return mapper.toUser(user)
+    }
+    return undefined
 }
 
-export const getById = async (id: number): Promise<User> => {
-    return mapper.toUser(await service.getById(id))
+export const getById = async (id: number): Promise<User | undefined> => {
+    const user = await service.getById(id)
+    if (user != undefined){
+        return mapper.toUser(user)
+    }
+    return undefined
 }
 
-export const getByUsername = async(username: string): Promise<User | null> => {
+export const getByUsername = async(username: string): Promise<User | undefined> => {
     const userObject = await service.getByUsername(username)
-    if (userObject != null){
+    if (userObject != undefined){
         return mapper.toUser(userObject)
     }
-    return null
+    return undefined
 }
 
 export const validateUsername = async(username: string): Promise<boolean> => {
