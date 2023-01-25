@@ -1,7 +1,9 @@
-# crater <img alt="crater crane" src="public/img/crane-yl.svg" witdth="30" height="48"/>
+[Lines of Code](http://10.0.0.25:6002/api/project_badges/measure?project=jared%3Acrater&metric=ncloc&token=806892920608706d263ae58aa483a1ae3549867b)[Bugs](http://10.0.0.25:6002/api/project_badges/measure?project=jared%3Acrater&metric=bugs&token=806892920608706d263ae58aa483a1ae3549867b)[Security Rating](http://10.0.0.25:6002/api/project_badges/measure?project=jared%3Acrater&metric=security_rating&token=806892920608706d263ae58aa483a1ae3549867b)[Reliability Rating](http://10.0.0.25:6002/api/project_badges/measure?project=jared%3Acrater&metric=reliability_rating&token=806892920608706d263ae58aa483a1ae3549867b)
+
+# crater.sh <img alt="crater crane" src="public/img/crane-yl.svg" witdth="30" height="48"/>
 > the opensource docker-compose webapp
 
-_Now under the GNU AGPLv3 license_ 
+_Now under the GNU AGPLv3 license!_ 
 
 ## Tooling
 ### Node.js
