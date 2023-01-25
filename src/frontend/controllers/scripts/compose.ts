@@ -1,5 +1,5 @@
 import {Request, Response } from 'express'
-import {getUserToken, interpolationObject} from '../common'
+import {getUserToken} from '../common'
 import { scriptsInterpolation } from './index'
 
 class Compose {

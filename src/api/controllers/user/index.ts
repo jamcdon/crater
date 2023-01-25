@@ -1,5 +1,4 @@
 import * as crypto from 'crypto'
-import e from 'express'
 import * as service from '../../../db/sql/services/userService'
 import {
     CreateUserDTO,

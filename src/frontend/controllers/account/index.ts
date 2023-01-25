@@ -1,4 +1,4 @@
-import {application, Request, Response} from 'express'
+import {Request, Response} from 'express'
 import * as mapper from '../../../api/controllers/user/mapper'
 import * as service from '../../../db/sql/services/userService'
 import {User} from '../../../api/interfaces'

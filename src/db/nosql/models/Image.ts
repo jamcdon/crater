@@ -1,4 +1,4 @@
-import mongoose, {Schema, model, Types } from 'mongoose';
+import mongoose, {Schema, model } from 'mongoose';
 
 export interface IImage {
     _id: mongoose.Types.ObjectId,

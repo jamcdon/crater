@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import errorRouter from "../../routes/Error";
 
 export class errorController {
     public static index (req: Request, res: Response): void {

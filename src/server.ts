@@ -1,4 +1,4 @@
-import express, {Application, Request, Response} from 'express';
+import express, {Application} from 'express';
 import cookieParser from 'cookie-parser';
 import apiRouter from './api/routes'
 import frontEndRouter from './frontend/routes'

@@ -1,9 +1,6 @@
 import { Router, Request, Response } from 'express'
 import * as userController from '../controllers/user'
 import {
-    CreateUserDTO,
-    FilterUserDTO,
-    UpdateUserDTO,
     CreateUserNoSalt,
     UpdateUserNoSalt,
     SignInUserDTO

@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express'
+import { Router } from 'express'
 import { composeController, manifestController, scriptsController } from '../controllers'
 
 const scriptsRouter = Router()

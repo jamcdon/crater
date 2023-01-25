@@ -1,5 +1,4 @@
 import { Router, Request, Response } from 'express'
-import { BlobObject } from '../../db/blob/models'
 import * as imageController from '../controllers/image'
 import { CreateImageDTO, UpdateImageDTO } from '../dto/image.dto'
 

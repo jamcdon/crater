@@ -1,8 +1,6 @@
 import {Op} from 'sequelize';
-import sequelizeConnection from '../config';
 import {User} from '../models';
 import {UserInput, UserOutput} from '../models/User'
-import Sequelize from 'sequelize'
 import { SignInUserDTO } from '../../../api/dto/user.dto';
 
 export const create = async (payload:UserInput): Promise<UserOutput | undefined> => {

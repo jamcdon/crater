@@ -2,7 +2,6 @@ import * as service from '../../../db/nosql/services/imageService'
 import { Image, QueryObject } from '../../../db/nosql/models'
 import { IImage } from '../../../db/nosql/models/Image'
 import { CreateImageDTO, UpdateImageDTO } from '../../dto/image.dto'
-import CreateQuery from 'mongoose'
 import * as mapper from './mapper'
 
 export const create = async(payload: CreateImageDTO): Promise<IImage | undefined> => {

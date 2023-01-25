@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import { ConnectOptions } from 'mongoose';
 
 const dbName = process.env.DB_NAME as string;
 const dbUser = process.env.DB_USER as string;
