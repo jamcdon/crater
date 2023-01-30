@@ -73,5 +73,5 @@ spec:
   minReplicas: 2
   maxReplicas: 10
   targetCPUUtilizationPercentage: 80
-      restartPolicy: Always
+  restartPolicy: Always
 status: {}

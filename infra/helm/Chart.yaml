@@ -1,8 +1,20 @@
-name: docker-compose
-description: A generated Helm Chart for docker-compose from Skippbox Kompose
-version: 0.0.1
+name: crater-sh
+description: Crater Prod deployment Helm Chart
+version: 0.1
 apiVersion: v1
 keywords:
   - docker-compose
 sources:
 home:
+templates:
+  - crater-minio-dev-deployment.yaml
+  - crater-mongo-deployment.yaml
+  - crater-mysql-deployment.yaml
+  - crater-net-networkpolicy.yaml
+  - crater-redis-service.yaml
+  - crater-sh-service.yaml
+  - crater-minio-dev-service.yaml
+  - crater-mongo-service.yaml
+  - crater-mysql-service.yaml
+  - crater-redis-deployment.yaml
+  - crater-sh-deployment.yaml
