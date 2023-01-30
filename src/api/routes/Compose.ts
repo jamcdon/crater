@@ -5,7 +5,6 @@ import {
 import { getUserToken } from '../../frontend/controllers/common'
 import * as composeController from '../controllers/compose'
 import * as imageController from '../controllers/image'
-import { writeFile } from 'fs'
 
 const composeRouter = Router()
 

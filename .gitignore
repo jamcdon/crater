@@ -1,3 +1,6 @@
+# helm
+infra/helm/Values.yml
+
 # Logs
 logs
 *.log

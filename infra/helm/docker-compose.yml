@@ -25,8 +25,8 @@ services:
     container_name: crater-mongo
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: "${MONGO_USER}"
-      MONGO_INITDB_ROOT_PASSWORD: "${MONGO_PASS}"
+      MONGO_INITDB_ROOT_USERNAME: "${APP_DB_USER}"
+      MONGO_INITDB_ROOT_PASSWORD: "${APP_DB_PASSWORD}"
     healthcheck:
       test: ["CMD", "echo", "'db.runCommand(\"ping\").ok'", "|", "mongo", "admin", "-u", "${APP_DB_USER}", "-p", "${APP_DB_PASSWORD}", "--quiet"]
       interval: 120s
@@ -57,12 +57,12 @@ services:
     container_name: crater-mysql
     restart: always
     environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${APP_DB_USER}
+      MYSQL_PASSWORD: ${APP_DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     healthcheck:
-      test: mysql ${MYSQL_DATABASE} --user=${MYSQL_USER} --password=${MYSQL_PASSWORD} --silent --execute "SELECT 1;"
+      test: mysql ${DB_NAME} --user=${APP_DB_USER} --password=${APP_DB_PASSWORD} --silent --execute "SELECT 1;"
       interval: 120s
       timeout: 20s
       retries: 3
@@ -88,7 +88,7 @@ services:
 #      - '5000:80'
   crater-redis:
     image: redis:alpine
-    command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASS}
+    command: redis-server --save 20 1 --loglevel warning --requirepass ${DB_PASSWORD}
     container_name: crater-redis
     restart: always
     healthcheck:
@@ -111,39 +111,20 @@ services:
     container_name: crater-sh
     restart: always
     environment:
-    # old
-    #  - DB_NAME=${DB_NAME}
-    #  - DB_USER=${APP_DB_USER}
-    #  - SQL_HOST=crater-mysql
-    #  - SQL_PORT=3306
-    #  - NO_SQL_HOST=crater-mongo
-    #  - NO_SQL_PORT=27017
-    #  - DB_DRIVER=mysql
-    #  - DB_PASSWORD=${APP_DB_PASSWORD}
-    #  - MINIO_PORT=9000
-#      - MINIO_HOST=crsh-minio-nginx
-    #  - MINIO_HOST=crater-minio-dev
-    #  - REDIS_HOST=crater-redis
-    #  - REDIS_PORT=6379
-    #  - COOKIE_SIGNATURE=${COOKIE_SIGNATURE}
-    # new 
-      - COOKIE_SIGNATURE=${COOKIE_SIGNATURE}
-      - DB_DRIVER=mysql
-      - MINIO_HOST=crater-minio-dev
-      - MINIO_PORT=9000
-      - MINIO_USER=${MINIO_USER}
-      - MINIO_PASS=${MINIO_PASS}
-      - NO_SQL_HOST=crater-mongo
-      - NO_SQL_PORT=27017
-      - MONGO_PASS=${MONGO_PASS}
-      - MONGO_USER=${MONGO_USER}
-      - REDIS_HOST=crater-redis
-      - REDIS_PORT=6379
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${APP_DB_USER}
       - SQL_HOST=crater-mysql
       - SQL_PORT=3306
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - NO_SQL_HOST=crater-mongo
+      - NO_SQL_PORT=27017
+      - DB_DRIVER=mysql
+      - DB_PASSWORD=${APP_DB_PASSWORD}
+      - MINIO_PORT=9000
+#      - MINIO_HOST=crsh-minio-nginx
+      - MINIO_HOST=crater-minio-dev
+      - REDIS_HOST=crater-redis
+      - REDIS_PORT=6379
+      - COOKIE_SIGNATURE=${COOKIE_SIGNATURE}
     networks:
       - crater-net
     ports:
@@ -155,8 +136,8 @@ services:
     container_name: crater-minio-dev
     restart: always
     environment:
-      MINIO_ROOT_USER: ${MINIO_USER}
-      MINIO_ROOT_PASSWORD: ${MINIO_PASS}
+      MINIO_ROOT_USER: ${APP_DB_USER}
+      MINIO_ROOT_PASSWORD: ${APP_DB_PASSWORD}
     networks: 
       - crater-net
     expose:

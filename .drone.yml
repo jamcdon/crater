@@ -11,3 +11,5 @@ steps:
       sonar_token:
         from_secret: sonar_token
       use_node_version: 18
+
+#- name: update helm charts dev

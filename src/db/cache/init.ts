@@ -1,6 +1,6 @@
 import { createClient } from 'redis';
 
-const dbPass = process.env.DB_PASSWORD as string;
+const dbPass = process.env.REDIS_PASS as string;
 const dbHost = process.env.REDIS_HOST as string;
 const dbPort = process.env.REDIS_PORT as string;
 

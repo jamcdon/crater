@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -c
+    kompose.version: 1.26.1 (a9d05d509)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: crater-sh
+  name: crater-sh
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      io.kompose.service: crater-sh
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -c
+        kompose.version: 1.26.1 (a9d05d509)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/crater-net: "true"
+        io.kompose.service: crater-sh
+    spec:
+      containers:
+        - env:
+            - name: COOKIE_SIGNATURE
+              value: {{ .Values.COOKIE_SIGNATURE }}
+            - name: DB_DRIVER
+              value: mysql
+            - name: MINIO_HOST
+              value: crater-minio-dev
+            - name: MINIO_PORT
+              value: "9000"
+            - name: "MINIO_PASSWORD"
+              value: {{ .Values.MINIO_USER }}
+            - name: "MINIO_USER"
+              value: {{ .Values.MINIO_PASS }}
+            - name: NO_SQL_HOST
+              value: crater-mongo
+            - name: NO_SQL_PORT
+              value: "27017"
+            - name: "MONGO_PASS"
+              value: {{ .Values.MONGO_PASS }}
+            - name: "MONGO_USER"
+              value: {{ .Values.MONGO_USER}}
+            - name: REDIS_HOST
+              value: crater-redis
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_PASS
+              value: {{ .Values.REDIS_PASS }}
+            - name: SQL_HOST
+              value: crater-mysql
+            - name: SQL_PORT
+              value: "3306"
+            - name: MYSQL_DATABASE
+              value: {{ .Values.MYSQL_DATABASE }}
+            - name: MYSQL_PASSWORD
+              value: {{ .Values.MYSQL_PASSWORD }}
+            - name: MYSQL_USER
+              value: {{ .Values.MYSQL_USER }}
+          image: crater-sh
+          name: crater-sh
+          ports:
+            - containerPort: 3000
+          resources: 
+            limits:
+              cpu: 500m
+              memory: 512Mi
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+      restartPolicy: Always
+status: {}
