@@ -1,4 +1,4 @@
-apiVersion: autoscaling/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
@@ -70,8 +70,8 @@ spec:
             limits:
               cpu: 500m
               memory: 512Mi
-  minReplicas: 2
-  maxReplicas: 10
-  targetCPUUtilizationPercentage: 80
-  restartPolicy: Always
+  #minReplicas: 2
+  #maxReplicas: 10
+  #targetCPUUtilizationPercentage: 80
+  #restartPolicy: Always
 status: {}
