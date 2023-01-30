@@ -64,6 +64,7 @@ spec:
               value: {{ .Values.MYSQL_USER }}
           image: crater-sh
           name: crater-sh
+          imagePullPolicy: Never
           ports:
             - containerPort: 3000
           resources: 
