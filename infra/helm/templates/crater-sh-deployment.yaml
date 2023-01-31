@@ -62,7 +62,7 @@ spec:
               value: {{ .Values.MYSQL_PASSWORD }}
             - name: MYSQL_USER
               value: {{ .Values.MYSQL_USER }}
-          image: crater-sh
+          image: crater-sh:latest
           name: crater-sh
           imagePullPolicy: Never
           ports:
