@@ -35,9 +35,9 @@ spec:
             - name: MINIO_PORT
               value: "9000"
             - name: "MINIO_PASSWORD"
-              value: {{ .Values.MINIO_USER }}
-            - name: "MINIO_USER"
               value: {{ .Values.MINIO_PASS }}
+            - name: "MINIO_USER"
+              value: {{ .Values.MINIO_USER }}
             - name: NO_SQL_HOST
               value: crater-mongo
             - name: NO_SQL_PORT
