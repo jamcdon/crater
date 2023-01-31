@@ -147,7 +147,7 @@ services:
     networks:
       - crater-net
     ports:
-      - '80:3000'
+      - '3001:3000'
 
   crater-minio-dev:
     image: quay.io/minio/minio
