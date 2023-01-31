@@ -1,5 +1,6 @@
 # helm
 infra/helm/Values.yml
+infra/helm/Values.yaml
 
 # Logs
 logs
