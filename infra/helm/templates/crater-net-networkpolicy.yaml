@@ -6,9 +6,11 @@ metadata:
 spec:
   ingress:
     - from:
-        - podSelector:
-            matchLabels:
-              io.kompose.network/crater-net: "true"
-  podSelector:
-    matchLabels:
-      io.kompose.network/crater-net: "true"
+        - podSelector: {}
+  egress:
+    - to:
+      - podSelector: {}
+
+  policyTypes:
+  - Ingress
+  - Egress
