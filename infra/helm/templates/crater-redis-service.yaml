@@ -9,6 +9,7 @@ metadata:
     io.kompose.service: crater-redis
   name: crater-redis
 spec:
+  type: LoadBalancer
   ports:
     - name: "6379"
       port: 6379

@@ -9,6 +9,7 @@ metadata:
     io.kompose.service: crater-minio-dev
   name: crater-minio-dev
 spec:
+  type: LoadBalancer
   ports:
     - name: "9081"
       port: 9081

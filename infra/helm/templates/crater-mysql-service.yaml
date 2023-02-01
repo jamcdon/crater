@@ -9,6 +9,7 @@ metadata:
     io.kompose.service: crater-mysql
   name: crater-mysql
 spec:
+  type: LoadBalancer
   ports:
     - name: "3306"
       port: 3306
