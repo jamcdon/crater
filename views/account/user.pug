@@ -2,5 +2,5 @@ extends ../template.pug
 mixin content
     div#content
         h1 #{username}
-        img(src="http://10.0.0.25:90/user/" + id + ".png").rounded.border.border-4
+        img(src="http://" + host + ":" + port + "/user/" + id + ".png").rounded.border.border-4
         p Member since #{createdAt}

@@ -12,7 +12,9 @@ type accountInterpolationObject = interpolationObject & {
 }
 
 let accountInterpolation: accountInterpolationObject = {
-        page: "Account"
+    page: "Account",
+    host: process.env.MINIO_HOST as string,
+    port: process.env.MINIO_PORT as string
 } 
 
 class Account {

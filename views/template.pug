@@ -45,7 +45,7 @@ html(lang="en")
                         if (userIDToken)
                                 div.dropdown
                                     button(type="button" data-bs-toggle="dropdown" aria-expanded="false").btn.btn-warning.dropdown-toggle#profile
-                                            img(width=32,height=32 aria-label="profile" src="http://10.0.0.25:90/user/" + userIDToken + ".png").bg-light.img-thumbnail
+                                            img(width=32,height=32 aria-label="profile" src="http://" + host + ":" + port + "/user/" + userIDToken + ".png").bg-light.img-thumbnail
                                             span.visually-hidden Toggle Profile Dropdown
                                     ul(aria-labelledby="profile").dropdown-menu
                                         li

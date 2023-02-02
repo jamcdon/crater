@@ -20,6 +20,8 @@ export const getUserToken = async function (req: Request): Promise<[string | und
 
 export type interpolationObject = {
     page: string,
+    host: string,
+    port: string,
     userIDToken?: number,
     usernameToken?: string
 }

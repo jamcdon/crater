@@ -111,22 +111,6 @@ services:
     container_name: crater-sh
     restart: always
     environment:
-    # old
-    #  - DB_NAME=${DB_NAME}
-    #  - DB_USER=${APP_DB_USER}
-    #  - SQL_HOST=crater-mysql
-    #  - SQL_PORT=3306
-    #  - NO_SQL_HOST=crater-mongo
-    #  - NO_SQL_PORT=27017
-    #  - DB_DRIVER=mysql
-    #  - DB_PASSWORD=${APP_DB_PASSWORD}
-    #  - MINIO_PORT=9000
-#      - MINIO_HOST=crsh-minio-nginx
-    #  - MINIO_HOST=crater-minio-dev
-    #  - REDIS_HOST=crater-redis
-    #  - REDIS_PORT=6379
-    #  - COOKIE_SIGNATURE=${COOKIE_SIGNATURE}
-    # new 
       - COOKIE_SIGNATURE=${COOKIE_SIGNATURE}
       - DB_DRIVER=mysql
       - MINIO_HOST=crater-minio-dev

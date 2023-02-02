@@ -6,7 +6,9 @@ import Compose from './compose'
 type scriptsInterpolationObject = interpolationObject
 
 let scriptsInterpolation: scriptsInterpolationObject = {
-    page: "Scripts"
+    page: "Scripts",
+    host: process.env.MINIO_HOST as string,
+    port: process.env.MINIO_PORT as string
 }
 
 class Scripts {

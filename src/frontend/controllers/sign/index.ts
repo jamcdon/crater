@@ -4,7 +4,9 @@ import {getUserToken, interpolationObject} from '../common'
 type signInterpolationObject = interpolationObject
 
 let signInterpolation: signInterpolationObject = {
-    page: "Sign"
+    page: "Sign",
+    host: process.env.MINIO_HOST as string,
+    port: process.env.MINIO_PORT as string
 }
 
 class Sign {

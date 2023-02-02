@@ -4,7 +4,9 @@ import {getUserToken, interpolationObject} from '../common'
 type homeInterpolationObject = interpolationObject
 
 let homeInterpolation: homeInterpolationObject = {
-    page: "Home"
+    page: "Home",
+    host: process.env.MINIO_HOST as string,
+    port: process.env.MINIO_PORT as string
 }
 
 class Home {

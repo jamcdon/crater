@@ -4,7 +4,9 @@ import {getUserToken, interpolationObject} from '../common'
 type errorInterpolationObject = interpolationObject
 
 let errorInterpolation: errorInterpolationObject = {
-    page: "404"
+    page: "404",
+    host: process.env.MINIO_HOST as string,
+    port: process.env.MINIO_PORT as string
 }
 
 class Error {
