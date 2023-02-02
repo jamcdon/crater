@@ -115,6 +115,7 @@ services:
       - DB_DRIVER=mysql
       - MINIO_HOST=crater-minio-dev
       - MINIO_PORT=9000
+      - MINIO_PUBLIC=${MINIO_PUBLIC}
       - MINIO_USER=${MINIO_USER}
       - MINIO_PASS=${MINIO_PASS}
       - NO_SQL_HOST=crater-mongo

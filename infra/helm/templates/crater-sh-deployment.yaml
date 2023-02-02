@@ -38,6 +38,8 @@ spec:
               value: {{ .Values.MINIO_PASS }}
             - name: "MINIO_USER"
               value: {{ .Values.MINIO_USER }}
+            - name: "MINIO_PUBLIC"
+              value: {{ .Values.MINIO_PUBLIC }}
             - name: NO_SQL_HOST
               value: {{ .Values.NO_SQL_HOST }}
             - name: NO_SQL_PORT

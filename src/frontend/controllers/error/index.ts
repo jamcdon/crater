@@ -5,8 +5,7 @@ type errorInterpolationObject = interpolationObject
 
 let errorInterpolation: errorInterpolationObject = {
     page: "404",
-    host: process.env.MINIO_HOST as string,
-    port: process.env.MINIO_PORT as string
+    minioPublic: process.env.MINIO_PUBLIC as string,
 }
 
 class Error {

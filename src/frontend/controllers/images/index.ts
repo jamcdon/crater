@@ -5,8 +5,7 @@ type imagesInterpolationObject = interpolationObject
 
 let imagesInterpolation: imagesInterpolationObject = {
     page: "Images",
-    host: process.env.MINIO_HOST as string,
-    port: process.env.MINIO_PORT as string
+    minioPublic: process.env.MINIO_PUBLIC as string,
 }
 
 class Images {
