@@ -7,14 +7,7 @@ keywords:
 sources:
 home:
 templates:
-  - crater-minio-dev-deployment.yaml
-  - crater-mongo-deployment.yaml
-  - crater-mysql-deployment.yaml
   - crater-net-networkpolicy.yaml
-  - crater-redis-service.yaml
   - crater-sh-service.yaml
-  - crater-minio-dev-service.yaml
-  - crater-mongo-service.yaml
-  - crater-mysql-service.yaml
-  - crater-redis-deployment.yaml
   - crater-sh-deployment.yaml
+    #- crater-lb.yaml

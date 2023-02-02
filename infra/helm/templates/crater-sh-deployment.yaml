@@ -31,15 +31,15 @@ spec:
             - name: DB_DRIVER
               value: mysql
             - name: MINIO_HOST
-              value: crater-minio-dev
+              value: {{ .Values.MINIO_HOST }}
             - name: MINIO_PORT
               value: "9000"
-            - name: "MINIO_PASSWORD"
+            - name: "MINIO_PASS"
               value: {{ .Values.MINIO_PASS }}
             - name: "MINIO_USER"
               value: {{ .Values.MINIO_USER }}
             - name: NO_SQL_HOST
-              value: crater-mongo
+              value: {{ .Values.NO_SQL_HOST }}
             - name: NO_SQL_PORT
               value: "27017"
             - name: "MONGO_PASS"
@@ -47,13 +47,13 @@ spec:
             - name: "MONGO_USER"
               value: {{ .Values.MONGO_USER}}
             - name: REDIS_HOST
-              value: crater-redis
+              value: {{ .Values.REDIS_HOST }}
             - name: REDIS_PORT
               value: "6379"
             - name: REDIS_PASS
               value: {{ .Values.REDIS_PASS }}
             - name: SQL_HOST
-              value: crater-mysql
+              value: {{ .Values.SQL_HOST }}
             - name: SQL_PORT
               value: "3306"
             - name: MYSQL_DATABASE

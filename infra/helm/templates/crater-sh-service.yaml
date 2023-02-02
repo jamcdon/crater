@@ -9,9 +9,10 @@ metadata:
     io.kompose.service: crater-sh
   name: crater-sh
 spec:
+  type: LoadBalancer
   ports:
-    - name: "80"
-      port: 80
+    - name: "http"
+      port: 3000
       targetPort: 3000
   selector:
     io.kompose.service: crater-sh
