@@ -3,6 +3,10 @@ import {getUserToken} from '../common'
 import { scriptsInterpolation } from './index'
 
 class Manifest {
+    public static async index (req: Request, res: Response): Promise<void> {
+        [scriptsInterpolation.usernameToken, scriptsInterpolation.userIDToken] = await getUserToken(req)
+        return res.render('scripts/manifest/index.pug', scriptsInterpolation)
+    }
     public static async new (req: Request, res: Response): Promise<void> {
         [scriptsInterpolation.usernameToken, scriptsInterpolation.userIDToken] = await getUserToken(req)
         return res.render('scripts/manifest/new.pug', scriptsInterpolation)

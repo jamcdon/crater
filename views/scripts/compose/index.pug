@@ -1,0 +1,18 @@
+extends ../../template.pug
+mixin content
+    div.d-flex.flex-wrap.my-5.justify-content-between
+        h1.h2 Docker-Compose Scripts
+        div.text-end
+            a(href='/scripts/compose/new').btn.btn-info.mx-3 New
+            a(href='/scripts/compose/your-scripts').btn.btn-warning Your Scripts
+    table.table.table-striped.table-hover
+        thead
+            tr
+                th(scope="col") Popularity
+                th(scope="col") Script
+                th(scope="col") Image
+                th(scope="col") Stars
+                th(scope="col") Creator
+        tbody#table-body
+    
+    script(src="/script/scripts/compose/index.js")

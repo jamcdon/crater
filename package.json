@@ -9,7 +9,8 @@
     "devbe": "export $(cat .env | xargs) && ./node_modules/.bin/tsc && node ./dist/server/server.js",
     "helm-package": "sudo docker build -t crater-sh . && sudo docker save crater-sh:latest | sudo k3s ctr images import - && sudo helm package ./infra/helm",
     "helm-install": "helm install --generate-name crater-sh-0.1.tgz --values infra/helm/Values.yaml",
-    "helm-delete": "helm delete \"$(helm ls | grep crater-sh | awk '{print $1}')\""
+    "helm-delete": "helm delete \"$(helm ls | grep crater-sh | awk '{print $1}')\"",
+    "helm-full": "npm run helm-delete && npm run helm-package && npm run helm-install"
   },
   "repository": {
     "type": "git",
