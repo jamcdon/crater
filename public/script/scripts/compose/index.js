@@ -13,7 +13,7 @@ function getPaginated(){
     let i=1;
 
     for(const row of results){
-        tableBody+= `<tr onclick="document.location='${row.url}'" class="">
+        tableBody+= `<tr onclick="document.location='${row.url}'" role="button">
             <th scope="row">${i}</th>
             <td>${row.script}</td>
             <td>${row.image}</td>
