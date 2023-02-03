@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { Compose } from '../models'
+import { Compose, QueryObject } from '../models'
 import { ComposeInput, ComposeOutput } from '../models/Compose'
 import { incrementScriptsUsing } from '../services/imageService'
 
@@ -41,4 +41,27 @@ export const getById = async (id: string): Promise<ComposeOutput | undefined> =>
     if (compose != null){
         return compose
     }
+}
+
+export const paginatePopularity = async (page: number): Promise<Array<ComposeOutput> | undefined> => {
+    const values = page * 25
+    const composes: Array<ComposeOutput> = await Compose.find(
+        {},
+        {},
+        {
+            skip: values - 25,
+            limit: values,
+            sort: {"stars": 1}
+        }
+    )
+    try {
+
+    }
+    catch (err) {
+        return undefined
+    }
+    if (composes != null){
+        return composes
+    }
+    return undefined
 }

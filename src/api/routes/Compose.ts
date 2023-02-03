@@ -65,7 +65,19 @@ composeRouter.post('/', async(req: Request, res: Response) => {
     return res.status(400).send('"Error": "Image for compose not created."')
 })
 
-composeRouter.get('/pagination/:imageName', async(req: Request, res: Response) => {
+composeRouter.get('/paginate/popular/:page', async(req: Request, res: Response) => {
+    const page: number = parseInt(req.params.page)
+    if (!Number.isNaN(page)){
+        const pageComposes = await composeController.paginatePopularity(page)
+        if (pageComposes != undefined){
+            return res.status(200).json(pageComposes)
+        }
+        return res.status(400).send('{"Error": "Results undefined"}')
+    }
+    return res.status(400).send(`{"Error": "Paginate requires page parameter to be a number, '${req.params.page}' provided"}`)
+})
+
+composeRouter.get('/paginate/name/:imageName/:page', async(req: Request, res: Response) => {
     // get paginated compose scripts by imageName 
 })
 

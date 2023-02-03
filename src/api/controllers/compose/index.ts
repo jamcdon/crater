@@ -27,3 +27,11 @@ export const createRaw = async (id: string): Promise<string | undefined> => {
     }
     return undefined
 }
+
+export const paginatePopularity = async (page: number): Promise<Array<ICompose> | undefined> => {
+    const composes = await service.paginatePopularity(page)
+    if (composes != undefined){
+        return composes
+    }
+    return undefined
+}
