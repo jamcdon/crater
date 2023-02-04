@@ -17,6 +17,6 @@ class Scripts {
     }
 }
 
-export { Compose, Manifest, scriptsInterpolation, scriptsInterpolationObject }
+export { Compose, Manifest, scriptsInterpolationObject }
 
 export default Scripts

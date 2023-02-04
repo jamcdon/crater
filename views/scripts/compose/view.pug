@@ -1,0 +1,22 @@
+extends ../../template.pug
+mixin content
+    div#content 
+        h1 #{compose.title}
+        h2 #{compose.imageName}
+        ul
+            each tag in compose.tags
+                li= tag
+        div(style="height:50vh;")#yaml.border.border-primary.w-50
+
+    script(src="/script/lib/ace/ace.js")
+    script.
+        var editor = ace.edit("yaml");
+            editor.session.setMode("ace/mode/yaml");
+            editor.setOptions({
+                readOnly: true,
+                highlightActiveLine: false,
+            });
+            editor.renderer.$cursorLayer.element.style.display = "";
+            editor.container.style.pointerEvents="none";
+            editor.blur();
+            editor.setValue(`#{compose.yaml}`)

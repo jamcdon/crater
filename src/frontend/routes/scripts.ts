@@ -7,6 +7,7 @@ scriptsRouter.get('/', scriptsController.index)
 
 scriptsRouter.use('/compose/new', composeController.new)
 scriptsRouter.use('/compose/edit', composeController.edit)
+scriptsRouter.use('/compose/view/:id', composeController.view)
 scriptsRouter.use('/compose', composeController.index)
 
 scriptsRouter.use('/manifest/new', manifestController.new)

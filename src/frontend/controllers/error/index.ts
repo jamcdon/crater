@@ -3,7 +3,7 @@ import {getUserToken, interpolationObject} from '../common'
 
 type errorInterpolationObject = interpolationObject
 
-let errorInterpolation: errorInterpolationObject = {
+export let errorInterpolation: errorInterpolationObject = {
     page: "404",
     minioPublic: process.env.MINIO_PUBLIC as string,
 }
