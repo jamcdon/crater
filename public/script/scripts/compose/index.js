@@ -3,7 +3,7 @@ tableContent = document.getElementById("table-body")
 async function getPaginated(){
     let xhr = new XMLHttpRequest;
     async function runUntilResults(){
-        if (xhr.readyState === 4 & xhr.status == 200){
+        if (xhr.readyState === 4 && xhr.status == 200){
             setPaginated(JSON.parse(xhr.responseText))
         } else {
             setTimeout(() => {
