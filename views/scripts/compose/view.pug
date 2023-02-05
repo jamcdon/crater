@@ -16,7 +16,9 @@ mixin content
                 readOnly: true,
                 highlightActiveLine: false,
             });
-            editor.renderer.$cursorLayer.element.style.display = "";
-            editor.container.style.pointerEvents="none";
-            editor.blur();
-            editor.setValue(`#{compose.yaml}`)
+        let yamlContent = `#{compose.yaml}`
+        yamlContent = yamlContent
+            .replace(/&lt;/g, "<")
+            .replace(/&gt;/g, ">");
+        editor.setValue(yamlContent)
+        editor.moveCursorTo(0,0);

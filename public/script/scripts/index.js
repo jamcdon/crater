@@ -4,9 +4,6 @@ var editor = ace.edit("yaml");
         readOnly: true,
         highlightActiveLine: false,
     });
-    editor.renderer.$cursorLayer.element.style.display = "";
-    editor.container.style.pointerEvents="none";
-    editor.blur();
 
 
 editor.setValue(`#Minecraft Docker-Compose
@@ -37,4 +34,4 @@ services:
       - /etc/timezone:/etc/timezone:ro
     restart: unless-stopped`);
 
-editor.clearSelection();
+editor.moveCursorTo(0,0);

@@ -1,4 +1,18 @@
-tableContent = document.getElementById("table-body")
+let tableContent = document.getElementById("table-body")
+
+let forgotModal = document.getElementById("forgot-div");
+let loginModal = document.getElementById("login-div");
+
+function toggleForgot(toggled){
+    if (toggled){
+        forgotModal.className = ("invisible")
+        loginModal.className = ("visible")
+    }
+    else {
+        loginModal.className = ("invisible")
+        forgotModal.className = ("visible")
+    }
+}
 
 async function getPaginated(){
     let xhr = new XMLHttpRequest;
