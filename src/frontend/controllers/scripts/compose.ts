@@ -5,7 +5,7 @@ import {getUserToken} from '../common'
 import { scriptsInterpolationObject } from './index'
 
 type composeInterpolationObject = scriptsInterpolationObject & {
-    compose?: ComposeOutput | undefined
+    compose?: ComposeOutput
 };
 
 let composeInterpolation: composeInterpolationObject = {

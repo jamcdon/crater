@@ -1,4 +1,4 @@
-var editor = ace.edit("yaml");
+let editor = ace.edit("yaml");
     editor.session.setMode("ace/mode/yaml");
     editor.setOptions({
         readOnly: true,

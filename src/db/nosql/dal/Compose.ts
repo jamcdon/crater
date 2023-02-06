@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { Compose, QueryObject } from '../models'
+import { Compose } from '../models'
 import { ComposeInput, ComposeOutput } from '../models/Compose'
 import { incrementScriptsUsing } from '../services/imageService'
 

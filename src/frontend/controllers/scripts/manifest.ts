@@ -4,7 +4,7 @@ import { scriptsInterpolationObject } from './index'
 import { ManifestOutput } from '../../../db/nosql/models/Manifest'
 
 type manifestInterpolationObject = scriptsInterpolationObject & {
-    manifest?: ManifestOutput | undefined
+    manifest?: ManifestOutput
 };
 
 let manifestInterpolation: manifestInterpolationObject = {
