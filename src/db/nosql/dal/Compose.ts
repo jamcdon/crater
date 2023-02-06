@@ -45,19 +45,19 @@ export const getById = async (id: string): Promise<ComposeOutput | undefined> =>
 
 export const paginatePopularity = async (page: number): Promise<Array<ComposeOutput> | undefined> => {
     const values = page * 25
-    const composes: Array<ComposeOutput> = await Compose.find(
-        {
-            public: true
-        },
-        {},
-        {
-            skip: values - 25,
-            limit: values,
-            sort: {"stars": 1}
-        }
-    )
+    let composes: Array<ComposeOutput> | null = null;
     try {
-
+        composes = await Compose.find(
+            {
+                public: true
+            },
+            {},
+            {
+                skip: values - 25,
+                limit: values,
+                sort: {"stars": 1}
+            }
+        )
     }
     catch (err) {
         return undefined
