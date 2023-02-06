@@ -1,12 +1,13 @@
 extends ../../template.pug
 mixin content
     div#content 
-        h1 #{compose.title}
-        h2 #{compose.imageName}
+        h1.h3 #{compose.title}
+        h2.h4 Image: #{compose.imageName}
+        h3.h4 tags:
         ul
             each tag in compose.tags
                 li= tag
-        div(style="height:50vh;")#yaml.border.border-primary.w-50
+        div(style="height:50vh;")#yaml.border.border-primary.w-75
 
     script(src="/script/lib/ace/ace.js")
     script.

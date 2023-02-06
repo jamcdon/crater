@@ -1,9 +1,35 @@
 extends ../../template.pug 
 mixin content
     div#content.p-3
-        h1.h2 Reset password
-        form(action="")
-            div.mb-3
-                label(for="email-reset").form-label Email address
-                input(type="email")#email-reset.form-control
-                button(type="submit").btn.btn-warning.mt-3 Submit
+        div#reset-start
+            div.d-flex.justify-content-between
+                h1.h2 Reset password
+                button(type="button" onclick="toggleEmailCode(false)").btn.btn-secondary test
+            form(action="javascript:sendNewPasswordLink()")
+                div.mb-3
+                    label(for="forgot-email").form-label Email address
+                    input(type="email")#forgot-email.form-control
+                    button(type="submit").btn.btn-warning.mt-3 Submit
+        div(style="height:0;")#reset-middle.invisible
+            div.d-flex.justify-content-between
+                h1.h2 Reset password
+                button(type="button" onclick="toggleEmailCode(true)").btn.btn-secondary Back
+                button(type="button" onclick="toggleNewPassword(false)").btn.btn-secondary test
+            form(action="javascript:submitCode()")
+                div.mb-3
+                    h5#email-submission-verification
+                    label(for="code").form-label Code
+                    input(type="text")#code.form-control
+                    button(type="submit").btn.btn-warning.mt-3 Submit
+        div(style="height:0;")#reset-end.invisible
+            div.d-flex.justify-content-between
+                h1.h2 Reset password
+                button(type="button" onclick="toggleNewPassword(true)").btn.btn-secondary Back
+            form(action="javascript:resetPassword()")
+                div.mb-3
+                    h5 Enter a new password
+                    label(for="new-password").form-label New password
+                    input(type="password")#new-password.form-control
+                    button(type="submit").btn.btn-warning.mt-3 Submit
+    
+    script(src="/script/sign/in/forgot.js")

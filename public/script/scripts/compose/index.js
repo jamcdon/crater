@@ -3,15 +3,10 @@ let tableContent = document.getElementById("table-body")
 let forgotModal = document.getElementById("forgot-div");
 let loginModal = document.getElementById("login-div");
 
+// additional code to supplement forgot.js functionality
 function toggleForgot(toggled){
-    if (toggled){
-        forgotModal.className = ("invisible")
-        loginModal.className = ("visible")
-    }
-    else {
-        loginModal.className = ("invisible")
-        forgotModal.className = ("visible")
-    }
+    toggle(toggled, forgotModal, loginModal);
+    toggle(toggled, resetStart, null);
 }
 
 async function getPaginated(){
