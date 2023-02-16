@@ -1,4 +1,5 @@
-import { ICompose, ComposeOutput } from "../../../db/nosql/models/Compose";
+import { getUsernameByID } from ".";
+import { ICompose, ComposeOutput, ComposeModification } from "../../../db/nosql/models/Compose";
 
 export const toCompose = (compose: ComposeOutput): ICompose => {
     return {
@@ -12,4 +13,33 @@ export const toCompose = (compose: ComposeOutput): ICompose => {
         yaml: compose.yaml,
         stars: compose.stars
     }
+}
+
+export const toComposeModifications = async (composes: ComposeOutput[]): Promise<ComposeModification[] | undefined> => {
+    let composeModifications: ComposeModification[] = []
+    for (let i = 0; i < composes.length; i++){
+        const username = await getUsernameByID(composes[i].authorID)
+        if (username != undefined){
+            composeModifications[i] = {
+                _id: composes[i]._id,
+                title: composes[i].title,
+                authorName: username,
+                imageName: composes[i].imageName,
+                tags: composes[i].tags,
+                stars: composes[i].stars
+            }
+        }
+        else {
+            composeModifications[i] = {
+                _id: composes[i]._id,
+                title: composes[i].title,
+                authorName: composes[i].imageID.toString(),
+                imageName: composes[i].imageName,
+                tags: composes[i].tags,
+                stars: composes[i].stars
+            }
+
+        }
+    }
+    return composeModifications
 }

@@ -12,6 +12,15 @@ export interface ICompose {
     stars: number
 }
 
+export interface ComposeModification {
+    _id: mongoose.Types.ObjectId,
+    title: string,
+    authorName: string,
+    imageName: string,
+    tags: Types.Array<string>,
+    stars: number
+}
+
 export interface ComposeInput extends Partial<ICompose> {}
 export interface ComposeOutput extends Required<ICompose> {}
 

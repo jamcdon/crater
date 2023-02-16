@@ -38,7 +38,7 @@ function setPaginated(jsonResponse){
             <td>${row.title}</td>
             <td>${row.imageName}</td>
             <td>${row.stars}</td>
-            <td>${row.authorID}</td>`;
+            <td>${row.authorName}</td>`;
             i++;
         }
         tableContent.innerHTML = tableBody;

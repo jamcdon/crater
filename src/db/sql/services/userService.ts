@@ -37,3 +37,11 @@ export const authenticateByEmail = (payload: SignInUserDTO): Promise<string> => 
 export const deleteById = (id: number): Promise<Boolean> => {
     return userDAL.deleteById(id)
 }
+
+export const getUsernameByID = async (id: number): Promise<string | undefined> => {
+    const user = await userDAL.getById(id)
+    if (user != undefined){
+        return user.username
+    }
+    return undefined
+}
