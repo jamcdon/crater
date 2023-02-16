@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express'
 import * as userController from '../controllers/user'
+import * as composeController from '../controllers/compose'
 import {
     CreateUserNoSalt,
     UpdateUserNoSalt,
@@ -32,15 +33,20 @@ userRouter.get('/:username', async (req: Request, res: Response) => {
 userRouter.put('/id/:id', async (req: Request, res: Response) => {
     // update user by id
     const id = Number(req.params.id)
-    const payload:UpdateUserNoSalt = req.body
-    // tests if new password and converts NoSalt payload to UpdateUserDTO type
-    const saltHashPayload = await userController.updateUserSaltHash(payload)
+    const cookieID = await userController.getCookieID(req)
+    if (cookieID == id && cookieID != undefined){
+        const payload:UpdateUserNoSalt = req.body
+        // tests if new password and converts NoSalt payload to UpdateUserDTO type
+        const saltHashPayload = await userController.updateUserSaltHash(payload)
 
-    const user = await userController.update(id, saltHashPayload)
-    if (user != undefined){
-        return res.status(201).send(user)
+        const user = await userController.update(id, saltHashPayload)
+        if (user != undefined){
+            await composeController.setUsername(user.id.toString(), user.username)
+            return res.status(201).send(user)
+        }
+        return res.status(400).send('{"Error": "User could not be updated"}')
     }
-    return res.status(400).send('{"Error": "User could not be updated"}')
+    return res.status(403).send('{"Error": "User could not be validated to a match"}')
 })
 
 userRouter.delete('/id/:id', async(req: Request, res: Response) => {

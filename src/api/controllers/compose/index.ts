@@ -65,7 +65,7 @@ export const getUsernameByID = async (id: number): Promise<string | undefined> =
 export const setUsername = async (idString: string, username: string): Promise<boolean> => {
     const inCache = redisClient.set(idString, username)
     if (inCache != null){
-        redisClient.expire(idString, 252900) // reset TTL 3 more days
+        redisClient.expire(idString, 252900) // set TTL 3 days
         return true
     }
     return false

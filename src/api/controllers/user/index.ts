@@ -13,6 +13,7 @@ import {User} from '../../interfaces'
 import * as mapper from './mapper'
 import {redisClient} from '../../../db/cache/init'
 import { createToken } from '../../../db/cache/dal/User'
+import { Request } from "express";
 
 const saltHash = (password: string, passedSalt?: string):  { salt: string, hexHash: string }=> {
     let salt;
@@ -133,4 +134,20 @@ export const setCookie = async (username: string): Promise<string> => {
 export const delCookie = async(id: string): Promise<boolean> => {
     const deleted = await redisClient.del(id)
     return (deleted == 1 ? true : false)
+}
+
+export const getCookieID = async(req: Request): Promise<number | undefined> => {
+    if (req.signedCookies.loginToken) {
+        const loginToken = await redisClient.get(req.signedCookies.loginToken)
+        if (loginToken != null){
+            try {
+                const userCookie: UserCookieDTO = JSON.parse(loginToken)
+                return userCookie.id
+            }
+            catch {
+                return undefined
+            }
+        }
+        return undefined
+    }
 }
