@@ -1,5 +1,5 @@
 import { CreateComposeDTO } from '../../dto/compose.dto'
-import { ComposeModification, ComposeOutput, ICompose } from '../../../db/nosql/models/Compose'
+import { ComposeModification, ICompose } from '../../../db/nosql/models/Compose'
 import * as mapper from './mapper'
 import * as service from '../../../db/nosql/services/composeService'
 import * as userService from '../../../db/sql/services/userService'

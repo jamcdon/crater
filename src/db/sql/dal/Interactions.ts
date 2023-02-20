@@ -1,6 +1,5 @@
-import { Op } from 'sequelize'
 import { Interactions } from '../models'
-import { InteractionsInput, InteractionsOutput } from '../models/Interactions'
+import { InteractionsInput } from '../models/Interactions'
 
 export const setCreator = async (authorID: number, composeID: string | undefined, imageID: string | undefined): Promise<boolean> => {
     if (composeID == undefined && imageID == undefined){
