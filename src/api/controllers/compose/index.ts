@@ -2,12 +2,18 @@ import { CreateComposeDTO } from '../../dto/compose.dto'
 import { ComposeModification, ComposeOutput, ICompose } from '../../../db/nosql/models/Compose'
 import * as mapper from './mapper'
 import * as service from '../../../db/nosql/services/composeService'
-import * as sqlService from '../../../db/sql/services/userService'
+import * as userService from '../../../db/sql/services/userService'
+import * as interactionsService from '../../../db/sql/services/interactionsService'
 import { redisClient } from '../../../db/cache/init'
 
 export const create = async(payload: CreateComposeDTO): Promise<ICompose | undefined> => {
     const compose = await service.create(payload)
     if (compose != undefined){
+        const interactionsSuccess = await interactionsService.setCreator(compose.authorID, compose._id.toString(), undefined)
+        if (!interactionsSuccess){
+            await service.deleteById(compose._id.toString())
+            return undefined
+        }
         return mapper.toCompose(compose)
     }
     return undefined
@@ -54,7 +60,7 @@ export const getUsernameByID = async (id: number): Promise<string | undefined> =
         return cacheUsername
     }
 
-    const username = await sqlService.getUsernameByID(id)
+    const username = await userService.getUsernameByID(id)
     if (username != undefined){
         setUsername(idString, username)
         return username

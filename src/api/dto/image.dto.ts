@@ -6,6 +6,7 @@ export type CreateImageDTO = {
     name: string;
     hyperlink: string;
     scriptsUsing: number;
+    authorID: number;
 }
 
 export type UpdateImageDTO = Partial<CreateImageDTO>

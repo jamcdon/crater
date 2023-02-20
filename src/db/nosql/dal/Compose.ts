@@ -30,6 +30,13 @@ export const create = async(payload: ComposeInput): Promise<ComposeOutput | unde
     return createdCompose
 }
 
+export const deleteById = async (id: string): Promise<boolean> => {
+    const deletion = await Compose.deleteOne({
+        _id: id
+    })
+    return deletion.acknowledged
+}
+
 export const getById = async (id: string): Promise<ComposeOutput | undefined> => {
     let compose
     try {

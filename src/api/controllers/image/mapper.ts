@@ -5,6 +5,7 @@ export const toImage = (image: ImageOutput): IImage => {
         _id: image._id,
         name: image.name,
         hyperlink: image.hyperlink,
-        scriptsUsing: image.scriptsUsing
+        scriptsUsing: image.scriptsUsing,
+        authorID: image.authorID,
     }
 }

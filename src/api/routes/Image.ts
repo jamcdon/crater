@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express'
+import { getUserToken } from '../../frontend/controllers/common'
 import * as imageController from '../controllers/image'
 import { CreateImageDTO, UpdateImageDTO } from '../dto/image.dto'
 
@@ -47,18 +48,23 @@ imageRouter.delete('/id/:id', async (req: Request, res: Response) => {
 })
 
 imageRouter.post('/', async (req: Request, res: Response) => {
+    const [, authorID] = await getUserToken(req)
     //create image
-    const payload:CreateImageDTO = {
-        name: req.body.name,
-        hyperlink: req.body.hyperlink,
-        scriptsUsing: 0
+    if (authorID != undefined){
+        const payload:CreateImageDTO = {
+            name: req.body.name,
+            hyperlink: req.body.hyperlink,
+            scriptsUsing: 0,
+            authorID: authorID
+        }
+        //randpix? - try to get elsewhere first.
+        const result = await imageController.create(payload)
+        if (result != undefined) {
+            return res.status(200).send(result)
+        }
+        return res.status(400).send('"Error": "Image not created"')
     }
-    //randpix? - try to get elsewhere first.
-    const result = await imageController.create(payload)
-    if (result != undefined) {
-        return res.status(200).send(result)
-    }
-    return res.status(400).send('"Error": "Image not created"')
+    return res.status(401).send('"Error": "User not logged in. Unable to create new compose entry"')
 })
 /*
 imageRouter.put('/blob/:id', async (req: Request, res: Response) => {
