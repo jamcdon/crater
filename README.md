@@ -67,6 +67,11 @@ _Now under the GNU AGPLv3 license!_
 - [GitHub](https://github.com/redis/redis)
 - storing key value data in memory such as cookies
 
+#### Sonarqube
+- [Docker Hub](https://hub.docker.com/_/sonarqube/)
+- [GitHub](https://github.com/SonarSource/sonarqube)
+- Application to show application flaws and static application health
+
 ## resources:
  - [sequelize](https://blog.logrocket.com/using-sequelize-with-typescript/)
  - [mongoose](https://medium.com/swlh/typescript-with-mongoose-and-node-express-24073d51d2ee)
