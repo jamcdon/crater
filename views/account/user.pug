@@ -1,6 +1,24 @@
 extends ../template.pug
 mixin content
-    div#content
-        h1 #{username}
-        img(src=minioPublic + "/user/" + id + ".png").rounded.border.border-4
-        p Member since #{createdAt}
+    div#content.d-flex
+        div
+            h1 #{username}
+            img(src=minioPublic + "/user/" + id + ".png").rounded.border.border-4
+            p Member since #{createdAt}
+        if activity
+            div 
+                //this needs to be rendered server-side to handle for a user without submissions
+                table.table.table-striped.table-hover
+                    thead
+                        tr
+                            th(scope="col") Script
+                            th(scope="col") Image
+                            th(scope="col") Stars
+                            th(scope="col") Creator
+                    tbody
+                        each row in activity
+                            tr(onclick="document.location='/scripts/compose/view/" + row._id +"'")
+                                th(scope="row")= row.title
+                                td= row.imageName
+                                td= row.stars
+                                td= row.authorName

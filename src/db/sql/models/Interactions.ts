@@ -8,6 +8,8 @@ interface InteractionsInitAttributes {
     comment: boolean;
     star: boolean;
     creator: boolean;
+	createdAt?: Date;
+	updatedAt?: Date;
 }
 
 interface InteractionsAttributes extends InteractionsInitAttributes {
@@ -15,6 +17,7 @@ interface InteractionsAttributes extends InteractionsInitAttributes {
 }
 
 export interface InteractionsInput extends Optional<InteractionsAttributes, 'id'> {}
+export interface InteractionsQuery extends Optional<InteractionsAttributes, 'composeID'> {}
 export interface InteractionsOutput extends Required<InteractionsAttributes> {}
 
 class Interactions extends Model<InteractionsInitAttributes, InteractionsInput> implements InteractionsAttributes{

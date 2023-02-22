@@ -1,6 +1,6 @@
-import mongoose from 'mongoose'
+import mongoose, { FilterQuery, Types } from 'mongoose'
 import { Compose } from '../models'
-import { ComposeInput, ComposeOutput } from '../models/Compose'
+import { ComposeInput, ComposeOutput, ICompose } from '../models/Compose'
 import { incrementScriptsUsing } from '../services/imageService'
 
 export const create = async(payload: ComposeInput): Promise<ComposeOutput | undefined> => {
@@ -70,6 +70,48 @@ export const paginatePopularity = async (page: number): Promise<Array<ComposeOut
         return undefined
     }
     if (composes != null){
+        return composes
+    }
+    return undefined
+}
+
+export const getByIds = async (ids: Array<string>, findPublic: boolean, page: number): Promise<Array<ComposeOutput> | undefined> => {
+
+    ids.forEach
+
+    const values = page * 10
+    let composes: Array<ComposeOutput> = []
+    if (findPublic){
+        composes = await Compose.find(
+            {
+                public: true,
+                _id: {
+                    $in: ids
+                }
+            },
+            {},
+            {
+                skip: values - 10,
+                limit: values,
+                sort: {_id: 1}
+            }
+        )
+    } else {
+        composes = await Compose.find(
+            {
+                _id: {
+                    $in: ids
+                }
+            },
+            {},
+            {
+                skip: values - 10,
+                limit: values,
+                sort: {_id: 1}
+            }
+        )
+    }
+    if (composes[0] != null){
         return composes
     }
     return undefined

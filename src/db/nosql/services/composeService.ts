@@ -9,10 +9,14 @@ export const deleteById = (id: string): Promise<boolean> => {
     return composeDAL.deleteById(id)
 }
 
-export const getById = (id: string): Promise< ComposeOutput | undefined> => {
+export const getById = (id: string): Promise<ComposeOutput | undefined> => {
     return composeDAL.getById(id)
 }
 
 export const paginatePopularity = (page: number): Promise<Array<ComposeOutput> | undefined> => {
     return composeDAL.paginatePopularity(page)
+}
+
+export const getByIds = (ids: Array<string>, findPublic: boolean, page: number): Promise<Array<ComposeOutput> | undefined> => {
+    return composeDAL.getByIds(ids, findPublic, page)
 }
