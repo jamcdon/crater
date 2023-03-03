@@ -4,11 +4,16 @@ import {UserInput, UserOutput} from '../models/User'
 import { SignInUserDTO } from '../../../api/dto/user.dto';
 
 export const create = async (payload:UserInput): Promise<UserOutput | undefined> => {
-    const user = await User.create(payload)
-    if (user){
-        return user
+    try {
+        const user = await User.create(payload)
+        if (user){
+            return user
+        }
+        return undefined
     }
-    return undefined
+    catch(err){
+        return undefined
+    }
 }
 export const update = async (id: number, payload: Partial<UserInput>): Promise<UserOutput | undefined> => {
     const user = await User.findByPk(id)

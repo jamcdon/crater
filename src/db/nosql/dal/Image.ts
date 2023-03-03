@@ -4,19 +4,24 @@ import { ImageInput, ImageOutput } from '../models/Image'
 
 export const create = async(payload: ImageInput): Promise<ImageOutput | undefined> => {
     payload._id = new mongoose.Types.ObjectId
-    const image = await Image.create(payload)
-    if (!image){
+    try {
+        const image = await Image.create(payload)
+        if (!image){
+            return undefined
+        }
+        const createdUser: ImageOutput = {
+            _id: image._id,
+            name: image.name!,
+            hyperlink: image.hyperlink!,
+            scriptsUsing: image.scriptsUsing!,
+            authorID: image.authorID
+        }
+        image.save()
+        return createdUser
+    }
+    catch {
         return undefined
     }
-    const createdUser: ImageOutput = {
-        _id: image._id,
-        name: image.name!,
-        hyperlink: image.hyperlink!,
-        scriptsUsing: image.scriptsUsing!,
-        authorID: image.authorID
-    }
-    image.save()
-    return createdUser
 }
 
 export const update = async(id: string, payload: Partial<ImageInput>): Promise<ImageOutput | undefined> => {

@@ -46,7 +46,6 @@ export const getByUserId = async (id: number): Promise<Array<string> | undefined
             }
         }
     )
-    console.log(composeIdArray)
     if(composeIdArray[0] == null){
         return undefined
     }

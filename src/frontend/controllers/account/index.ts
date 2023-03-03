@@ -42,16 +42,16 @@ class Account {
                 accountInterpolation.createdAt = userObject.createdAt.toDateString();
                 [accountInterpolation.usernameToken, accountInterpolation.userIDToken] = await getUserToken(req);
 
+                let notUser: boolean = true
                 if (accountInterpolation.userIDToken != undefined){
-                    const notUser = (accountInterpolation.usernameToken != userObject.username)
-                    accountInterpolation.activity = await this.setUserInteractions(accountInterpolation.userIDToken, notUser)
-                    console.log(accountInterpolation)
+                    notUser = (accountInterpolation.usernameToken != userObject.username)
                 }
+                    accountInterpolation.activity = await setUserInteractions(accountInterpolation.id, notUser)
                 return res.render('account/user.pug', accountInterpolation)
             }
             return res.status(404).render('error/404.pug', accountInterpolation)
         }
-        catch{
+        catch(err){
             return res.status(404).render('error/404.pug', accountInterpolation)
         }
     }
@@ -61,21 +61,20 @@ class Account {
         [accountInterpolation.usernameToken, accountInterpolation.userIDToken] = await getUserToken(req);
         res.render('account/logout.pug', accountInterpolation)
     }
+}
 
-    public static setUserInteractions = async (userID: number, findPublic: boolean): Promise<Array<ComposeModification> | undefined> => {
-        const composeIDs = await interactionsService.getAllFromUser(userID)
-        if (composeIDs != undefined){
-            const composes = await composeService.getByIds(composeIDs, findPublic, 1)
-            console.log(composes)
-            if (composes != undefined){
-                const modifiedComposes = await composeMapper.toComposeModifications(composes)
-                return modifiedComposes
-            }
-            return undefined
+let setUserInteractions = async (userID: number, findPublic: boolean): Promise<Array<ComposeModification> | undefined> => {
+    const composeIDs = await interactionsService.getAllFromUser(userID)
+    if (composeIDs != undefined){
+        const composes = await composeService.getByIds(composeIDs, findPublic, 1)
+        if (composes != undefined){
+            const modifiedComposes = await composeMapper.toComposeModifications(composes)
+            return modifiedComposes
         }
-        
         return undefined
     }
+    
+    return undefined
 }
 
 export default Account
