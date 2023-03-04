@@ -77,8 +77,6 @@ export const paginatePopularity = async (page: number): Promise<Array<ComposeOut
 
 export const getByIds = async (ids: Array<string>, findPublic: boolean, page: number): Promise<Array<ComposeOutput> | undefined> => {
 
-    ids.forEach
-
     const values = page * 10
     let composes: Array<ComposeOutput> = []
     if (findPublic){
