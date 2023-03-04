@@ -1,14 +1,5 @@
 let tableContent = document.getElementById("table-body")
 
-let forgotModal = document.getElementById("forgot-div");
-let loginModal = document.getElementById("login-div");
-
-// additional code to supplement forgot.js functionality
-function toggleForgot(toggled){
-    toggle(toggled, forgotModal, loginModal);
-    toggle(toggled, resetStart, null);
-}
-
 async function getPaginated(){
     let xhr = new XMLHttpRequest;
     async function runUntilResults(){

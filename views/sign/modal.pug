@@ -1,0 +1,60 @@
+div(tabindex="-1").modal.fade#overlay
+    div.modal-dialog
+        div#login-div.visible
+            div.modal-content 
+                div.modal-header.justify-content-between
+                    h5 Sign in to crater
+                    button(type="button" data-bs-toggle="modal" data-bs-target="#overlay").btn.btn-secondary &#9932;
+                div.modal-body
+                    form(action="javascript:authenticate(true)").userInfo
+                        div.mb-3 
+                            label(for="email").form-label Email address
+                            input(type="email")#email.form-control
+                        div.mb-3
+                            label(for="password").form-label Password
+                            input(type="password")#password.form-control
+                        div.mb-3
+                            p#error
+                        div.d-flex.flex-wrap.align-items-center.flex-row-reverse
+                            button(type="button" onclick="toggleForgot(false)").btn.btn-secondary Forgot password
+                            button(type="submit").btn.btn-warning.me-3 Sign in
+        div(style="height: 0;")#forgot-div.invisible
+            div(style="height: 0;")#reset-start.modal-content
+                div.modal-header.justify-content-between
+                    h5 Reset Password
+                    button(type="button" onclick="toggleForgot(true)").btn.btn-secondary Back
+                div.modal-body
+                    form(action="javascript:sendNewPasswordLink()")
+                        div-mb-3
+                            label(for="forgot-email").form-label Email address
+                            input(type="email")#forgot-email.form-control
+            div(style="height:0;")#reset-middle.modal-content.invisible
+                div.modal-header.justify-content-between
+                    h5 Reset Password
+                    button(type="button" onclick="toggleEmailCode(true)").btn.btn-secondary Back
+                div.modal-body
+                    form(action="javascript:submitCode()")
+                        div-mb-3
+                            h5#email-submission-verification
+                            label(for="code").form-label Code
+                            input(type="text")#code.form-control
+            div(style="height:0;")#reset-end.modal-content.invisible
+                div.modal-header.justify-content-between
+                    h5 Reset Password
+                    button(type="button" onclick="toggleNewPassword(true)").btn.btn-secondary Back
+                div.modal-body
+                    form(action="javascript:resetPassword()")
+                        div-mb-3
+                            h5 Enter a new password
+                            label(for="new-password").form-label New password
+                            input(type="text")#new-password.form-control
+                            button(type="submit").btn.mt-3.btn-warning Submit
+script(src="/script/sign/in/forgot.js")
+script(src="/script/sign/in/index.js")
+script.
+    let forgotModal = document.getElementById("forgot-div");
+    let loginModal = document.getElementById("login-div");
+    function toggleForgot(toggled){
+        toggle(toggled, forgotModal, loginModal);
+        toggle(toggled, resetStart, null);
+    }

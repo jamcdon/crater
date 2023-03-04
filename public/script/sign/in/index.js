@@ -6,25 +6,29 @@ class authenticator {
     }
 }
 
-async function authenticate(){
+async function authenticate(isModal){
     document.getElementById('error').innerHTML = "&nbsp;"
     userObject = new authenticator(document.getElementById('email').value, document.getElementById('password').value)
     if (userObject.email!= "" && userObject.password != ""){
-        logInOrError(userObject)
+        logInOrError(userObject, isModal)
     }
     else{
         document.getElementById('error').innerHTML = "Please enter email and password"
     }
 }
 
-async function logInOrError(self) {
+async function logInOrError(self, isModal) {
     var apiStr = `{\n"email": "${self.email}","password": "${self.password}"\n}`
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
         if (xhr.readyState === 4){
             if (xhr.status === 200){
-                username = xhr.responseText
-                document.location.href = '/account/'
+                if (isModal === true) {
+                    window.location.reload()
+                }
+                else {
+                    document.location.href = '/account/'
+                }
             }
             else if (xhr.status === 401){
                 document.getElementById('error').innerHTML = "Email or password incorrect"
