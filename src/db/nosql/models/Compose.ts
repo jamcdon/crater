@@ -3,12 +3,16 @@ import mongoose, {Schema, model, Types} from 'mongoose';
 export interface ICompose {
     _id: mongoose.Types.ObjectId,
     title: string,
+    manifest: boolean,
     authorID: number,
     imageName: string,
     imageID: mongoose.Types.ObjectId,
     tags: Types.Array<string>,
     public: Boolean
     yaml: string,
+    yamls: {
+        [key: string]: string
+    }
     stars: number
 }
 
@@ -27,6 +31,10 @@ export interface ComposeOutput extends Required<ICompose> {}
 const ComposeModelSchema = new Schema({
     title: {
         type: String,
+        required: true
+    },
+    manifest: {
+        type: Boolean,
         required: true
     },
     authorID: {
@@ -53,6 +61,11 @@ const ComposeModelSchema = new Schema({
     yaml: {
         type: String,
         required: true
+    },
+    yamls: {
+        type: Map,
+        of: String,
+        required: false
     },
     stars: {
         type: Number,

@@ -77,17 +77,23 @@ export const deleteById = async (id: string): Promise<boolean> => {
 
 export const paginate = async (page: number): Promise< QueryObject | undefined> => {
     const values = page * 25
-    const imageNames: QueryObject = await Image.find(
-        {},
-        {
-            name: 1
-        },
-        {
-            skip: values - 25,
-            limit: values,
-            sort: {"scriptsUsing": 1}
-        },
-    ).lean()
+    let imageNames: QueryObject | undefined = undefined
+    try {
+        imageNames = await Image.find(
+            {},
+            {
+                name: 1
+            },
+            {
+                skip: values - 25,
+                limit: values,
+                sort: {"scriptsUsing": 1}
+            },
+        ).lean()
+    }
+    catch(err){
+        return undefined
+    }
 
     return imageNames
 }

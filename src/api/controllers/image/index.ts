@@ -53,7 +53,7 @@ export const paginate = async(page: number): Promise<QueryObject | undefined> =>
     return imageNames
 }
 
-export const paginateNameOnly = async(page:number): Promise<Array<string> | undefined> => {
+export const paginateNameOnly = async(page: number): Promise<Array<string> | undefined> => {
     const queryOject = await paginate(page)
     if (queryOject != undefined){
         let imageArray = []

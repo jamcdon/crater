@@ -2,6 +2,7 @@ import mongoose, { FilterQuery, Types } from 'mongoose'
 import { Compose } from '../models'
 import { ComposeInput, ComposeOutput, ICompose } from '../models/Compose'
 import { incrementScriptsUsing } from '../services/imageService'
+import { QueryObject, QueryArrayObject } from '../models'
 
 export const create = async(payload: ComposeInput): Promise<ComposeOutput | undefined> => {
     payload._id = new mongoose.Types.ObjectId
@@ -15,12 +16,14 @@ export const create = async(payload: ComposeInput): Promise<ComposeOutput | unde
     const createdCompose: ComposeOutput = {
         _id: compose._id,
         title: compose.title!,
+        manifest: compose.manifest,
         authorID: compose.authorID!,
         imageName: compose.imageName!,
         imageID: compose.imageID!,
         tags: compose.tags,
         public: compose.public!,
         yaml: compose.yaml!,
+        yamls: compose.yamls,
         stars: compose.stars!
     }
     compose.save()
@@ -113,4 +116,26 @@ export const getByIds = async (ids: Array<string>, findPublic: boolean, page: nu
         return composes
     }
     return undefined
+}
+
+export const paginateTag = async (page: number): Promise<QueryArrayObject | undefined> => {
+    const values = page * 25
+    let tagNames: QueryArrayObject | undefined = undefined
+    try {
+        tagNames = await Compose.find(
+            {},
+            {
+                tags: 1
+            },
+            {
+                skip: values - 25,
+                limit: values,
+                sort: {"stars": 1}
+            }
+        ).lean()
+    }
+    catch(err){
+        return undefined
+    }
+    return tagNames
 }

@@ -39,7 +39,7 @@ export const createUserSaltHash = async(payload: CreateUserNoSalt): Promise<Crea
         username: payload.username,
         passwordSalt: salt,
         passwordHash: hexHash,
-        isGithub: false
+        sso: undefined
     }
 
     return saltHashUserDTO

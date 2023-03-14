@@ -1,10 +1,10 @@
 import {Request, Response } from 'express'
 import {getUserToken} from '../common'
 import { scriptsInterpolationObject } from './index'
-import { ManifestOutput } from '../../../db/nosql/models/Manifest'
+import { ComposeOutput } from '../../../db/nosql/models/Compose'
 
 type manifestInterpolationObject = scriptsInterpolationObject & {
-    manifest?: ManifestOutput
+    manifest?: ComposeOutput
 };
 
 let manifestInterpolation: manifestInterpolationObject = {

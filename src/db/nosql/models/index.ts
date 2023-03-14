@@ -1,17 +1,21 @@
 import { Image } from './Image'
 import { Compose } from './Compose'
 import { Comment } from './Comment'
-import { Manifest } from './Manifest'
 
 export {
     Image,
     Compose,
     Comment,
-    Manifest
 }
 
 export type QueryObject = [
     {
         [key: string]: string
+    }
+]
+
+export type QueryArrayObject = [
+    {
+        [key: string]: Array<string>
     }
 ]

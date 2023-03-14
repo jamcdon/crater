@@ -44,6 +44,7 @@ composeRouter.post('/', async(req: Request, res: Response) => {
     if (authorID != undefined && imageObject != undefined) {
         const payload: CreateComposeDTO = {
             title: req.body.title,
+            manifest: false,
             authorID: authorID,
             imageName: imageObject.name,
             imageID: imageObject._id,

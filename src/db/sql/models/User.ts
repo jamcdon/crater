@@ -7,13 +7,13 @@ interface UserAttributes {
 	username: string;
 	passwordSalt?: string;
 	passwordHash?: string;
-	isGithub: boolean;
+	sso: string;
 	createdAt?: Date;
 	updatedAt?: Date;
 	deletedAt?: Date;
 }
 
-export interface UserInput extends Optional<UserAttributes, 'id' | 'username'> {}
+export interface UserInput extends Optional<UserAttributes, 'id' | 'username' | 'sso'> {}
 export interface UserOutput extends Required<UserAttributes> {}
 
 class User extends Model<UserAttributes, UserInput> implements UserAttributes{
@@ -22,7 +22,7 @@ class User extends Model<UserAttributes, UserInput> implements UserAttributes{
 	public username!: string
 	public passwordSalt!: string
 	public passwordHash!: string
-	public isGithub!: boolean
+	public sso!: string
 
 	// timestamps!
 	public readonly createdAt!: Date;
@@ -54,9 +54,9 @@ User.init({
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
-	isGithub: {
+	sso: {
 		type: DataTypes.BOOLEAN,
-		allowNull: false,
+		allowNull: true,
 		unique: false
 	}
 },

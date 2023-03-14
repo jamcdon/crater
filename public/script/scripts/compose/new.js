@@ -43,8 +43,6 @@ function setPreview(){
 }
 
 function setEdit(){
-    
-    
     editor.setOptions({
         readOnly: false,
         highlightActiveLine: true,
@@ -61,29 +59,79 @@ function setEdit(){
     previewButtonDiv.className="invisible"
 }
 
-function getCurrentlyUsedOptions(label){
-    //code
+// \/ xhr adding options to Primary Image/Tags \/
 
-    //xhr request for paginate
-    //check if returned object < 25
-    // if so stop xhr paginating
-
-    if (label == "tags"){
-        tagsList.innerHTML =`
-        <datalist id="tags-list">
-            <option value="tag1"></option>
-            <option value="tag2"></option/>
-        </datalist>
-        `
+function handleResponse(isReady, xhrObj, key, label, current) {
+    if (isReady){
+        json = JSON.parse(xhrObj.responseText);
+        console.log(json)
+        setInnerHTML(json, key, label, current);
     }
-    else if (label == "image"){
-        imageList.innerHTML =`
-        <datalist id="image-list">
-            <option value="image1"></option>
-            <option value="image2"></option/>
-        </datalist>
-        `
+    else {
+        setTimeout(() => {
+            handleResponse((xhrObj.readyState === 4 && xhr.status === 200), xhrObj)
+        }, 350)
     }
 }
-getCurrentlyUsedOptions("image")
-getCurrentlyUsedOptions("tags")
+
+function setInnerHTML(xhrResponse, passedKey, passedLabel, current) {
+    if (passedLabel == "tags" && setTag[passedKey] == true){
+        setTag[passedKey] = false;
+        parseAndUpdate()
+    }
+    else if (passedLabel == "image" && setImage[passedKey] == true){
+        setImage[passedKey] = false;
+        parseAndUpdate()
+    }
+
+    function parseAndUpdate() {
+        if (current != ""){
+            current = current.substring(current.indexOf("\n") + 1);
+            current = current.substring(current.lastIndexOf("\n") + 1, -1);
+        }
+        for (item in xhrResponse){
+            current +=`<option value="${xhrResponse[item]}"></option>\n`;
+        }
+        let optionList = `<datalist id="${passedLabel}-list">\n${current}</datalist>`;
+        if (passedLabel == "tags"){
+            tagsList.innerHTML = optionList;
+        }
+        else if (passedLabel == "image"){
+            imageList.innerHTML = optionList;
+        }
+
+        if(xhrResponse[0] != undefined){
+            passedKey = Number(passedKey) + 1
+            setImage[passedKey] = true;
+            let nextXHR = new XMLHttpRequest();
+            nextXHR.onreadystatechange = () => {
+                setTimeout(() => {
+                    getCurrentlyUsedOptions(passedLabel, optionList, passedKey)
+                }, 350)
+            }
+            nextXHR.open('GET', `/api/v1/${passedLabel}/paginate/${passedKey}`, true)
+            nextXHR.send()
+        }
+    }
+}
+
+async function getCurrentlyUsedOptions(label, current, key){
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () => {
+        setTimeout(() => {
+            handleResponse((xhr.readyState === 4 && xhr.status === 200), xhr, key, label, current, null)
+        }, 350)
+    }
+    xhr.open('GET', `/api/v1/${label}/paginate/${key}`, true)
+    xhr.send()
+}
+
+let setImage = {
+    1: true
+}
+let setTag = {
+    1: true
+}
+
+getCurrentlyUsedOptions("image", imageList.innerHTML, Object.keys(setImage).pop())
+getCurrentlyUsedOptions("tags", tagsList.innerHTML, Object.keys(setTag).pop())
