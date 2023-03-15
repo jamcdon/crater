@@ -119,7 +119,7 @@ async function getCurrentlyUsedOptions(label, current, key){
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
         setTimeout(() => {
-            handleResponse((xhr.readyState === 4 && xhr.status === 200), xhr, key, label, current, null)
+            handleResponse((xhr.readyState === 4 && xhr.status === 200), xhr, key, label, current)
         }, 350)
     }
     xhr.open('GET', `/api/v1/${label}/paginate/${key}`, true)
