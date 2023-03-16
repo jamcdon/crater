@@ -65,7 +65,7 @@ export const paginatePopularity = async (page: number): Promise<Array<ComposeOut
             {
                 skip: values - 25,
                 limit: values,
-                sort: {"stars": 1}
+                sort: {stars: -1}
             }
         )
     }
@@ -94,7 +94,7 @@ export const getByIds = async (ids: Array<string>, findPublic: boolean, page: nu
             {
                 skip: values - 10,
                 limit: values,
-                sort: {_id: 1}
+                sort: {_id: -1}
             }
         )
     } else {
@@ -108,7 +108,7 @@ export const getByIds = async (ids: Array<string>, findPublic: boolean, page: nu
             {
                 skip: values - 10,
                 limit: values,
-                sort: {_id: 1}
+                sort: {_id: -1}
             }
         )
     }
@@ -130,7 +130,7 @@ export const paginateTag = async (page: number): Promise<QueryArrayObject | unde
             {
                 skip: values - 25,
                 limit: values,
-                sort: {"stars": 1}
+                sort: {stars: -1}
             }
         ).lean()
     }

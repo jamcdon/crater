@@ -8,6 +8,14 @@ export interface IImage {
     authorID: number
 }
 
+export interface IImageStr {
+    _id: string,
+    name: string,
+    hyperlink: string,
+    scriptsUsing: string,
+    authorID: string
+}
+
 export interface ImageInput extends Partial<IImage> {}
 export interface ImageOutput extends Required<IImage> {}
 

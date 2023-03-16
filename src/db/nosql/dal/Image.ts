@@ -82,12 +82,13 @@ export const paginate = async (page: number): Promise< QueryObject | undefined> 
         imageNames = await Image.find(
             {},
             {
-                name: 1
+                name: 1,
+                scriptsUsing: 1
             },
             {
+                sort: {scriptsUsing: -1},
                 skip: values - 25,
-                limit: values,
-                sort: {"scriptsUsing": 1}
+                limit: values
             },
         ).lean()
     }
