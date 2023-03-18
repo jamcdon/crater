@@ -64,7 +64,6 @@ function setEdit(){
 function handleResponse(isReady, xhrObj, key, label, current) {
     if (isReady){
         json = JSON.parse(xhrObj.responseText);
-        console.log(json)
         setInnerHTML(json, key, label, current);
     }
     else {
