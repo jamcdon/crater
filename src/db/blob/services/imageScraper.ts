@@ -18,7 +18,7 @@ const puppetPage = async (url: string): Promise<[JSDOM, Browser] | [undefined, u
     })
 
     const page = await browser.newPage()
-    await page.goto(url, {waitUntil: 'networkidle2'})
+    await page.goto(url, {waitUntil: 'networkidle0'})
 
     const bodyHandle = await page.$('body')
     const html = await page.evaluate(body => body?.innerHTML, bodyHandle)
