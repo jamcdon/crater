@@ -1,3 +1,4 @@
+import { CopyConditions } from "minio";
 import { minioClient } from "../config";
 
 type bucketType = 'user' | 'image'
@@ -6,28 +7,38 @@ export class BlobObject {
     bucket: bucketType;
     name: string;
     size: number;
-    buffer: Buffer;
+    buffer: Buffer | null;
 
-    constructor(bucket: bucketType, name: string, size: number, buffer: Buffer) {
+    constructor(bucket: bucketType, name: string, size: number, buffer: Buffer | null) {
         this.bucket = bucket;
         this.name = name;
         this.size = size;
         this.buffer = buffer;
     }
 
-    upload(): boolean {
+    async upload(): Promise<boolean> {
         const metaData = {
             'content-type': `image/${this.name.split('.')[1]}`
         }
-        let uploaded: boolean = false;
-        minioClient.putObject(this.bucket, this.name, this.buffer, this.size, metaData, (err): void => {
-            if (err) {
-                console.log(err)
+        if (this.buffer != null){
+            let uploadedObject = await minioClient.putObject(this.bucket, this.name, this.buffer, this.size,)
+            if (uploadedObject.etag){
+                return true
             }
-            else {
-                uploaded = true;
-            }
-        })
-        return uploaded
+        }
+        return false
+    }
+    async copy(sourceFile: string): Promise<boolean> {
+        const stat = await minioClient.statObject(this.bucket, sourceFile)
+
+        let copyConditions = new CopyConditions()
+        copyConditions.setMatchETag(stat.etag)
+
+        const newObject = await minioClient.copyObject(this.bucket, this.name, `/${this.bucket}/${sourceFile}`, copyConditions)
+
+        if(newObject.etag == stat.etag){
+            return true
+        }
+        return false
     }
 }

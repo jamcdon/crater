@@ -1,6 +1,6 @@
 FROM node:18-alpine
 
-RUN apk --no-cache add dpkg g++ make gcc libc-dev cairo-dev pango-dev libjpeg-turbo-dev libpng-dev giflib-dev librsvg-dev bash
+RUN apk --no-cache add dpkg g++ make gcc libc-dev cairo-dev pango-dev libjpeg-turbo-dev libpng-dev giflib-dev librsvg-dev bash chromium ttf-freefont udev
 
 WORKDIR /app
 # grab [ package.json, package-lock.json, tsconfig.json ]

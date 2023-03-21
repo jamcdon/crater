@@ -4,15 +4,19 @@ import apiRouter from './api/routes'
 import frontEndRouter from './frontend/routes'
 import sqlInit from './db/sql/init'
 import noSqlInit from './db/nosql/init'
-import { blobInit, blobPolicy } from './db/blob/init';
+import { blobInit, blobPolicy, setImageImageDefault } from './db/blob/init';
 import { cacheInit } from './db/cache/init'
 import path from 'path'
 
 sqlInit()
 noSqlInit()
-blobInit()
-blobPolicy()
 cacheInit()
+
+blobInit().then(() => {
+	blobPolicy().then(() => {
+		setImageImageDefault()
+	})
+})
 
 const app: Application = express();
 const HOST = '0.0.0.0';

@@ -10,14 +10,15 @@ mixin content
                 a(href='/images/your-images').btn.btn-warning Your Images
             else
                 button(data-bs-toggle="modal" data-bs-target="#overlay").btn.btn-warning Your Images
-    div.row
-        each image in images
-            div.col-sm-3
-                a(href=`/images/view/${image.name}`).btn.card.my-2
-                    img(width="48" src=minioPublic + "/image/" + image.name + ".png")
-                    div
-                        h5.card-title= image.name
-                        p.card-text #{image.scriptsUsing} scripts
+    if images
+        div.row
+            each image in images
+                div.col-sm-3
+                    a(href=`/images/view/${image.name}`).btn.card.my-2
+                        img(width="48" src=minioPublic + "/image/" + image.name + ".png")
+                        div
+                            h5.card-title= image.name
+                            p.card-text #{image.scriptsUsing} scripts
 
 
     script(src="/script/image/index.js")

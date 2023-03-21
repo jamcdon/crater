@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express'
+import { scrapeImage } from '../../db/blob/services/imageScraper'
 import { getUserToken } from '../../frontend/controllers/common'
 import * as imageController from '../controllers/image'
 import { CreateImageDTO, UpdateImageDTO } from '../dto/image.dto'
@@ -57,9 +58,12 @@ imageRouter.post('/', async (req: Request, res: Response) => {
             scriptsUsing: 0,
             authorID: authorID
         }
-        //randpix? - try to get elsewhere first.
         const result = await imageController.create(payload)
         if (result != undefined) {
+            let imageSet = await scrapeImage(result.name)
+            if (imageSet == false){
+                return res.status(500).send('"Error": "Server error occured creating image"')
+            }
             return res.status(200).send(result)
         }
         return res.status(400).send('"Error": "Image not created"')

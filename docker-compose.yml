@@ -130,6 +130,8 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MINIO_IMAGE_IMAGE_DEFAULT=${MINIO_IMAGE_IMAGE_DEFAULT}
+      - CHROME_BIN="/usr/bin/chromium-browser"
     networks:
       - crater-net
     ports:

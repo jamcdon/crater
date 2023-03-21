@@ -121,7 +121,7 @@ userRouter.post('/log/out', async (req: Request, res: Response) => {
 
 userRouter.put('/blob/:id', async (req: Request, res: Response) => {
     const payload = new BlobObject('user', req.params.id, req.body.size, req.body.buffer)
-    const uploadStatus = payload.upload()
+    const uploadStatus = await payload.upload()
 
     return(uploadStatus ? res.status(201) : res.status(500))
 })
