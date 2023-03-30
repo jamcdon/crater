@@ -10,7 +10,7 @@ export let errorInterpolation: errorInterpolationObject = {
 
 class Error {
     public static async index (req: Request, res: Response): Promise<void> {
-        [errorInterpolation.usernameToken, errorInterpolation.userIDToken] = await getUserToken(req);
+        [errorInterpolation.usernameToken, errorInterpolation.userIDToken, errorInterpolation.isAdmin] = await getUserToken(req);
         res.status(404)
         res.render('error/404.pug', errorInterpolation)
     }

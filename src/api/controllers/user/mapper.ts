@@ -8,6 +8,9 @@ export const toUser = (user: UserOutput): User => {
         username: user.username,
         passwordSalt: user.passwordSalt,
         passwordHash: user.passwordHash,
+        bio: user.bio,
+        sso: user.sso,
+        admin: user.admin,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
         deletedAt: user.deletedAt

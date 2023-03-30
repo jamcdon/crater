@@ -10,15 +10,15 @@ let featuresInterpolation: featuresInterpolationObject  = {
 
 class Features {
     public static async index (req: Request, res: Response): Promise<void> {
-        [featuresInterpolation.usernameToken, featuresInterpolation.userIDToken] = await getUserToken(req);
+        [featuresInterpolation.usernameToken, featuresInterpolation.userIDToken, featuresInterpolation.isAdmin] = await getUserToken(req);
         return res.render('features/index.pug', featuresInterpolation)
     }
     public static async glance(req: Request, res: Response): Promise<void> {
-        [featuresInterpolation.usernameToken, featuresInterpolation.userIDToken] = await getUserToken(req);
+        [featuresInterpolation.usernameToken, featuresInterpolation.userIDToken, featuresInterpolation.isAdmin] = await getUserToken(req);
         return res.render('features/glance.pug', featuresInterpolation)
     }
     public static async submissions(req: Request, res: Response): Promise<void> {
-        [featuresInterpolation.usernameToken, featuresInterpolation.userIDToken] = await getUserToken(req);
+        [featuresInterpolation.usernameToken, featuresInterpolation.userIDToken, featuresInterpolation.isAdmin] = await getUserToken(req);
         return res.render('features/submissions.pug', featuresInterpolation)
     }
 }

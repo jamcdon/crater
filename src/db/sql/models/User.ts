@@ -7,13 +7,15 @@ interface UserAttributes {
 	username: string;
 	passwordSalt?: string;
 	passwordHash?: string;
+	bio?: string;
 	sso: string;
+	admin: boolean;
 	createdAt?: Date;
 	updatedAt?: Date;
 	deletedAt?: Date;
 }
 
-export interface UserInput extends Optional<UserAttributes, 'id' | 'username' | 'sso'> {}
+export interface UserInput extends Optional<UserAttributes, 'id' | 'username' | 'sso' | 'admin' | 'bio'> {}
 export interface UserOutput extends Required<UserAttributes> {}
 
 class User extends Model<UserAttributes, UserInput> implements UserAttributes{
@@ -22,7 +24,9 @@ class User extends Model<UserAttributes, UserInput> implements UserAttributes{
 	public username!: string
 	public passwordSalt!: string
 	public passwordHash!: string
+	public bio!: string
 	public sso!: string
+	public admin!: boolean
 
 	// timestamps!
 	public readonly createdAt!: Date;
@@ -42,7 +46,7 @@ User.init({
 		unique: true
 	},
 	username: {
-		type: DataTypes.STRING,
+		type: DataTypes.STRING(20),
 		allowNull: false,
 		unique: true
 	},
@@ -54,7 +58,16 @@ User.init({
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
+	bio: {
+		type: DataTypes.STRING(140),
+		allowNull: true
+	},
 	sso: {
+		type: DataTypes.STRING,
+		allowNull: true,
+		unique: false
+	},
+	admin: {
 		type: DataTypes.BOOLEAN,
 		allowNull: true,
 		unique: false

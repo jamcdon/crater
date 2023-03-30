@@ -13,6 +13,7 @@ type accountInterpolationObject = interpolationObject & {
     username?: string,
     createdAt?: string,
     status?: string,
+    bio?: string,
     activity?: Array<ComposeModification>
 }
 
@@ -23,7 +24,7 @@ let accountInterpolation: accountInterpolationObject = {
 
 class Account {
     public static async index (req: Request, res: Response): Promise<void> {
-        [accountInterpolation.usernameToken, accountInterpolation.userIDToken] = await getUserToken(req);
+        [accountInterpolation.usernameToken, accountInterpolation.userIDToken, accountInterpolation.isAdmin] = await getUserToken(req);
         if (typeof(accountInterpolation.usernameToken) === "string"){
             req.params.username = accountInterpolation.usernameToken
             return Account.user(req, res)
@@ -40,7 +41,8 @@ class Account {
                 accountInterpolation.username = userObject.username
                 accountInterpolation.id = userObject.id;
                 accountInterpolation.createdAt = userObject.createdAt.toDateString();
-                [accountInterpolation.usernameToken, accountInterpolation.userIDToken] = await getUserToken(req);
+                accountInterpolation.bio = userObject.bio;
+                [accountInterpolation.usernameToken, accountInterpolation.userIDToken, accountInterpolation.isAdmin] = await getUserToken(req);
 
                 let notUser: boolean = true
                 if (accountInterpolation.userIDToken != undefined){
@@ -58,7 +60,7 @@ class Account {
     
     public static async logout (req: Request, res: Response): Promise<void> {
         accountInterpolation.status = req.params.status;
-        [accountInterpolation.usernameToken, accountInterpolation.userIDToken] = await getUserToken(req);
+        [accountInterpolation.usernameToken, accountInterpolation.userIDToken, accountInterpolation.isAdmin] = await getUserToken(req);
         res.render('account/logout.pug', accountInterpolation)
     }
 }

@@ -18,8 +18,8 @@ async function authenticate(isModal){
 }
 
 async function logInOrError(self, isModal) {
-    var apiStr = `{\n"email": "${self.email}","password": "${self.password}"\n}`
-    var xhr = new XMLHttpRequest();
+    let apiStr = `{\n"email": "${self.email}","password": "${self.password}"\n}`
+    let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
         if (xhr.readyState === 4){
             if (xhr.status === 200){

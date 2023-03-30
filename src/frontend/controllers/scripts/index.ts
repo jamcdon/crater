@@ -12,7 +12,7 @@ let scriptsInterpolation: scriptsInterpolationObject = {
 
 class Scripts {
     public static async index (req: Request, res: Response): Promise<void> {
-        [scriptsInterpolation.usernameToken, scriptsInterpolation.userIDToken] = await getUserToken(req);
+        [scriptsInterpolation.usernameToken, scriptsInterpolation.userIDToken, scriptsInterpolation.isAdmin] = await getUserToken(req);
         return res.render('scripts/index.pug', scriptsInterpolation)
     }
 }

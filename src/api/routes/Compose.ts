@@ -1,4 +1,4 @@
-import { Router, Response, Request, request } from 'express'
+import { Router, Response, Request } from 'express'
 import {
     CreateComposeDTO
 } from '../dto/compose.dto'

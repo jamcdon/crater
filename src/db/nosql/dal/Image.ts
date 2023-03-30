@@ -13,7 +13,9 @@ export const create = async(payload: ImageInput): Promise<ImageOutput | undefine
             _id: image._id,
             name: image.name!,
             hyperlink: image.hyperlink!,
+            description: image.description!,
             scriptsUsing: image.scriptsUsing!,
+            reports: image.reports!,
             authorID: image.authorID
         }
         image.save()
@@ -101,4 +103,24 @@ export const paginate = async (page: number): Promise< QueryObject | undefined> 
 
 export const getCount = async(): Promise<number> => {
     return await Image.count()
+}
+
+export const adminPaginateByDate = async(page: number): Promise<Array<ImageOutput> | undefined> => {
+    const values = page * 25
+    let images: ImageOutput[] | undefined = undefined
+    try {
+        images = await Image.find(
+            {},
+            {},
+            {
+                sort: {_id: -1},
+                skip: values - 25,
+                limit: values
+            }
+        )
+    }
+    catch(err){
+        return undefined
+    }
+    return images
 }

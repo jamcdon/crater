@@ -15,7 +15,7 @@ import {redisClient} from '../../../db/cache/init'
 import { createToken } from '../../../db/cache/dal/User'
 import { Request } from "express";
 
-const saltHash = (password: string, passedSalt?: string):  { salt: string, hexHash: string }=> {
+export const saltHash = (password: string, passedSalt?: string):  { salt: string, hexHash: string }=> {
     let salt;
     if (passedSalt == undefined){
         salt = crypto.randomBytes(64)
@@ -24,6 +24,7 @@ const saltHash = (password: string, passedSalt?: string):  { salt: string, hexHa
     else {
         salt = passedSalt
     }
+    console.log(salt)
         const hash = crypto.createHmac('sha512', salt)
         hash.update(password)
         const hexHash = hash.digest('hex')
@@ -39,7 +40,9 @@ export const createUserSaltHash = async(payload: CreateUserNoSalt): Promise<Crea
         username: payload.username,
         passwordSalt: salt,
         passwordHash: hexHash,
-        sso: undefined
+        bio: payload.bio,
+        sso: undefined,
+        admin: false
     }
 
     return saltHashUserDTO
@@ -123,7 +126,8 @@ export const setCookie = async (username: string): Promise<string> => {
     const user = await service.getByUsername(username) as any // dangerous! but should be safe
     const userObject: UserCookieDTO = {
         username: username,
-        id: user.id
+        id: user.id,
+        isAdmin: user.admin
     }
     const userObjectString = JSON.stringify(userObject)
     redisClient.set(id, userObjectString)

@@ -39,7 +39,6 @@ export async function setImageImageDefault(): Promise<boolean> {
     const defaultSource = await readFile(`public/img/${defaultImageImage}.png`)
     const defaultObject = new BlobObject("image", `${defaultImageImage}.png`, defaultSource.byteLength, defaultSource)
     const result = await defaultObject.upload()
-    console.log(`result: ${result}`)
     if (result == true){
         console.log(`image ${defaultImageImage}.png uploaded to bucket image`)
     }

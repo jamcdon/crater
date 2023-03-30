@@ -4,7 +4,9 @@ export interface IImage {
     _id: mongoose.Types.ObjectId,
     name: string,
     hyperlink: string,
+    description: string,
     scriptsUsing: number,
+    reports: number,
     authorID: number
 }
 
@@ -12,7 +14,9 @@ export interface IImageStr {
     _id: string,
     name: string,
     hyperlink: string,
+    description: string,
     scriptsUsing: string,
+    reports: string,
     authorID: string
 }
 
@@ -34,7 +38,16 @@ const ImageModelSchema = new Schema({
         required: true,
         unique: true
     },
+    description: {
+        type: String,
+        required: true,
+        unique: false
+    },
     scriptsUsing: {
+        type: Number,
+        required: true
+    },
+    reports: {
         type: Number,
         required: true
     },

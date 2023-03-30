@@ -10,7 +10,7 @@ let homeInterpolation: homeInterpolationObject = {
 
 class Home {
     public static async index (req: Request, res: Response): Promise<void> {
-        [homeInterpolation.usernameToken, homeInterpolation.userIDToken] = await getUserToken(req);
+        [homeInterpolation.usernameToken, homeInterpolation.userIDToken, homeInterpolation.isAdmin] = await getUserToken(req);
         return res.render('home/index.pug', homeInterpolation)
     }
 }

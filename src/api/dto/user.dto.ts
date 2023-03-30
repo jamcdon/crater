@@ -6,6 +6,7 @@ export type CreateUserNoSalt = {
     email: string;
     username: string;
     password: string;
+    bio?: string;
 }
 
 export type CreateUserDTO = {
@@ -14,7 +15,9 @@ export type CreateUserDTO = {
     username: string;
     passwordSalt: string;
     passwordHash: string;
+    bio?: string;
     sso?: string;
+    admin?: boolean;
 }
 
 export type SignInUserDTO = {
@@ -33,5 +36,6 @@ export type FilterUserDTO = {
 
 export type UserCookieDTO = {
     username: string,
-    id: number
+    id: number,
+    isAdmin: boolean
 }

@@ -10,11 +10,11 @@ let aboutInterpolation: aboutInterpolationObject = {
 
 class About {
     public static async index (req: Request, res: Response): Promise<void> {
-        [aboutInterpolation.usernameToken, aboutInterpolation.userIDToken] = await getUserToken(req)
+        [aboutInterpolation.usernameToken, aboutInterpolation.userIDToken, aboutInterpolation.isAdmin] = await getUserToken(req)
         return res.render('about/index.pug', aboutInterpolation)
     }
     public static async team (req: Request, res: Response): Promise<void> {
-        [aboutInterpolation.usernameToken, aboutInterpolation.userIDToken] = await getUserToken(req)
+        [aboutInterpolation.usernameToken, aboutInterpolation.userIDToken, aboutInterpolation.isAdmin] = await getUserToken(req)
         return res.render('about/team.pug', aboutInterpolation)
     }
 }

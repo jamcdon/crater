@@ -16,7 +16,7 @@ let imagesInterpolation: imagesInterpolationObject = {
 
 class Images {
     public static async index (req: Request, res: Response): Promise<void> {
-        [imagesInterpolation.usernameToken, imagesInterpolation.userIDToken] = await getUserToken(req)
+        [imagesInterpolation.usernameToken, imagesInterpolation.userIDToken, imagesInterpolation.isAdmin] = await getUserToken(req)
         let imagesRaw = await paginate(1)
         if (imagesRaw != undefined){
             imagesInterpolation.images = mapper.toImages(imagesRaw)
@@ -25,7 +25,7 @@ class Images {
     }
 
     public static async view (req: Request, res: Response): Promise<void> {
-        [imagesInterpolation.usernameToken, imagesInterpolation.userIDToken] = await getUserToken(req)
+        [imagesInterpolation.usernameToken, imagesInterpolation.userIDToken, imagesInterpolation.isAdmin] = await getUserToken(req)
         const image = await getByImageName(req.params.imageName)
         if (image != undefined){
             imagesInterpolation.image = image

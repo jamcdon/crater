@@ -6,7 +6,9 @@ export const toImage = (image: ImageOutput): IImage => {
         _id: image._id,
         name: image.name,
         hyperlink: image.hyperlink,
+        description: image.description,
         scriptsUsing: image.scriptsUsing,
+        reports: image.reports,
         authorID: image.authorID,
     }
 }
@@ -19,7 +21,9 @@ export const toImages = (images: QueryObject): Array<IImageStr> | undefined => {
                 _id: image._id,
                 name: image.name,
                 hyperlink: image.hyperlink,
+                description: image.description,
                 scriptsUsing: image.scriptsUsing,
+                reports: image.reports,
                 authorID: image.authorID,
             })
         }

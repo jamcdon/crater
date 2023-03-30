@@ -2,6 +2,7 @@ import express, {Application} from 'express';
 import cookieParser from 'cookie-parser';
 import apiRouter from './api/routes'
 import frontEndRouter from './frontend/routes'
+import adminRouter from './admin/routes';
 import sqlInit from './db/sql/init'
 import noSqlInit from './db/nosql/init'
 import { blobInit, blobPolicy, setImageImageDefault } from './db/blob/init';
@@ -35,6 +36,7 @@ export const get = () => {
 	app.use(express.urlencoded({ extended: true }));
 
 	app.use('/api/v1', apiRouter)
+	app.use('/admin', adminRouter)
 	app.use('/', frontEndRouter)
 	return app
 }

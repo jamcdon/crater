@@ -37,3 +37,7 @@ export const incrementScriptsUsing = async(imageID: string): Promise<void> => {
         imageDAL.update(imageID, image)
     }
 }
+
+export const adminPaginateByDate = async(page: number): Promise<Array<ImageOutput> | undefined> => {
+    return imageDAL.adminPaginateByDate(page)
+}

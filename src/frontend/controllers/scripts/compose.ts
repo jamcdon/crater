@@ -15,20 +15,20 @@ let composeInterpolation: composeInterpolationObject = {
 
 class Compose {
     public static async index (req: Request, res: Response): Promise<void> {
-        [composeInterpolation.usernameToken, composeInterpolation.userIDToken] = await getUserToken(req)
+        [composeInterpolation.usernameToken, composeInterpolation.userIDToken, composeInterpolation.isAdmin] = await getUserToken(req)
         return res.render('scripts/compose/index.pug', composeInterpolation)
     }
     public static async new (req: Request, res: Response): Promise<void> {
-        [composeInterpolation.usernameToken, composeInterpolation.userIDToken] = await getUserToken(req)
+        [composeInterpolation.usernameToken, composeInterpolation.userIDToken, composeInterpolation.isAdmin] = await getUserToken(req)
         return res.render('scripts/compose/new.pug', composeInterpolation)
     }
     public static async edit (req: Request, res: Response): Promise<void> {
-        [composeInterpolation.usernameToken, composeInterpolation.userIDToken] = await getUserToken(req)
+        [composeInterpolation.usernameToken, composeInterpolation.userIDToken, composeInterpolation.isAdmin] = await getUserToken(req)
         // this one needs additional legwork to know what image is being modified
         return res.render('scripts/compose/edit.pug', composeInterpolation)
     }
     public static async view (req: Request, res: Response): Promise<void> {
-        [composeInterpolation.usernameToken, composeInterpolation.userIDToken] = await getUserToken(req)
+        [composeInterpolation.usernameToken, composeInterpolation.userIDToken, composeInterpolation.isAdmin] = await getUserToken(req)
         composeInterpolation.compose = await getById(req.params.id)
         if (composeInterpolation.compose != undefined){
             return res.render('scripts/compose/view.pug', composeInterpolation)

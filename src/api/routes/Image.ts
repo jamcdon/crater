@@ -55,7 +55,9 @@ imageRouter.post('/', async (req: Request, res: Response) => {
         const payload:CreateImageDTO = {
             name: req.body.name,
             hyperlink: req.body.hyperlink,
+            description: req.body.description,
             scriptsUsing: 0,
+            reports: 0,
             authorID: authorID
         }
         const result = await imageController.create(payload)
