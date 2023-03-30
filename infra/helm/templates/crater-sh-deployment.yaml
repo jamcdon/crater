@@ -66,6 +66,8 @@ spec:
               value: {{ .Values.MYSQL_USER }}
             - name: MINIO_IMAGE_IMAGE_DEFAULT
               value: {{ .Values.MINIO_IMAGE_IMAGE_DEFAULT }}
+            - name: JWT_SIGNATURE
+              value: {{ .Values.JWT_SIGNATURE }}
           image: crater-sh:latest
           name: crater-sh
           imagePullPolicy: Never
