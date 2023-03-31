@@ -25,3 +25,7 @@ export const getByIds = (ids: Array<string>, findPublic: boolean, page: number):
 export const paginateTag = (page: number): Promise<QueryArrayObject | undefined> => {
     return composeDAL.paginateTag(page)
 }
+
+export const paginateScriptsById = (id: string, page: number): Promise<Array<ComposeOutput> | undefined> => {
+    return composeDAL.paginateScriptsById(id, page)
+}

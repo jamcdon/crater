@@ -1,0 +1,22 @@
+extends ../template.pug
+mixin content
+    div.d-flex.justify-content-around#content
+        form.w-50
+            div.my-3
+                label(for="name").form-label Name
+                input(type="text").form-control#name
+                p.text-muted.mb-0 The name of the image (i.e. mysql)
+            div.mb-3
+                label(for="hyperlink").form-label Link
+                input(type="text").form-control#hyperlink
+                span.d-inline-flex.mb-0
+                    p.text-muted.mb-0 The link to the main page of the container registry (i.e.&nbsp;
+                    a(href="https://hub.docker.com/_/mysql").mb-0 https://hub.docker.com/_/mysql
+                    p.text-muted.mb-0 )
+            div.mb-3
+                label(for="description").form-label Description
+                textarea(rows="3").form-control#description
+                p.text-muted This can be hand-written or pulled from the container registry description
+            div.mb-3.ms-auto.me-0.text-end
+                button(type="button").btn.btn-info.mx-3 Preview
+                button(type="submit").btn.btn-warning Submit

@@ -3,10 +3,14 @@ import { IImageStr, IImage } from '../../../db/nosql/models/Image'
 import {getUserToken, interpolationObject} from '../common'
 import { getByImageName, paginate } from '../../../api/controllers/image'
 import * as mapper from '../../../api/controllers/image/mapper'
+import { ComposeModification } from '../../../db/nosql/models/Compose'
+import { paginateScriptsById } from '../../../api/controllers/compose'
+import * as composeMapper from '../../../api/controllers/compose/mapper'
 
 type imagesInterpolationObject = interpolationObject & {
     images?: Array<IImageStr>,
     image?: IImage
+    scripts?: Array<ComposeModification>
 }
 
 let imagesInterpolation: imagesInterpolationObject = {
@@ -29,9 +33,18 @@ class Images {
         const image = await getByImageName(req.params.imageName)
         if (image != undefined){
             imagesInterpolation.image = image
+            let imageScripts = await paginateScriptsById(image._id.toString(), 1)
+            if (imageScripts != undefined){
+                imagesInterpolation.scripts = await composeMapper.toComposeModifications(imageScripts)
+            }
             return res.render('images/view.pug', imagesInterpolation)
         }
         return res.status(404).render('error/404.pug', imagesInterpolation)
+    }
+
+    public static async new (req: Request, res: Response): Promise<void> {
+        [imagesInterpolation.usernameToken, imagesInterpolation.userIDToken, imagesInterpolation.isAdmin] = await getUserToken(req)
+        return res.render('images/new.pug', imagesInterpolation)
     }
 }
 

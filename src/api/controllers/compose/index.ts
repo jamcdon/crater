@@ -41,13 +41,9 @@ export const paginatePopularity = async (page: number): Promise<Array<ICompose> 
     const composeOutput = await service.paginatePopularity(page)
     if (composeOutput != undefined){
         composes = await mapper.toComposeModifications(composeOutput)
-    }
-    else {
-        composes = composeOutput
-    }
-
-    if (composes != undefined){
-        return composes
+        if (composes != undefined){
+            return composes
+        }
     }
     return undefined
 }
@@ -84,4 +80,9 @@ export const getUsername = async (idString: string): Promise<string | undefined>
         return username
     }
     return undefined
+}
+
+
+export const paginateScriptsById = async(id: string, page: number): Promise<Array<ICompose> | undefined> => {
+    return await service.paginateScriptsById(id, page)
 }

@@ -1,3 +1,32 @@
 extends ../template.pug
 mixin content
-    h1 #{image.name}
+    span.d-inline-flex.mt-2
+        img(width="48" src=minioPublic + "/image/" + image.name + ".png")
+        h1 &emsp;#{image.name}
+    br
+    span.d-inline-flex.mb-3
+        p Found at:&nbsp;
+        a(href=image.hyperlink) #{image.hyperlink}
+    p #{image.description}
+    if (scripts)
+        hr
+        h3 Popular Scripts
+        table.table.table-striped.table-hover
+            thead
+                tr
+                    th(scope="col") Popularity
+                    th(scope="col") Script
+                    th(scope="col") Type
+                    th(scope="col") Stars
+                    th(scope="col") Creator
+            tbody
+                for script, index in scripts
+                    tr(onclick=`document.location='/scripts/compose/view/${script._id}'` role="button")
+                        th(scope="row") #{index + 1}
+                        td #{script.title}
+                        if (script.manifest)
+                            td Manifest
+                        else
+                            td Compose 
+                        td #{script.stars}
+                        td #{script.authorName}

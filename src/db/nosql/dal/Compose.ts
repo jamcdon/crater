@@ -139,3 +139,25 @@ export const paginateTag = async (page: number): Promise<QueryArrayObject | unde
     }
     return tagNames
 }
+
+export const paginateScriptsById = async (imageID: string, page: number): Promise<Array<ICompose> | undefined> => {
+    const values = page * 25
+    let scripts: Array<ICompose> | undefined = undefined
+    try {
+        scripts = await Compose.find(
+            {
+                public: true,
+                imageID: imageID
+            },
+            {},
+            {
+                skip: values - 25,
+                limit: values,
+                sort: {stars: -1}
+            }
+        )
+    }
+    finally {
+        return scripts
+    }
+}
