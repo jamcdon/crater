@@ -77,7 +77,7 @@ const uploadOrFail = () => {
 
     xhr.onreadystatechange = () => {
         if (xhr.readyState === 4){
-            if (xhr.status === 200 && xhr.status === 500){
+            if (xhr.status === 200 || xhr.status === 500){
                 document.location = `/images/view/${name}`
             }
             if (xhr.status === 400){
