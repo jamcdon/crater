@@ -7,10 +7,13 @@ import { ComposeModification } from '../../../db/nosql/models/Compose'
 import { paginateScriptsById } from '../../../api/controllers/compose'
 import * as composeMapper from '../../../api/controllers/compose/mapper'
 
+const minioImageImageDefault = process.env.MINIO_IMAGE_IMAGE_DEFAULT as string;
+
 type imagesInterpolationObject = interpolationObject & {
-    images?: Array<IImageStr>,
+    images?: Array<IImageStr>
     image?: IImage
     scripts?: Array<ComposeModification>
+    imageImageDefault?: string
 }
 
 let imagesInterpolation: imagesInterpolationObject = {
@@ -44,6 +47,7 @@ class Images {
 
     public static async new (req: Request, res: Response): Promise<void> {
         [imagesInterpolation.usernameToken, imagesInterpolation.userIDToken, imagesInterpolation.isAdmin] = await getUserToken(req)
+        imagesInterpolation.imageImageDefault = minioImageImageDefault
         return res.render('images/new.pug', imagesInterpolation)
     }
 }

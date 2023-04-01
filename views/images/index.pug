@@ -5,10 +5,11 @@ mixin content
     div.d-flex.flex-wrap.my-5.justify-content-between
         h1.h2 Images
         div.text-end
-            a(href='/images/new').btn.btn-info.mx-3 New
             if userIDToken
+                a(href='/images/new').btn.btn-info.mx-3 New
                 a(href='/images/your-images').btn.btn-warning Your Images
             else
+                button(data-bs-toggle="modal" data-bs-target="#overlay").btn.btn-info.mx-3 New
                 button(data-bs-toggle="modal" data-bs-target="#overlay").btn.btn-warning Your Images
     if images
         div.row

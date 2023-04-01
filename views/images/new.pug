@@ -1,22 +1,43 @@
 extends ../template.pug
 mixin content
-    div.d-flex.justify-content-around#content
-        form.w-50
-            div.my-3
-                label(for="name").form-label Name
-                input(type="text").form-control#name
-                p.text-muted.mb-0 The name of the image (i.e. mysql)
-            div.mb-3
-                label(for="hyperlink").form-label Link
-                input(type="text").form-control#hyperlink
-                span.d-inline-flex.mb-0
-                    p.text-muted.mb-0 The link to the main page of the container registry (i.e.&nbsp;
-                    a(href="https://hub.docker.com/_/mysql").mb-0 https://hub.docker.com/_/mysql
-                    p.text-muted.mb-0 )
-            div.mb-3
-                label(for="description").form-label Description
-                textarea(rows="3").form-control#description
-                p.text-muted This can be hand-written or pulled from the container registry description
-            div.mb-3.ms-auto.me-0.text-end
-                button(type="button").btn.btn-info.mx-3 Preview
-                button(type="submit").btn.btn-warning Submit
+    div#content
+        div(tabindex="-1").modal.fade#load-modal
+            div.modal-dialog
+                div.modal-content
+                    div.modal-body
+                        h3 Uploading image
+                        hr
+                        p.text-muted This takes a second, please wait
+                        div.d-flex.justify-content-center
+                            div.spinner-border.text-primary
+                                span.visually-hidden Loading...
+                            p.text-danger#error
+        div.d-flex.justify-content-around.collapse#form
+            form(action="javascript:uploadOrFail()").w-50
+                div.my-3
+                    label(for="name").form-label Name
+                    input(type="text").form-control#name
+                    p.text-muted.mb-0 The name of the image (i.e. mysql)
+                    p.text-danger#name-error
+                div.mb-3
+                    label(for="hyperlink").form-label Link
+                    input(type="text").form-control#hyperlink
+                    span.d-inline-flex.mb-0
+                        p.text-muted.mb-0 The link to the main page of the container registry (i.e.&nbsp;
+                        a(href="https://hub.docker.com/_/mysql").mb-0 https://hub.docker.com/_/mysql
+                        p.text-muted.mb-0 )
+                    p.text-danger#link-error
+                div.mb-3
+                    label(for="description").form-label Description
+                    textarea(rows="3").form-control#description
+                    p.text-muted This can be hand-written or pulled from the container registry description
+                    p.text-danger#description-error
+                div.mb-3.ms-auto.me-0.text-end
+                    button(type="button" onclick="setPreview()").btn.btn-info.mx-3 Preview
+                    //button(type="submit" data-bs-toggle="modal" data-bs-target="#load-modal").btn.btn-warning#submit-form Submit
+                    button(type="submit").btn.btn-warning#submit-form Submit
+        div#preview.invisible
+    script.
+        const minioPublic = "#{minioPublic}";
+        const imageImageDefault = "#{imageImageDefault}";
+    script(src="/script/image/new.js")

@@ -157,7 +157,8 @@ export const paginateScriptsById = async (imageID: string, page: number): Promis
             }
         )
     }
-    finally {
-        return scripts
+    catch {
+        return undefined
     }
+    return scripts
 }
