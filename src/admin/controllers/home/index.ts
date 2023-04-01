@@ -27,7 +27,6 @@ class Home {
         try {
             if (adminHomeInterpolation.usernameToken != undefined){
                 const adminJWT = await setJWT(payload, adminHomeInterpolation.usernameToken)
-                console.log(adminJWT)
                 if (adminJWT != undefined){
                     res.cookie("adminToken", adminJWT, {signed: true, maxAge: 1800000})
                     return res.status(200).send()

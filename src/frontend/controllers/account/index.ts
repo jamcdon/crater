@@ -48,7 +48,7 @@ class Account {
                 if (accountInterpolation.userIDToken != undefined){
                     notUser = (accountInterpolation.usernameToken != userObject.username)
                 }
-                    accountInterpolation.activity = await setUserInteractions(accountInterpolation.id, notUser)
+                accountInterpolation.activity = await setUserInteractions(accountInterpolation.id, notUser)
                 return res.render('account/user.pug', accountInterpolation)
             }
             return res.status(404).render('error/404.pug', accountInterpolation)
@@ -65,7 +65,7 @@ class Account {
     }
 }
 
-let setUserInteractions = async (userID: number, findPublic: boolean): Promise<Array<ComposeModification> | undefined> => {
+export const setUserInteractions = async (userID: number, findPublic: boolean): Promise<Array<ComposeModification> | undefined> => {
     const composeIDs = await interactionsService.getAllFromUser(userID)
     if (composeIDs != undefined){
         const composes = await composeService.getByIds(composeIDs, findPublic, 1)

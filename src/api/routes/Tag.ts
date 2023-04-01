@@ -7,7 +7,6 @@ tagRouter.get('/paginate/:page', async (req: Request, res: Response) => {
     const page: number = parseInt(req.params.page)
     if (!Number.isNaN(page)){
         const pageTags = await tagController.paginateNameOnly(page)
-        console.log(pageTags)
         if (pageTags != undefined){
             return res.status(200).json(pageTags)
         }

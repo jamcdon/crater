@@ -6,9 +6,9 @@ let previewDiv = document.getElementById("preview-div")
 let titlePreview = document.getElementById("title-preview")
 let titleForm= document.getElementById("title")
 let imagePreview = document.getElementById("image-preview")
+let imageImagePreview = document.getElementById("image-image-preview")
 let imageForm= document.getElementById("image")
 let imageList = document.getElementById("image-list-span")
-let publicPreview = document.getElementById("public-preview")
 let publicForm= document.getElementById("public")
 let tagsPreview = document.getElementById("tags-preview")
 let tagsForm = document.getElementById("tags")
@@ -16,15 +16,73 @@ let tagsList = document.getElementById("tags-list-span")
 let yamlPreview = document.getElementById("yaml-preview")
 let previewButtonDiv = document.getElementById("preview-buttons")
 let formButtonDiv = document.getElementById("form-buttons")
+let validationText = document.getElementById("validation")
 
 async function uploadOrFail(){
+    let tagsText = ""
+    let tags = setTags()
+    for (i in tags){
+        if (i != tags.length - 1){
+            tagsText += `"${tags[i]}", `
+        }
+        else {
+            tagsText += `"${tags[i]}"`
+        }
+    }
 
+    let reqBody = `{"title": "${titleForm.value}", "imageName": "${imageForm.value}", "tags": [${tagsText}], "public": ${publicForm.checked}, "yaml": "${editor.getValue().replace(/\n/g, '\\n')}"}`
+
+    let xhr = new XMLHttpRequest()
+
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4){
+            if (xhr.status === 200){
+                let jsonResponse = JSON.parse(xhr.response)
+                document.location.href=`/scripts/compose/view/${jsonResponse._id}`
+            }
+            else if (xhr.status === 400){
+                //server error somewhere
+                let urlTitle = titleForm.value.replace(/ /g, "+").replace(/\//g, "-")
+                validationText.innerHTML = `${xhr.response} - Does the Image exist? Check <a href="/images/view/${urlTitle}">here</a>`
+            }
+            else if (xhr.status === 401){
+                //user not logged in
+                validationText.innerHTML = `${xhr.response}`
+            }
+        }
+    }
+
+    xhr.open('POST', "/api/v1/compose/")
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.send(reqBody)
+}
+
+function setTags() {
+    let tags = tagsForm.value.split(",")
+    for (let i in tags){
+        if (tags[i][0] == " "){
+            tags[i] = tags[i].substring(1)
+        }
+        if (tags[i][tags[i].length-1] == " "){
+            tags[i] = tags[i].substring(0, tags[i].length - 1)
+        }
+    }
+    return tags
 }
 
 function setPreview(){
     titlePreview.innerHTML = titleForm.value;
-    imagePreview.innerHTML = imageForm.value;
-    publicPreview.innerHTML = (publicForm.checked ? "Public" : "Private");
+    imagePreview.innerHTML = `&nbsp;${imageForm.value}`;
+
+    tagsList = setTags()
+    let tagsPreviewUl = "<ul class='d-inline-flex'>"
+    for (let i in tagsList){
+        tagsPreviewUl += `<li class="d-inline-flex mx-3">${tagsList[i]}</li>`
+    }
+    tagsPreviewUl += '</ul>'
+
+    tagsPreview.innerHTML = tagsPreviewUl
+    imageImagePreview.src = `${minioPublic}/image/${imageForm.value}.png`
 
     editor.setOptions({
         readOnly: true,

@@ -24,7 +24,6 @@ export const saltHash = (password: string, passedSalt?: string):  { salt: string
     else {
         salt = passedSalt
     }
-    console.log(salt)
         const hash = crypto.createHmac('sha512', salt)
         hash.update(password)
         const hexHash = hash.digest('hex')
