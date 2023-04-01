@@ -48,16 +48,15 @@ imageRouter.delete('/id/:id', async (req: Request, res: Response) => {
 })
 
 imageRouter.post('/', async (req: Request, res: Response) => {
-    const [, authorID] = await getUserToken(req)
-    //create image
-    if (authorID != undefined){
+    const userToken = await getUserToken(req)
+    if (userToken[1] != undefined){
         const payload:CreateImageDTO = {
             name: req.body.name,
             hyperlink: req.body.hyperlink,
             description: req.body.description,
             scriptsUsing: 0,
             reports: 0,
-            authorID: authorID
+            authorID: userToken[1]
         }
         const result = await imageController.create(payload)
         if (result != undefined) {
