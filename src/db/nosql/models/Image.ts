@@ -13,6 +13,7 @@ export interface IImage {
 export interface IImageStr {
     _id: string,
     name: string,
+    urlName: string,
     hyperlink: string,
     description: string,
     scriptsUsing: string,

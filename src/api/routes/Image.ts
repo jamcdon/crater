@@ -7,7 +7,6 @@ import { CreateImageDTO, UpdateImageDTO } from '../dto/image.dto'
 const imageRouter = Router()
 
 imageRouter.get('/name/:imageName', async (req: Request, res: Response) => {
-    // get router by image name
     const image = String(req.params.imageName)
 
     const result = await imageController.getByImageName(image)

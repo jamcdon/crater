@@ -78,7 +78,8 @@ const uploadOrFail = () => {
     xhr.onreadystatechange = () => {
         if (xhr.readyState === 4){
             if (xhr.status === 200 || xhr.status === 500){
-                document.location = `/images/view/${name}`
+                const urlName = name.replace(" ", "+").replace("/", "-");
+                document.location.href = `/images/view/${urlName}`
             }
             if (xhr.status === 400){
                 modalError.innerHTML = "Error occured. Image likely already exists."

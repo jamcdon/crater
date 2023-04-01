@@ -15,7 +15,7 @@ mixin content
         div.row
             each image in images
                 div.col-sm-3
-                    a(href=`/images/view/${image.name}`).btn.card.my-2
+                    a(href=`/images/view/${image.urlName}`).btn.card.my-2
                         img(width="48" src=minioPublic + "/image/" + image.name + ".png")
                         div
                             h5.card-title= image.name

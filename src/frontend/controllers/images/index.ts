@@ -33,7 +33,11 @@ class Images {
 
     public static async view (req: Request, res: Response): Promise<void> {
         [imagesInterpolation.usernameToken, imagesInterpolation.userIDToken, imagesInterpolation.isAdmin] = await getUserToken(req)
-        const image = await getByImageName(req.params.imageName)
+        let imageName = req.params.imageName
+        imageName = imageName.replace("+", " ")
+        imageName = imageName.replace("-", "/")
+
+        const image = await getByImageName(imageName)
         if (image != undefined){
             imagesInterpolation.image = image
             let imageScripts = await paginateScriptsById(image._id.toString(), 1)
