@@ -33,6 +33,10 @@ class Compose {
         [composeInterpolation.usernameToken, composeInterpolation.userIDToken, composeInterpolation.isAdmin] = await getUserToken(req)
         composeInterpolation.compose = await getById(req.params.id)
         if (composeInterpolation.compose != undefined){
+            composeInterpolation.compose.yaml = composeInterpolation.compose.yaml
+                .replace(/\$/g, "\\$")
+                .replace(/&lt;/g, "<")
+                .replace(/&gt;/g, ">")
             return res.render('scripts/compose/view.pug', composeInterpolation)
         }
         return res.status(404).render('error/404.pug', composeInterpolation)

@@ -30,8 +30,7 @@ async function uploadOrFail(){
         }
     }
 
-    let reqBody = `{"title": "${titleForm.value}", "imageName": "${imageForm.value}", "tags": [${tagsText}], "public": ${publicForm.checked}, "yaml": "${editor.getValue().replace(/\n/g, '\\n')}"}`
-
+    let reqBody = `{"title": "${titleForm.value}", "imageName": "${imageForm.value}", "tags": [${tagsText}], "public": ${publicForm.checked}, "yaml": "${editor.getValue().replace(/\n/g, '\\n').replace(/"/g, '\\"')}"}`
     let xhr = new XMLHttpRequest()
 
     xhr.onreadystatechange = () => {

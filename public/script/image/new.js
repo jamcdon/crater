@@ -49,7 +49,7 @@ const setPreview = () => {
 const uploadOrFail = () => {
     let name = document.getElementById("name").value;
     let link = document.getElementById("hyperlink").value;
-    let description = document.getElementById("description").value;
+    let description = document.getElementById("description").value.replace(/"/, '\\"');
 
     if (name == "" || link == "" || description == ""){
         if (name == ""){
@@ -70,7 +70,6 @@ const uploadOrFail = () => {
 
     submitFormButton = document.getElementById("submit-form")
     submitPreviewButton = document.getElementById("submit-preview")
-
     let reqBody = `{"name": "${name}", "hyperlink": "${link}", "description": "${description}"}`
 
     let xhr = new XMLHttpRequest();
@@ -93,5 +92,4 @@ const uploadOrFail = () => {
     xhr.open('POST', '/api/v1/image')
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.send(reqBody)
-
 }

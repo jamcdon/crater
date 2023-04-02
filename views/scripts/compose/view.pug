@@ -19,7 +19,7 @@ mixin content
                 readOnly: true,
                 highlightActiveLine: false,
             });
-        let yamlContent = `#{compose.yaml}`
+        let yamlContent = `#{compose.yaml}`.replace(/&quot;/g, '"')
         yamlContent = yamlContent
             .replace(/&lt;/g, "<")
             .replace(/&gt;/g, ">");
