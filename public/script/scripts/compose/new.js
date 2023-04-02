@@ -42,8 +42,8 @@ async function uploadOrFail(){
             }
             else if (xhr.status === 400){
                 //server error somewhere
-                let urlTitle = titleForm.value.replace(/ /g, "+").replace(/\//g, "-")
-                validationText.innerHTML = `${xhr.response} - Does the Image exist? Check <a href="/images/view/${urlTitle}">here</a>`
+                let urlImage = imageForm.value.replace(/ /g, "+").replace(/\//g, "-")
+                validationText.innerHTML = `${xhr.response} - Does the Image exist? Check <a href="/images/view/${urlImage}">here</a>`
             }
             else if (xhr.status === 401){
                 //user not logged in
