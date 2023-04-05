@@ -1,34 +1,49 @@
 extends ../template.pug
 mixin content
+    div(tabindex="-1").modal.fade#report-modal
+        div.modal-dialog
+            div.modal-content
+                div.modal-header.d-flex.justify-content-between
+                    div.d-inline-flex
+                        h4 Report #{username}&nbsp;
+                        img(src=minioPublic + "/user/" + id + ".png" width="32" height="32").border.border-2
+                div.modal-body#modal-body
+                    form(action="javascript:reportUser()")
+                        div.mb-3
+                            label(for="message").form-label Report Message (not required)
+                            textarea(rows="3").form-control#message
+                        div.mb-3.text-end
+                            button(type="submit").btn.btn-danger Submit
     div#content.d-flex.justify-content-between
         div
             span.d-flex.justify-content-between
                 h2 #{username}
-                //if usernameToken == username
-                    button.btn.my-0.py-0.btn-link Edit
-                    h2.my-0.py-0(style="font-family: 'serif'") &#9881;
-                    p.a Edit
-            img(src=minioPublic + "/user/" + id + ".png").rounded.border.border-4
+            img(src=minioPublic + "/user/" + id + ".png" width="300" height="300").rounded.border.border-4
             p Member since #{createdAt}
             p #{bio}
             if username == usernameToken
                 btn.btn.btn-info Edit
+            else if usernameToken != undefined
+                btn.btn.btn-danger(data-bs-toggle="modal" data-bs-target="#report-modal") Report
         if activity
-            div.d-flex.justify-content-center.container.container-lg
-                div
-                    table.table.table-striped.table-hover
-                        thead
-                            tr
-                                th(scope="col") Script
-                                th(scope="col") Image
-                                th(scope="col") Stars
-                                th(scope="col") Creator
-                        tbody
-                            each row in activity
-                                tr(onclick="document.location='/scripts/compose/view/" + row._id +"'")
-                                    th(scope="row")= row.title
-                                    td= row.imageName
-                                    td= row.stars
-                                    td= row.authorName
+            div.d-flex.justify-content-center.w-100
+                table.table.table-striped.table-hover.w-75
+                    thead
+                        tr
+                            th(scope="col") Script
+                            th(scope="col") Image
+                            th(scope="col") Stars
+                            th(scope="col") Creator
+                    tbody
+                        each row in activity
+                            tr(onclick="document.location='/scripts/compose/view/" + row._id +"'")
+                                th(scope="row")= row.title
+                                td= row.imageName
+                                td= row.stars
+                                td= row.authorName
     if usernameToken == username
         script(src="/script/account/edit.js")
+    else if usernameToken != undefined
+        script.
+            const userID = "#{id}";
+        script(src="/script/account/report.js")

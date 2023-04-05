@@ -6,6 +6,7 @@ import composeRouter from './Compose'
 import errorRouter from './Error'
 import manifestRouter from './Manifest'
 import tagRouter from './Tag'
+import reportRouter from './Report'
 
 const apiRouter = Router()
 
@@ -15,6 +16,7 @@ apiRouter.use('/comments', commentsRouter)
 apiRouter.use('/compose', composeRouter)
 apiRouter.use('/manifest', manifestRouter)
 apiRouter.use('/tags', tagRouter)
+apiRouter.use('/report', reportRouter)
 apiRouter.use(errorRouter)
 
 

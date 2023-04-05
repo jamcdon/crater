@@ -2,9 +2,16 @@ extends ../../template.pug
 mixin content
     div#content 
         h1.h3 #{compose.title}
-        span.d-inline-flex
-            img(width="48" src=minioPublic + "/image/" + compose.imageName + ".png")
-            h2.h4 &emsp;#{compose.imageName}
+        div
+            span.d-inline-flex
+                p Created by&nbsp;
+                a(href="/account/" + authorName).d-inline-flex.mb-0
+                    p.me-2 #{authorName}
+                    img(width="24" height="24" src=minioPublic + "/user/" + compose.authorID + ".png").border.border-primary
+        div
+            span.d-inline-flex
+                img(width="48" src=minioPublic + "/image/" + compose.imageName + ".png")
+                h2.h4 &emsp;#{compose.imageName}
         h3.h4 Tags:
         ul.d-inline-flex
             each tag in compose.tags

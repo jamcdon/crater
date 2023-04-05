@@ -40,7 +40,7 @@ export const getByUsername = async(username: string): Promise<UserOutput | undef
     const user = await User.findOne({ 
         where: { 
             username: {
-                [Op.like]: `%${username}%`
+                [Op.like]: `${username}`
             }
         }
     })
@@ -54,7 +54,7 @@ export const validateUsername = async(username: string): Promise<boolean> => {
     const user = await User.findOne({
         where: {
             username: {
-                [Op.like]: `%${username}%`
+                [Op.like]: `${username}`
             }
         }
     })
@@ -65,7 +65,7 @@ export const validateEmail = async(email: string): Promise<boolean> => {
     const user = await User.findOne({
         where: {
             email: {
-                [Op.like]: `%${email}%`
+                [Op.like]: `${email}`
             }
         }
     })
@@ -76,7 +76,7 @@ export const getSaltFromEmail = async (email: string): Promise<string> => {
     const user = await User.findOne({
         where: {
             email: {
-                [Op.like]: `%${email}%`
+                [Op.like]: `${email}`
             }
         }
     })
@@ -87,10 +87,10 @@ export const authenticateByEmail = async (payload: SignInUserDTO): Promise<strin
     const user = await User.findOne({
         where: {
             email: {
-                [Op.like]: `%${payload.email}%`
+                [Op.like]: `${payload.email}`
             },
             passwordHash: {
-                [Op.like]: `%${payload.hash}%`
+                [Op.like]: `${payload.hash}`
             }
         }
     })

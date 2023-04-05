@@ -1,13 +1,14 @@
 import {Request, Response } from 'express'
 import { ComposeModification, ComposeOutput } from '../../../db/nosql/models/Compose';
-import { getById } from '../../../api/controllers/compose';
+import { getById, getUsernameByID } from '../../../api/controllers/compose';
 import {getUserToken} from '../common'
 import { scriptsInterpolationObject } from './index'
 import { setUserInteractions } from '../account';
 
 type composeInterpolationObject = scriptsInterpolationObject & {
     compose?: ComposeOutput
-    scripts?: Array<ComposeModification>
+    scripts?: Array<ComposeModification>,
+    authorName?: string
 };
 
 let composeInterpolation: composeInterpolationObject = {
@@ -33,6 +34,7 @@ class Compose {
         [composeInterpolation.usernameToken, composeInterpolation.userIDToken, composeInterpolation.isAdmin] = await getUserToken(req)
         composeInterpolation.compose = await getById(req.params.id)
         if (composeInterpolation.compose != undefined){
+            composeInterpolation.authorName = await getUsernameByID(Number(composeInterpolation.compose.authorID))
             composeInterpolation.compose.yaml = composeInterpolation.compose.yaml
                 .replace(/\$/g, "\\$")
                 .replace(/&lt;/g, "<")
