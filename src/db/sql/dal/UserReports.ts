@@ -14,7 +14,9 @@ export const create = async(payload: UserReportInputDTO): Promise<boolean> => {
 export const getReportsPaginated = async(page: number): Promise<Array<UserReportsOutput> | undefined> => {
     let skip = page * 20
     const userReports = await UserReports.findAll({
-        order: ['id', 'DESC'],
+        order: [
+            ['id', 'DESC']
+        ],
         limit: 20,
         offset: skip
     })
