@@ -79,9 +79,9 @@ _Now under the GNU AGPLv3 license!_
  - [markdown](https://medium.com/geekculture/how-to-make-a-next-js-blog-with-markdown-and-typescript-1624a54f1b9e)
 
 ## goals
-- user auth (in progress)
-- interactive landing page
-- logo with name
+- ~~user auth (in progress)~~
+- ~~interactive landing page~~
+- ~~logo with name~~
 - clone over https
   - auto-gen .env file as well
   - Resources:
@@ -93,7 +93,7 @@ _Now under the GNU AGPLv3 license!_
       - delete after x timing? store most used longer?
 - add dropdown for subpages of subpage youre on
 - read sequelize documentation for something similar to [mongoose methods](https://mongoosejs.com/docs/typescript/statics-and-methods.html#methods)
-- create unique usernames and passwords for all related applications when in prod
+- ~~create unique usernames and passwords for all related applications when in prod~~
 - pornography testing on uploaded images via [nsfwjs](https://www.npmjs.com/package/nsfwjs)
 - explore testing options?
   - `npm i jest --save=dev`
@@ -101,8 +101,9 @@ _Now under the GNU AGPLv3 license!_
   - `npm i @types/jest --save-dev`
   - [guide](https://www.testim.io/blog/typescript-unit-testing-101/)
   - [docs](https://jestjs.io/docs/getting-started)
-- add javascript minifying for frontend code
-- headless cms? strapi?
+- ~~add javascript minifying for frontend code~~
+- ~~headless cms? strapi?~~ I dont want to do that
+- make composes/manifest editable
 
 ## known issues
 - Blob storage requires starting and stopping app for bucket and policy to be set

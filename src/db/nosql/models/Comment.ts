@@ -1,22 +1,31 @@
-import { Schema, model} from 'mongoose';
+import mongoose, { Schema, model} from 'mongoose';
 
 export interface IComment {
-    composeID: number,
-    user: string,
-    content: string
+    _id: mongoose.Types.ObjectId,
+    composeID: string,
+    user: number,
+    content: string,
+    upvotes: number
 }
+
+export interface CommentInput extends Partial<IComment>{}
+export interface CommentOutput extends Required<IComment>{}
 
 const CommentSchema = new Schema<IComment>({
     composeID: {
-        type: Number,
+        type: String,
         required: true
     },
     user: {
-        type: String,
+        type: Number,
         required: true
     },
     content: {
         type: String,
+        required: true
+    },
+    upvotes: {
+        type: Number,
         required: true
     }
 })

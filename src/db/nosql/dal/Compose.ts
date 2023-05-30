@@ -1,8 +1,8 @@
-import mongoose, { FilterQuery, Types } from 'mongoose'
+import mongoose from 'mongoose'
 import { Compose } from '../models'
 import { ComposeInput, ComposeOutput, ICompose } from '../models/Compose'
 import { incrementScriptsUsing } from '../services/imageService'
-import { QueryObject, QueryArrayObject } from '../models'
+import { QueryArrayObject } from '../models'
 
 export const create = async(payload: ComposeInput): Promise<ComposeOutput | undefined> => {
     payload._id = new mongoose.Types.ObjectId

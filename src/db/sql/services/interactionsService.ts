@@ -1,7 +1,8 @@
+import { ComposeInteractionDTO } from '../../../api/dto/interactions.dto'
 import * as interactionsDAL from '../dal/Interactions'
 
-export const setCreator = (authorID: number, composeID: string | undefined, imageID: string | undefined): Promise<boolean> => {
-    return interactionsDAL.setCreator(authorID, composeID, imageID)
+export const setInteraction = (payload: ComposeInteractionDTO): Promise<boolean> => {
+    return interactionsDAL.setInteraction(payload)
 }
 
 export const getAllFromUser = async(userID: number): Promise<Array<string> | undefined> => {

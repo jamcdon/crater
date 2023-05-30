@@ -5,6 +5,7 @@ interface InteractionsInitAttributes {
     id: number;
     composeID?: string;
     imageID?: string;
+    commentID?: string;
     comment: boolean;
     star: boolean;
     creator: boolean;
@@ -24,6 +25,7 @@ class Interactions extends Model<InteractionsInitAttributes, InteractionsInput> 
     public id!: number
     public composeID!: string
     public imageID!: string
+    public commentID!: string
     public comment!: boolean
     public star!: boolean
     public creator!: boolean
@@ -47,8 +49,11 @@ Interactions.init({
     imageID: {
         type: DataTypes.STRING
     },
+    commentID: {
+        type: DataTypes.STRING
+    },
     comment: {
-        type: DataTypes.BOOLEAN,
+        type: DataTypes.BOOLEAN
     },
     star: {
         type: DataTypes.BOOLEAN

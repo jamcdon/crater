@@ -5,11 +5,21 @@ import * as service from '../../../db/nosql/services/composeService'
 import * as userService from '../../../db/sql/services/userService'
 import * as interactionsService from '../../../db/sql/services/interactionsService'
 import { redisClient } from '../../../db/cache/init'
+import { ComposeInteractionDTO } from '../../dto/interactions.dto'
 
 export const create = async(payload: CreateComposeDTO): Promise<ICompose | undefined> => {
     const compose = await service.create(payload)
     if (compose != undefined){
-        const interactionsSuccess = await interactionsService.setCreator(compose.authorID, compose._id.toString(), undefined)
+        let payload: ComposeInteractionDTO = {
+            composeID: compose._id.toString(),
+            imageID: compose.imageID.toString(),
+            UserId: compose.authorID,
+            commentID: undefined,
+            comment: false,
+            star: false,
+            creator: true
+        }
+        const interactionsSuccess = await interactionsService.setInteraction(payload)
         if (!interactionsSuccess){
             await service.deleteById(compose._id.toString())
             return undefined

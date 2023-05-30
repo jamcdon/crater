@@ -2,13 +2,23 @@ import * as service from '../../../db/nosql/services/imageService'
 import { QueryObject } from '../../../db/nosql/models'
 import { IImage } from '../../../db/nosql/models/Image'
 import { CreateImageDTO, UpdateImageDTO } from '../../dto/image.dto'
+import { ComposeInteractionDTO } from '../../dto/interactions.dto'
 import * as interactionsService from '../../../db/sql/services/interactionsService'
 import * as mapper from './mapper'
 
 export const create = async(payload: CreateImageDTO): Promise<IImage | undefined> => {
     const image = await service.create(payload)
     if (image != undefined){
-        const interactionsSuccess = await interactionsService.setCreator(image.authorID, undefined, image._id.toString())
+        let payload: ComposeInteractionDTO = {
+            imageID: image._id.toString(),
+            composeID: undefined,
+            UserId: image.authorID,
+            commentID: undefined,
+            comment: false,
+            star: false,
+            creator: true
+        }
+        const interactionsSuccess = await interactionsService.setInteraction(payload)
         if (!interactionsSuccess){
             await service.deleteById(image._id.toString())
             return undefined

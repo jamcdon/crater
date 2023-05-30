@@ -1,5 +1,5 @@
 //nosql
-import mongoose, { StringExpressionOperatorReturningBoolean } from 'mongoose';
+import mongoose from 'mongoose';
 
 export type CreateImageDTO = {
     _id?: mongoose.Types.ObjectId;

@@ -1,19 +1,21 @@
 import {Op, QueryError, QueryTypes, Sequelize} from 'sequelize';
+import { ComposeInteractionDTO } from '../../../api/dto/interactions.dto';
 import { Interactions, User } from '../models'
 import { InteractionsInput, InteractionsOutput} from '../models/Interactions'
 
-export const setCreator = async (authorID: number, composeID: string | undefined, imageID: string | undefined): Promise<boolean> => {
-    if (composeID == undefined && imageID == undefined){
+export const setInteraction = async (payload: ComposeInteractionDTO): Promise<boolean> => {
+    if (payload.composeID == undefined && payload.imageID == undefined){
         return false
     }
     else {
         const sqlPayload: InteractionsInput = {
-            composeID: composeID,
-            imageID: imageID,
-            UserId: authorID,
-            comment: false,
-            star: false,
-            creator: true
+            composeID: payload.composeID,
+            imageID: payload.imageID,
+            UserId: payload.UserId,
+            commentID: payload.commentID,
+            comment: payload.comment,
+            star: payload.star,
+            creator: payload.creator
         }
         const interaction = await Interactions.create(sqlPayload)
 

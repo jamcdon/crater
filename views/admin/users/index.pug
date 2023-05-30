@@ -1,3 +1,23 @@
 extends ../template.pug
 mixin content
     div#content
+
+    if userReports
+        hr
+        h3 Latest Reports
+        table.table-striped.table-hover
+            thead
+                tr
+                    th(scope="col") Report ID 
+                    th(scope="col") Reported UserID 
+                    th(scope="col") Reporter ID
+                    th(scope="col") Message
+
+            tbody
+                for userReport in userReports
+                    //onclick TODO
+                    tr(onclick=`document.location=''` role="button")
+                        th(scope="row") #{userReport.id}
+                        td #{userReport.reportedUserID}
+                        td #{userReport.UserId}
+                        td #{userReport.message}
