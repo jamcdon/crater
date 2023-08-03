@@ -12,3 +12,11 @@ export const upvoteDownvote = (commentID: string, upvote: boolean): Promise<Comm
 export const deleteById = (id: string): Promise<boolean> => {
     return commentDAL.deleteById(id)
 }
+
+export const getPaginatedComments = (composeID: string, page: number): Promise<Array<CommentOutput> | undefined> => {
+    return commentDAL.getPaginatedComments(composeID, page)
+}
+
+export const readById = (commentID: string): Promise<CommentOutput | undefined> => {
+    return commentDAL.readById(commentID)
+}

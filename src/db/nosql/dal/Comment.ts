@@ -23,6 +23,14 @@ export const create = async(payload: CommentInput): Promise<CommentOutput | unde
     return createdComment
 }
 
+export const readById = async (commentID: string): Promise<CommentOutput | undefined> => {
+    let comment = await Comment.findById(commentID)
+    if (comment == null){
+        return undefined
+    }
+    return comment
+}
+
 export const upvoteDownvote = async(commentID: string, upvote: boolean): Promise<CommentOutput | undefined> => {
     try{
         let comment = await Comment.findById(commentID)
@@ -52,4 +60,27 @@ export const deleteById = async(id: string): Promise<boolean> => {
     })
 
     return deletion.acknowledged
+}
+
+export const getPaginatedComments = async(composeID: string, page: number): Promise<Array<CommentOutput> | undefined> => {
+    const values = page * 10
+    let comments: Array<CommentOutput> | null = null
+
+    try {
+        comments = await Comment.find(
+            {
+                composeID: composeID
+            },
+            {},
+            {
+                skipe: values - 10,
+                limit: values,
+                sort: {upvotes: -1}
+            }
+        )
+    }
+    catch {
+        return undefined
+    }
+    return comments
 }
