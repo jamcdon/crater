@@ -15,7 +15,8 @@ export const create = async(payload: CommentInput): Promise<CommentOutput | unde
         composeID: comment.composeID,
         user: comment.user,
         content: comment.content,
-        upvotes: comment.upvotes
+        upvotes: comment.upvotes,
+        edited: comment.edited
     }
 
     comment.save()
@@ -73,7 +74,7 @@ export const getPaginatedComments = async(composeID: string, page: number): Prom
             },
             {},
             {
-                skipe: values - 10,
+                skip: values - 10,
                 limit: values,
                 sort: {upvotes: -1}
             }
@@ -83,4 +84,20 @@ export const getPaginatedComments = async(composeID: string, page: number): Prom
         return undefined
     }
     return comments
+}
+
+export const updateById = async(id: string, content: string): Promise<CommentOutput | undefined> => {
+    let comment: CommentOutput | null = null
+    try {
+        comment = await Comment.findByIdAndUpdate(id, {content: content, edited: true})
+    }
+    catch {
+        return undefined
+    }
+    if (comment == null){
+        return undefined
+    }
+    comment.content = content
+    comment.edited = true
+    return comment
 }

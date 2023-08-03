@@ -45,3 +45,11 @@ export const deleteComment = async(commentID: string, userID: number): Promise<b
     }
     return false
 }
+
+export const updateById = async(commentID: string, userID: number, content: string): Promise<CommentOutput | undefined> => {
+    let comment = await service.readById(commentID)
+    if (comment != undefined && comment.user == userID){
+        return await service.updateById(commentID, content)
+    }
+    return undefined
+}

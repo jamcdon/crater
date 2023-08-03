@@ -20,3 +20,7 @@ export const getPaginatedComments = (composeID: string, page: number): Promise<A
 export const readById = (commentID: string): Promise<CommentOutput | undefined> => {
     return commentDAL.readById(commentID)
 }
+
+export const updateById = (commentID: string, content: string): Promise<CommentOutput | undefined> => {
+    return commentDAL.updateById(commentID, content)
+}

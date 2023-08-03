@@ -36,7 +36,18 @@ commentsRouter.put('/upvote/:commentID', async(req: Request, res: Response) => {
 
 commentsRouter.put('/:id', async(req: Request, res: Response) => {
     // update comment by id
-    const id = Number(req.params.id)
+    const id = req.params.id
+    const userToken = await getUserToken(req)
+    const content = req.body.content
+
+    if (userToken[1] != undefined){
+        const comment = await controller.updateById(id, userToken[1], content)
+        if (comment != undefined){
+            return res.status(200).json(comment)
+        }
+        return res.status(400).send(`{"status": "not updated", "reason": "an error occured or you were not the author of the comment"}`)
+    }
+    return res.status(401).send('{"Error": "User not logged in. Unable to update comment."}')
 })
 
 commentsRouter.delete('/:id', async(req: Request, res: Response) => {
@@ -62,10 +73,11 @@ commentsRouter.post('/:composeID', async(req: Request, res: Response) => {
             composeID: req.params.composeID,
             user: userToken[1],
             content: req.body.content,
-            upvotes: 0
+            upvotes: 0,
+            edited: false
         }
         const result = controller.createComment(payload)
-        if (payload != undefined){
+        if (result != undefined){
             return res.status(200).json(result)
         }
         return res.status(400).send('{"Error": "Comment not created"}')

@@ -5,7 +5,8 @@ export interface IComment {
     composeID: string,
     user: number,
     content: string,
-    upvotes: number
+    upvotes: number,
+    edited: boolean
 }
 
 export interface CommentInput extends Partial<IComment>{}
@@ -27,6 +28,10 @@ const CommentSchema = new Schema<IComment>({
     upvotes: {
         type: Number,
         required: true
+    },
+    edited: {
+        type: Boolean,
+        requried: true
     }
 })
 
