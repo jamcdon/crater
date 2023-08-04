@@ -5,3 +5,11 @@ export type CreateCommentDTO = {
     upvotes: number,
     edited: false
 }
+
+export type CommentJsonOutput = {
+    composeID: string,
+    user: string,
+    content: string,
+    upvotes: number,
+    edited: boolean
+}

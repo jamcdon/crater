@@ -76,7 +76,7 @@ commentsRouter.post('/:composeID', async(req: Request, res: Response) => {
             upvotes: 0,
             edited: false
         }
-        const result = controller.createComment(payload)
+        const result = await controller.createComment(payload)
         if (result != undefined){
             return res.status(200).json(result)
         }
