@@ -7,11 +7,18 @@ import { getUsernameByID } from '../compose'
 
 // start helper functions *** *** *** ***
 
+type paginatedCommentReturn = {
+    count: number, // may soft fail with 0; 0 still reasonable output
+    comments: Array<CommentJsonOutput>
+}
+
 const commentToJsonOutput = async(comment: CommentOutput): Promise<CommentJsonOutput> => {
     const username = await getUsernameByID(comment.user)
     if (username == undefined){
         return {
+            id: comment._id.toString(),
             composeID: comment.composeID,
+            userID: comment.user,
             user: comment.user.toString(),
             content: comment.content,
             upvotes: comment.upvotes,
@@ -19,7 +26,9 @@ const commentToJsonOutput = async(comment: CommentOutput): Promise<CommentJsonOu
         }
     }
     return {
+        id: comment._id.toString(),
         composeID: comment.composeID,
+        userID: comment.user,
         user: username,
         content: comment.content,
         upvotes: comment.upvotes,
@@ -39,7 +48,9 @@ const commentsToJsonOutput = async(comments: CommentOutput[]): Promise<Array<Com
     let commentJsonArray: CommentJsonOutput[] = []
     for (let i = 0; i < comments.length; i++){
         commentJsonArray.push({
+            id: comments[i]._id.toString(),
             composeID: comments[i].composeID,
+            userID: comments[i].user,
             user: (await getUsernameOrStringify(comments[i].user)),
             content: comments[i].content,
             upvotes: comments[i].upvotes,
@@ -54,9 +65,8 @@ const commentsToJsonOutput = async(comments: CommentOutput[]): Promise<Array<Com
 
 export const createComment = async(payload: CommentInput): Promise<CommentJsonOutput | undefined> => {
     let comment = await service.create(payload)
-
     if (comment != undefined){
-        let payload = commentComposeInteractionsMapper(comment, true)
+        let payload = commentComposeInteractionsMapper(comment, comment.user, true, null)
         const interactionsSuccess = await interactionsService.setInteraction(payload)
         if (!interactionsSuccess){
             await service.deleteById(comment._id.toString())
@@ -67,11 +77,26 @@ export const createComment = async(payload: CommentInput): Promise<CommentJsonOu
     return undefined
 }
 
-export const upvoteDownvote = async(commentID: string, upvote: boolean, userID: number): Promise<number | undefined> => {
-    let comment = await service.upvoteDownvote(commentID, upvote)
-    
+export const upvoteDownvote = async(commentID: string, upvote: boolean, userID: number, alreadyUpvoted: number): Promise<number | undefined> => {
+    let interactionUpvote = 0
+    let upvoteNumber = 0
+    if (upvote == true){
+        upvoteNumber = 1
+
+        interactionUpvote = 1
+    }
+    if (upvote == false){
+        upvoteNumber = -1
+
+        interactionUpvote = -1
+    }
+
+    upvoteNumber -= alreadyUpvoted
+
+    let comment = await service.upvoteDownvote(commentID, upvoteNumber)
+
     if (comment != undefined){
-        let payload = commentComposeInteractionsMapper(comment, false)
+        let payload = commentComposeInteractionsMapper(comment, userID, false, interactionUpvote)
 
         const interactionsSuccess = await interactionsService.setInteraction(payload)
         if (!interactionsSuccess){
@@ -83,14 +108,17 @@ export const upvoteDownvote = async(commentID: string, upvote: boolean, userID: 
     return undefined
 }
 
-export const getPaginated = async(composeID: string, page: number): Promise<Array<CommentJsonOutput> | undefined> => {
+export const getPaginated = async(composeID: string, page: number): Promise<paginatedCommentReturn | undefined> => {
     let rawComments = await service.getPaginatedComments(composeID, page)
 
     if (rawComments == undefined){
         return rawComments
     }
 
-    return commentsToJsonOutput(rawComments)
+    return {
+        count: await service.getCount(composeID),
+        comments: await commentsToJsonOutput(rawComments)
+    }
 }
 
 export const deleteComment = async(commentID: string, userID: number): Promise<boolean> => {
@@ -110,4 +138,8 @@ export const updateById = async(commentID: string, userID: number, content: stri
         }
     }
     return undefined
+}
+
+export const checkIfUpvoted = async(commentID: string, userID: number): Promise<number> => {
+    return await interactionsService.checkIfCommentUpvoted(commentID, userID)
 }

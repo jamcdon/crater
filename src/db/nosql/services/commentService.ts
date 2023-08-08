@@ -5,7 +5,7 @@ export const create = (payload: CommentInput): Promise<CommentOutput | undefined
     return commentDAL.create(payload)
 }
 
-export const upvoteDownvote = (commentID: string, upvote: boolean): Promise<CommentOutput | undefined> => {
+export const upvoteDownvote = (commentID: string, upvote: number): Promise<CommentOutput | undefined> => {
     return commentDAL.upvoteDownvote(commentID, upvote)
 }
 
@@ -23,4 +23,8 @@ export const readById = (commentID: string): Promise<CommentOutput | undefined> 
 
 export const updateById = (commentID: string, content: string): Promise<CommentOutput | undefined> => {
     return commentDAL.updateById(commentID, content)
+}
+
+export const getCount = (composeID: string): Promise<number> => {
+    return commentDAL.getCountById(composeID)
 }

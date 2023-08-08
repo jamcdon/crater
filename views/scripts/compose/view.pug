@@ -1,6 +1,7 @@
 extends ../../template.pug
 mixin content
     div#content 
+        include ../../sign/modal.pug
         h1.h3 #{compose.title}
         div
             span.d-inline-flex
@@ -32,4 +33,29 @@ mixin content
             .replace(/&gt;/g, ">");
         editor.setValue(yamlContent)
         editor.moveCursorTo(0,0);
+    div.card.mt-3#create-comment
+        div.card-header Add a comment
+        div.card-body
+            if userIDToken
+                form(action="javascript:sendComment()")
+                    textarea(rows="2").form-control#comment-body
+                    button.btn.btn-primary.float-end.mt-3 Submit
+            else
+                textarea(rows="2").form-control#comment-body
+                button(data-bs-toggle="modal" data-bs-target="#overlay").btn.btn-primary.float-end.mt-3 Submit
+
+    div#comments
+    div#comment-page-selector
+    script.
+        const minioPublic = "#{minioPublic}";
+        const composeID = "#{compose._id}";
+        let currentPage = 1;
+        currentComments = [];
+        let loggedIn;
+        if ("#{userIDToken}" != ""){
+            loggedIn = true;
+        }
+        else {
+            loggedIn = false;
+        }
     script(src="/script/scripts/compose/view.js")

@@ -32,21 +32,14 @@ export const readById = async (commentID: string): Promise<CommentOutput | undef
     return comment
 }
 
-export const upvoteDownvote = async(commentID: string, upvote: boolean): Promise<CommentOutput | undefined> => {
+export const upvoteDownvote = async(commentID: string, upvote: number): Promise<CommentOutput | undefined> => {
     try{
-        let comment = await Comment.findById(commentID)
+        let comment = await Comment.findByIdAndUpdate(commentID, {$inc: {upvotes: upvote}})
         if (comment != null){
-            if (upvote) {
-                comment.upvotes = comment.upvotes + 1
-            }
-            else {
-                comment.upvotes = comment.upvotes - 1
-            }
-            const updatedComment = await Comment.findByIdAndUpdate(commentID, comment)
-            if (!updatedComment){
-                return undefined
-            }
-            return updatedComment
+            // due to lazy loading lacking round trip db call
+            comment.upvotes = comment.upvotes + upvote
+
+            return comment
         }
         return undefined
     }
@@ -100,4 +93,8 @@ export const updateById = async(id: string, content: string): Promise<CommentOut
     comment.content = content
     comment.edited = true
     return comment
+}
+
+export const getCountById = async(composeID: string): Promise<number> => {
+        return await Comment.find({composeID: composeID}).count()
 }

@@ -7,7 +7,9 @@ export type CreateCommentDTO = {
 }
 
 export type CommentJsonOutput = {
+    id: string,
     composeID: string,
+    userID: number,
     user: string,
     content: string,
     upvotes: number,

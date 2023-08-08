@@ -9,17 +9,30 @@ export type ComposeInteractionDTO = {
     commentID?: string,
     comment: boolean,
     star: boolean,
-    creator: boolean
+    creator: boolean,
+    upvotes?: number
 }
 
-export const commentComposeInteractionsMapper = (comment: CommentOutput, creator: boolean): ComposeInteractionDTO => {
+export const commentComposeInteractionsMapper = (comment: CommentOutput, interactingUserID: number, creator: boolean, upvoteNumber: number | null): ComposeInteractionDTO => {
+    if (upvoteNumber == null){
+        return {
+            composeID: comment.composeID,
+            imageID: undefined,
+            UserId: interactingUserID,
+            commentID: comment._id.toString(),
+            comment: true,
+            star: false,
+            creator: creator
+        }
+    }
     return {
         composeID: comment.composeID,
         imageID: undefined,
-        UserId: comment.user,
+        UserId: interactingUserID,
         commentID: comment._id.toString(),
         comment: true,
         star: false,
-        creator: creator
+        creator: creator,
+        upvotes: upvoteNumber
     }
 }

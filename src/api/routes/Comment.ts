@@ -22,16 +22,18 @@ commentsRouter.get('/compose/:composeID/:page', async(req: Request, res: Respons
 
 commentsRouter.put('/upvote/:commentID', async(req: Request, res: Response) => {
     const userToken = await getUserToken(req)
-    //TODO - check if user has already upvoted and put in additional logic
 
     if (userToken[1] != undefined){
-        const upvotes = await controller.upvoteDownvote(req.params.commentID, req.body.upvote, userToken[1])
+        const alreadyUpvoted = await controller.checkIfUpvoted( req.params.commentID, userToken[1])
+
+        // this logic is now working for alreadyUpvoted - you need to add logic to handle if a comment has already been upvoted
+        const upvotes = await controller.upvoteDownvote(req.params.commentID, req.body.upvote, userToken[1], alreadyUpvoted)
         if (upvotes != undefined){
             return res.status(200).send(`{"upvotes": ${upvotes}}`)
         }
         return res.status(400).send('{"Error": "Unable to upvote/downvote comment"}')
     }
-    return res.status(401).send('{"Error": "User not logged in. Unable to create new comment."}')
+    return res.status(401).send('{"Error": "User not logged in. Unable to upvote/downvote comment."}')
 })
 
 commentsRouter.put('/:id', async(req: Request, res: Response) => {

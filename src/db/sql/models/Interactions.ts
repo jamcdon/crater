@@ -3,32 +3,26 @@ import sequelizeConnection from '../config';
 
 interface InteractionsInitAttributes {
     id: number;
-    composeID?: string;
-    imageID?: string;
-    commentID?: string;
-    comment: boolean;
-    star: boolean;
-    creator: boolean;
     createdAt?: Date;
     updatedAt?: Date;
 }
 
 interface InteractionsAttributes extends InteractionsInitAttributes {
     UserId: number;
+    ComposeInteractionId?: number;
+    ImageInteractionId?: number;
+    CommentInteractionId?: number;
 }
 
 export interface InteractionsInput extends Optional<InteractionsAttributes, 'id'> {}
-export interface InteractionsQuery extends Optional<InteractionsAttributes, 'composeID'> {}
+export interface InteractionsQuery extends Optional<InteractionsAttributes, 'ComposeInteractionId'> {}
 export interface InteractionsOutput extends Required<InteractionsAttributes> {}
 
 class Interactions extends Model<InteractionsInitAttributes, InteractionsInput> implements InteractionsAttributes {
     public id!: number
-    public composeID!: string
-    public imageID!: string
-    public commentID!: string
-    public comment!: boolean
-    public star!: boolean
-    public creator!: boolean
+    public ComposeInteractionId!: number
+    public ImageInteractionId!: number
+    public CommentInteractionId!: number
     public UserId!: number
 
     // timestamps!
@@ -42,25 +36,28 @@ Interactions.init({
         type: DataTypes.INTEGER.UNSIGNED,
         autoIncrement: true,
         primaryKey: true
-    },
-    composeID: {
-        type: DataTypes.STRING
-    },
-    imageID: {
-        type: DataTypes.STRING
-    },
-    commentID: {
-        type: DataTypes.STRING
-    },
-    comment: {
-        type: DataTypes.BOOLEAN
-    },
-    star: {
-        type: DataTypes.BOOLEAN
-    },
-    creator: {
-        type: DataTypes.BOOLEAN
     }/*,
+    composeInteractionID: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        references: {
+            key: 'id',
+            model: 'ComposeInteraction'
+        }
+    },
+    imageInteractionID: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        references: {
+            key: 'id',
+            model: 'ImageInteraction'
+        }
+    },
+    commentInteractionID: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        references: {
+            key: 'id',
+            model: 'CommentInteraction'
+        }
+    },
     UserID: {
         type: DataTypes.INTEGER.UNSIGNED,
         references: {
@@ -68,7 +65,7 @@ Interactions.init({
             model: 'User'
         }
     }
-    this column exists through ../init.ts with User.hasMany(...) and Interactions.belongsTo(User)
+    these column exists through ../init.ts with User.hasMany(...) and Interactions.belongsTo(User)
     */
 },
 {
