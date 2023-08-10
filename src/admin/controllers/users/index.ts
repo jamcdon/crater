@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { UserReportsOutput } from '../../../db/sql/models/UserReports'
 import { getUserToken } from '../../../frontend/controllers/common'
 import { adminInterpolationObject } from '../common'
-import * as service from '../../../db/sql/services/userReportService'
+import * as service from '../../../db/sql/services/reportService'
 
 type adminUsersInterpolation = adminInterpolationObject & {
     newUsers?: number
@@ -27,7 +27,7 @@ class Users {
 }
 
 const getReports = async(page: number): Promise<Array<UserReportsOutput> | undefined> => {
-    return service.getReportsPaginated(page)
+    return service.getUserReportsPaginated(page)
 }
 
 export default Users

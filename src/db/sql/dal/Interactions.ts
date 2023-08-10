@@ -2,9 +2,9 @@ import {Op, QueryError, QueryTypes, Sequelize} from 'sequelize';
 import { ComposeInteractionDTO } from '../../../api/dto/interactions.dto';
 import { Interactions, User, CommentInteractions } from '../models'
 import { InteractionsInput, InteractionsOutput} from '../models/Interactions'
-import { CommentInteractionInput } from '../models/commentInteractions';
-import ComposeInteractions, { ComposeInteractionInput } from '../models/composeInteractions';
-import ImageInteractions, { ImageInteractionInput } from '../models/imageInteractions';
+import { CommentInteractionInput, CommentInteractionOutput } from '../models/commentInteractions';
+import ComposeInteractions, { ComposeInteractionInput, ComposeInteractionOutput } from '../models/composeInteractions';
+import ImageInteractions, { ImageInteractionInput, ImageInteractionOutput } from '../models/imageInteractions';
 
 
 export const setCommentInteraction = async(payload: ComposeInteractionDTO): Promise<boolean> => {
@@ -22,21 +22,27 @@ export const setCommentInteraction = async(payload: ComposeInteractionDTO): Prom
         commentPayload.upvote = payload.upvotes
     }
 
-    const commentInteraction = await CommentInteractions.create(commentPayload)
+    let commentInteraction: CommentInteractionOutput | null = null
 
-
-    if (commentInteraction == null){
+    try {
+        commentInteraction = await CommentInteractions.create(commentPayload)
+    }
+    catch {
         return false
     }
+
 
     const interactionPayload: InteractionsInput = {
         UserId: payload.UserId,
         CommentInteractionId: commentInteraction.id
     } 
 
-    const interaction = await Interactions.create(interactionPayload)
+    let interaction: InteractionsOutput | null = null
 
-    if (interaction == null){
+    try {
+        interaction = await Interactions.create(interactionPayload)
+    }
+    catch {
         return false
     }
 
@@ -54,9 +60,12 @@ export const setComposeInteraction = async(payload: ComposeInteractionDTO): Prom
         composeID: payload.composeID,
         imageID: payload.imageID
     }
-    const composeInteraction = await ComposeInteractions.create(composePayload, {raw: true})
+    let composeInteraction: ComposeInteractionOutput | null = null
 
-    if (composeInteraction == null){
+    try {
+        composeInteraction = await ComposeInteractions.create(composePayload, {raw: true})
+    }
+    catch {
         return false
     }
 
@@ -65,9 +74,13 @@ export const setComposeInteraction = async(payload: ComposeInteractionDTO): Prom
         UserId: payload.UserId,
         ComposeInteractionId: composeInteraction.id
     }
-    const interaction = await Interactions.create(interactionPayload)
 
-    if (interaction == null){
+    let interaction: InteractionsOutput | null = null
+
+    try {
+        interaction = await Interactions.create(interactionPayload)
+    }
+    catch {
         return false
     }
 
@@ -82,9 +95,12 @@ export const setImageInteraction = async(payload: ComposeInteractionDTO): Promis
         star: payload.star,
         imageID: payload.imageID
     }
-    const imageInteraction = await ImageInteractions.create(imagePayload)
+    let imageInteraction: ImageInteractionOutput | null = null
 
-    if (imageInteraction == null){
+    try {
+    imageInteraction = await ImageInteractions.create(imagePayload)
+    }
+    catch {
         return false
     }
 
@@ -92,9 +108,12 @@ export const setImageInteraction = async(payload: ComposeInteractionDTO): Promis
         UserId: payload.UserId,
         ImageInteractionId: imageInteraction.id
     }
-    const interaction = await Interactions.create(interactionPayload)
+    let interaction: InteractionsOutput | null = null
 
-    if (interaction == null){
+    try {
+    interaction = await Interactions.create(interactionPayload)
+    }
+    catch {
         return false
     }
 

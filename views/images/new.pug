@@ -16,7 +16,7 @@ mixin content
             form(action="javascript:uploadOrFail()").w-50
                 div.my-3
                     label(for="name").form-label Name
-                    input(type="text").form-control#name
+                    input(type="text" style="text-transform: lowercase;").form-control#name
                     p.text-muted.mb-0 The name of the image (i.e. mysql)
                     p.text-danger#name-error
                 div.mb-3

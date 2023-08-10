@@ -51,7 +51,7 @@ imageRouter.post('/', async (req: Request, res: Response) => {
     const userToken = await getUserToken(req)
     if (userToken[1] != undefined){
         const payload:CreateImageDTO = {
-            name: req.body.name,
+            name: req.body.name.toLowerCase(),
             hyperlink: req.body.hyperlink,
             description: req.body.description,
             scriptsUsing: 0,

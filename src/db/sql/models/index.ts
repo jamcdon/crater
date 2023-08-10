@@ -5,6 +5,8 @@ import ImageInteractions from './imageInteractions'
 import Interactions from './Interactions'
 import Admin from './Admin'
 import UserReports from './UserReports'
+import ImageReports from './ImageReports'
+import ScriptReports from './ScriptReports'
 
 export {
     User,
@@ -13,5 +15,7 @@ export {
     ImageInteractions,
     Interactions,
     Admin,
-    UserReports
+    UserReports,
+    ImageReports,
+    ScriptReports
 }

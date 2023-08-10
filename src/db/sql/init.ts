@@ -5,7 +5,9 @@ import {
     ImageInteractions,
     Interactions,
     Admin,
-    UserReports
+    UserReports,
+    ImageReports,
+    ScriptReports
 } from './models';
 
 const sqlInit = () => {
@@ -20,10 +22,14 @@ const sqlInit = () => {
     Interactions.belongsTo(User)
     Admin.belongsTo(User)
     UserReports.belongsTo(User)
+    ImageReports.belongsTo(User)
+    ScriptReports.belongsTo(User)
 
     User.hasMany(Interactions)
     User.hasMany(Admin)
     User.hasMany(UserReports)
+    User.hasMany(ImageReports)
+    User.hasMany(ScriptReports)
 
 
     User.sync()
@@ -33,6 +39,8 @@ const sqlInit = () => {
     Interactions.sync()
     Admin.sync()
     UserReports.sync()
+    ImageReports.sync()
+    ScriptReports.sync()
 
     console.log('Connecting to SQL database...')
 }

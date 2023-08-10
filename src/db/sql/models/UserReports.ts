@@ -33,13 +33,12 @@ UserReports.init({
     message: {
         type: DataTypes.STRING
     }/*,
-    UserID: {
+    UserId: {
         type: DataTypes.INTEGER.UNSIGNED,
         references: {
             key: 'id',
             model: 'User'
         }
-    }
     this column exists through ../init.ts with User.hasMany(...) and Interactions.belongsTo(User)
     */
 },

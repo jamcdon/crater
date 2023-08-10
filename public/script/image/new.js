@@ -24,7 +24,7 @@ const setPreview = () => {
     previewDiv.classList.remove("invisible")
     previewDiv.classList.add("visible")
 
-    let name = document.getElementById("name").value;
+    let name = document.getElementById("name").value.toLowerCase();
     let link = document.getElementById("hyperlink").value;
     let description = document.getElementById("description").value;
 
@@ -47,7 +47,7 @@ const setPreview = () => {
 }
 
 const uploadOrFail = () => {
-    let name = document.getElementById("name").value;
+    let name = document.getElementById("name").value.toLowerCase();
     let link = document.getElementById("hyperlink").value;
     let description = document.getElementById("description").value.replace(/"/, '\\"');
 
