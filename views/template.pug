@@ -19,11 +19,6 @@ html(lang="en")
                             else
                                 a(href="/").nav-link.px-2.text-white.btn Home
                         li 
-                            if page == "Features"
-                                a(href="/features").nav-link.px-2.text-secondary.btn Features
-                            else
-                                a(href="/features").nav-link.px-2.text-white.btn Features
-                        li 
                             if page == "Images"
                                 a(href="/images").nav-link.px-2.text-secondary.btn Images
                             else
@@ -33,6 +28,11 @@ html(lang="en")
                                 a(href="/scripts").nav-link.px-2.text-secondary.btn Scripts
                             else
                                 a(href="/scripts").nav-link.px-2.text-white.btn Scripts
+                        li 
+                            if page == "Forum"
+                                a(href="/forum").nav-link.px-2.text-secondary.btn Forum
+                            else
+                                a(href="/forum").nav-link.px-2.text-white.btn Forum
                         li 
                             if page == "About"
                                 a(href="/about").nav-link.px-2.text-secondary.btn About

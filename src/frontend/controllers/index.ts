@@ -1,6 +1,6 @@
 import About from './about'
 import Account from './account'
-import Features from './features'
+import Forum from './forum'
 import Home from './home'
 import Images from './images'
 import Sign from './sign'
@@ -11,7 +11,7 @@ export const aboutController = About
 
 export const accountController = Account
 
-export const featuresController = Features
+export const forumController = Forum
 
 export const homeController = Home
 

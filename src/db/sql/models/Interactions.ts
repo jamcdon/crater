@@ -37,32 +37,46 @@ Interactions.init({
         autoIncrement: true,
         primaryKey: true
     }/*,
-    composeInteractionID: {
+    composeInteractionId: {
         type: DataTypes.INTEGER.UNSIGNED,
         references: {
             key: 'id',
             model: 'ComposeInteraction'
         }
     },
-    imageInteractionID: {
+    imageInteractionId: {
         type: DataTypes.INTEGER.UNSIGNED,
         references: {
             key: 'id',
             model: 'ImageInteraction'
         }
     },
-    commentInteractionID: {
+    commentInteractionId: {
         type: DataTypes.INTEGER.UNSIGNED,
         references: {
             key: 'id',
             model: 'CommentInteraction'
         }
     },
-    UserID: {
+    UserId: {
         type: DataTypes.INTEGER.UNSIGNED,
         references: {
             key: 'id',
             model: 'User'
+        }
+    },
+    forumCommentInteractionId: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        references: {
+            key: 'id',
+            model: 'ForumCommentInteraction'
+        }
+    },
+    forumPostInteractionId: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        references: {
+            key: 'id',
+            model: 'ForumPostInteraction'
         }
     }
     these column exists through ../init.ts with User.hasMany(...) and Interactions.belongsTo(User)

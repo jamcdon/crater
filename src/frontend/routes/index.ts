@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import aboutRouter from './about'
 import accountRouter from './account'
-import featuresRouter from './features'
+import forumRouter from './forum'
 import homeRouter from './home'
 import imageRouter from './images'
 import signRouter from './sign'
@@ -13,7 +13,7 @@ const frontEndRouter = Router()
 frontEndRouter.use('/', homeRouter)
 frontEndRouter.use('/about', aboutRouter)
 frontEndRouter.use('/account', accountRouter)
-frontEndRouter.use('/features', featuresRouter)
+frontEndRouter.use('/forum', forumRouter)
 frontEndRouter.use('/images', imageRouter)
 frontEndRouter.use('/scripts', scriptsRouter)
 frontEndRouter.use('/sign', signRouter)

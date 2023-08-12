@@ -1,10 +1,14 @@
 import {
     User,
+    Admin,
+
     ComposeInteractions,
     CommentInteractions,
     ImageInteractions,
     Interactions,
-    Admin,
+    ForumCommentInteractions,
+    ForumPostInteractions,
+
     UserReports,
     ImageReports,
     ScriptReports
@@ -14,10 +18,14 @@ const sqlInit = () => {
     ComposeInteractions.hasMany(Interactions)
     CommentInteractions.hasMany(Interactions)
     ImageInteractions.hasMany(Interactions)
+    ForumCommentInteractions.hasMany(Interactions)
+    ForumPostInteractions.hasMany(Interactions)
     
     Interactions.belongsTo(CommentInteractions)
     Interactions.belongsTo(ComposeInteractions)
     Interactions.belongsTo(ImageInteractions)
+    Interactions.belongsTo(ForumCommentInteractions)
+    Interactions.belongsTo(ForumPostInteractions)
 
     Interactions.belongsTo(User)
     Admin.belongsTo(User)
@@ -36,6 +44,8 @@ const sqlInit = () => {
     ComposeInteractions.sync()
     CommentInteractions.sync()
     ImageInteractions.sync()
+    ForumCommentInteractions.sync()
+    ForumPostInteractions.sync()
     Interactions.sync()
     Admin.sync()
     UserReports.sync()
