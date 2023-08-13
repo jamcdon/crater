@@ -17,6 +17,14 @@ class About {
         [aboutInterpolation.usernameToken, aboutInterpolation.userIDToken, aboutInterpolation.isAdmin] = await getUserToken(req)
         return res.render('about/team.pug', aboutInterpolation)
     }
+    public static async submissions (req: Request, res: Response): Promise<void> {
+        [aboutInterpolation.usernameToken, aboutInterpolation.userIDToken, aboutInterpolation.isAdmin] = await getUserToken(req)
+        return res.render('about/features/submissions.pug', aboutInterpolation)
+    }
+    public static async glance (req: Request, res: Response): Promise<void> {
+        [aboutInterpolation.usernameToken, aboutInterpolation.userIDToken, aboutInterpolation.isAdmin] = await getUserToken(req)
+        return res.render('about/features/glance.pug', aboutInterpolation)
+    }
 }
 
 export default About
