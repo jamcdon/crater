@@ -1,8 +1,48 @@
 extends ../../template.pug
 mixin content
     div#content 
+        div(tabindex="-1").modal.fade#report-modal
+            div.modal-dialog
+                div.modal-content
+                    div.modal-header.d-flex.justify-content-between
+                        div.d-inline-flex
+                            h3 Report #{compose.title}&nbsp;
+                    div.modal-body#modal-body
+                        form(action="javascript:reportCompose()")
+                            div.mb-3
+                                h4 Problems (check all)
+                                div.container
+                                    div.row
+                                        span.col
+                                            input.form-check-input#name(type="checkbox")
+                                            label(for="name").form-label &nbsp;Name
+                                        span.col
+                                            input.form-check-input#script-content(type="checkbox")
+                                            label(for="script-content").form-label &nbsp;Script Content
+                                    div.row
+                                        span.col
+                                            input.form-check-input#tags(type="checkbox")
+                                            label(for="tags").form-label &nbsp;Tags
+                                        span.col
+                                            input.form-check-input#image(type="checkbox") 
+                                            label(for="image").form-label &nbsp;Image
+                                    div.row
+                                        span.col
+                                            input.form-check-input#comments-report(type="checkbox")
+                                            label(for="comments-report").form-label &nbsp;Comments
+                            div.mb-3
+                                label(for="message").form-label Report Message (not required)
+                                textarea(rows="3").form-control#message
+                            div.mb-3.text-end
+                                button(type="submit").btn.btn-danger Submit
         include ../../sign/modal.pug
-        h1.h3 #{compose.title}
+        div.d-flex.justify-content-between
+            h1.h3 #{compose.title}
+            span
+                if userIDToken
+                    button.btn.btn-danger.mt-2(data-bs-toggle="modal" data-bs-target="#report-modal") Report
+                else
+                    button.btn.btn-danger.mt-2(data-bs-toggle="modal" data-bs-target="#overlay") Report
         div
             span.d-inline-flex
                 p Created by&nbsp;

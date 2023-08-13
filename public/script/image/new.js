@@ -49,7 +49,7 @@ const setPreview = () => {
 const uploadOrFail = () => {
     let name = document.getElementById("name").value.toLowerCase();
     let link = document.getElementById("hyperlink").value;
-    let description = document.getElementById("description").value.replace(/"/, '\\"');
+    let description = document.getElementById("description").value.replace(/"/g, '\\"').replace(/[\r\n]+/g, "\\n")
 
     if (name == "" || link == "" || description == ""){
         if (name == ""){

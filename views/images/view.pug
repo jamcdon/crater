@@ -1,8 +1,45 @@
 extends ../template.pug
 mixin content
-    span.d-inline-flex.mt-2
-        img(width="48" src=minioPublic + "/image/" + image.name + ".png")
-        h1 &emsp;#{image.name}
+    include ../sign/modal.pug
+    div(tabindex="-1").modal.fade#report-modal
+        div.modal-dialog
+            div.modal-content
+                div.modal-header.d-flex.justify-content-between
+                    div.d-inline-flex
+                        h3 Report #{image.name}&nbsp;
+                div.modal-body#modal-body
+                    form(action="javascript:reportImage()")
+                        div.mb-3
+                            h4 Problems (check all)
+                            div.container
+                                div.row
+                                    span.col
+                                        input.form-check-input#description(type="checkbox")
+                                        label(for="description").form-label &nbsp;Description
+                                    span.col
+                                        input.form-check-input#picture(type="checkbox")
+                                        label(for="picture").form-label &nbsp;Picture
+                                div.row
+                                    span.col
+                                        input.form-check-input#link(type="checkbox")
+                                        label(for="link").form-label &nbsp;Link
+                                    span.col
+                                        input.form-check-input#image(type="checkbox") 
+                                        label(for="image").form-label &nbsp;Image
+                        div.mb-3
+                            label(for="message").form-label Report Message (not required)
+                            textarea(rows="3").form-control#message
+                        div.mb-3.text-end
+                            button(type="submit").btn.btn-danger Submit
+    span.d-flex.justify-content-between
+        div.d-inline-flex.mt-2
+            img(width="48" src=minioPublic + "/image/" + image.name + ".png")
+            h1 &emsp;#{image.name}
+        span
+            if userIDToken
+                button.btn.btn-danger.mt-2(data-bs-toggle="modal" data-bs-target="#report-modal") Report
+            else
+                button.btn.btn-danger.mt-2(data-bs-toggle="modal" data-bs-target="#overlay") Report
     br
     span.d-inline-flex.mb-3
         p Found at:&nbsp;
@@ -30,3 +67,7 @@ mixin content
                             td Compose 
                         td #{script.stars}
                         td #{script.authorName}
+    script.
+        const imageID = "#{image._id}"
+        let loggedIn
+    script(src="/script/image/view.js")

@@ -39,6 +39,7 @@ class Images {
 
         const image = await getByImageName(imageName)
         if (image != undefined){
+            image.description = image.description.replace('\"', '"').replace(/[\r\n]+/g, ' ')
             imagesInterpolation.image = image
             let imageScripts = await paginateScriptsById(image._id.toString(), 1)
             if (imageScripts != undefined){
