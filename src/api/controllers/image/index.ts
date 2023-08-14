@@ -78,3 +78,7 @@ export const paginateNameOnly = async(page: number): Promise<Array<string> | und
 export const getCount = async(): Promise<number> => {
     return await service.getCount()
 }
+
+export const fuzzySearch = async(query: string, page: number): Promise<QueryObject | undefined> => {
+    return await service.fuzzySearch(query, page)
+}

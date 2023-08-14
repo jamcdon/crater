@@ -41,3 +41,7 @@ export const incrementScriptsUsing = async(imageID: string): Promise<void> => {
 export const adminPaginateByDate = async(page: number): Promise<Array<ImageOutput> | undefined> => {
     return imageDAL.adminPaginateByDate(page)
 }
+
+export const fuzzySearch = async(query: string, page: number): Promise<QueryObject | undefined> => {
+    return imageDAL.fuzzySearch(query, page)
+}

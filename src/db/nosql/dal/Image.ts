@@ -124,3 +124,31 @@ export const adminPaginateByDate = async(page: number): Promise<Array<ImageOutpu
     }
     return images
 }
+
+
+export const fuzzySearch = async(query: string, page: number): Promise<QueryObject | undefined> => {
+    const values = page * 25
+    const regex = new RegExp(query, 'gi')
+
+    let imageNames: QueryObject | undefined = undefined
+    try {
+        imageNames = await Image.find(
+            {
+                name: regex
+            },
+            {
+                name: 1,
+                scriptsUsing: 1
+            },
+            {
+                sort: {scriptsUsing: -1},
+                skipe: values - 25,
+                limit: values
+            }
+        ).lean()
+    }
+    catch {
+        return undefined
+    }
+    return imageNames
+}

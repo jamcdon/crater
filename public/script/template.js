@@ -1,3 +1,5 @@
+let queryEle = document.getElementById('image-search');
+
 async function logout(){
     let xhr = new XMLHttpRequest();
     xhr.open('POST', '/api/v1/user/log/out/')
@@ -8,3 +10,11 @@ async function logout(){
     }
     xhr.send()
 }
+
+//support opening new page on image-search box
+queryEle.addEventListener("keydown", (e) => {
+    if (e.code === "Enter"){
+        let queryValue = queryEle.value.replace(/ /g, "+").replace(/\//g, "-")
+        document.location.href = `/images/search/${queryValue}/1`
+    }
+})

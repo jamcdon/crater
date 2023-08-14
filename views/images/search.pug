@@ -1,0 +1,23 @@
+extends ../template.pug
+mixin content
+    div#content
+        if images
+            h1.h2 Image Results
+            table.table.table-hover
+                thead
+                    tr
+                        th(scope="col") &nbsp;
+                        th(scope="col") Image
+                        th(scope="col") Scripts Using
+                tbody
+                    each image in images
+                        tr(onclick="document.location='/images/view/" + image.urlName + "'")
+                            th(scope="row")
+                                img(width="36" src=minioPublic + "/image/" + image.name + ".png")
+                            td= image.name
+                            td= image.scriptsUsing
+        else
+            hr
+            h2 No Results
+            p.text Check your search query or&nbsp;
+                a(href="/images/new") add the image to Crater!

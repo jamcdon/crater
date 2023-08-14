@@ -1,7 +1,7 @@
 import {Request, Response } from 'express'
 import { IImageStr, IImage } from '../../../db/nosql/models/Image'
 import {getUserToken, interpolationObject} from '../common'
-import { getByImageName, paginate } from '../../../api/controllers/image'
+import { getByImageName, paginate, fuzzySearch } from '../../../api/controllers/image'
 import * as mapper from '../../../api/controllers/image/mapper'
 import { ComposeModification } from '../../../db/nosql/models/Compose'
 import { paginateScriptsById } from '../../../api/controllers/compose'
@@ -34,8 +34,8 @@ class Images {
     public static async view (req: Request, res: Response): Promise<void> {
         [imagesInterpolation.usernameToken, imagesInterpolation.userIDToken, imagesInterpolation.isAdmin] = await getUserToken(req)
         let imageName = req.params.imageName
-        imageName = imageName.replace("+", " ")
-        imageName = imageName.replace("-", "/")
+        imageName = imageName.replace(/\+/g, " ")
+        imageName = imageName.replace(/-/g, "/")
 
         const image = await getByImageName(imageName)
         if (image != undefined){
@@ -54,6 +54,23 @@ class Images {
         [imagesInterpolation.usernameToken, imagesInterpolation.userIDToken, imagesInterpolation.isAdmin] = await getUserToken(req)
         imagesInterpolation.imageImageDefault = minioImageImageDefault
         return res.render('images/new.pug', imagesInterpolation)
+    }
+
+    public static async search(req: Request, res: Response): Promise<void> {
+        [imagesInterpolation.usernameToken, imagesInterpolation.userIDToken, imagesInterpolation.isAdmin] = await getUserToken(req)
+        const query = req.params.query.replace(/\+/g, " ").replace(/-/g, "/")
+
+        let page = parseInt(req.params.page)
+        if (!Number.isNaN(page)){
+            page = 1
+        }
+
+        let imagesRaw = await fuzzySearch(query, page)
+        if (imagesRaw != undefined){
+            imagesInterpolation.images = mapper.toImages(imagesRaw)
+        }
+
+        return res.render('images/search.pug', imagesInterpolation)
     }
 }
 
