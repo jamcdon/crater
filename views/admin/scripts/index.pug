@@ -1,3 +1,53 @@
 extends ../template.pug
 mixin content
     div#content
+        h2 Scripts
+        hr
+        h3 Latest Reports
+        table.table-striped.table-hover
+            thead
+                tr
+                    th(scope="col") Report ID&emsp;
+                    th(scope="col") Reported ScriptID&emsp;
+                    th(scope="col") Name&emsp;
+                    th(scope="col") Script&emsp;
+                    th(scope="col") Tags&emsp;
+                    th(scope="col") Comments&emsp;
+                    th(scope="col") Image&emsp;
+                    th(scope="col") Message&emsp;
+            tbody
+                for scriptReport in scriptReports
+                    tr(onclick="" role="button")
+                        th(scope="row") #{scriptReport.id}
+                        td #{scriptReport.reportedScriptID}&emsp;
+                        if scriptReport.badName
+                            td
+                                input(type="checkbox" checked disabled).form-check-label
+                        else
+                            td
+                                input(type="checkbox" disabled).form-check-label
+                        if scriptReport.badScript
+                            td
+                                input(type="checkbox" checked disabled).form-check-label
+                        else
+                            td
+                                input(type="checkbox" disabled).form-check-label
+                        if scriptReport.badTags
+                            td
+                                input(type="checkbox" checked disabled).form-check-label
+                        else
+                            td
+                                input(type="checkbox" disabled).form-check-label
+                        if scriptReport.badComments
+                            td
+                                input(type="checkbox" checked disabled).form-check-label
+                        else
+                            td
+                                input(type="checkbox" disabled).form-check-label
+                        if scriptReport.badContainerImage
+                            td
+                                input(type="checkbox" checked disabled).form-check-label
+                        else
+                            td
+                                input(type="checkbox" disabled).form-check-label
+                        td #{scriptReport.message}

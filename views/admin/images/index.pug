@@ -3,4 +3,45 @@ mixin content
     div#content
         h2 Images
         p current count: #{imageCount}
-        // add if statement and for loop for most recent, likely a table
+        hr
+        h3 Latest Reports
+        table.table-striped.table-hover
+            thead
+                tr
+                    th(scope="col") Report ID&emsp;
+                    th(scope="col") Reported ImageID&emsp;
+                    th(scope="col") Desc&emsp;
+                    th(scope="col") Pic&emsp;
+                    th(scope="col") Link&emsp;
+                    th(scope="col") Image&emsp;
+                    th(scope="col") Message
+            tbody
+                for imageReport in imageReports
+                    tr(onclick="" role="button")
+                        th(scope="row") #{imageReport.id}
+                        td #{imageReport.reportedImageID}&emsp;
+                        if imageReport.badDescription 
+                            td
+                                input(type="checkbox" checked disabled).form-check-label
+                        else
+                            td
+                                input(type="checkbox" disabled).form-check-label
+                        if imageReport.badPicture
+                            td
+                                input(type="checkbox" checked disabled).form-check-label
+                        else
+                            td
+                                input(type="checkbox" disabled).form-check-label
+                        if imageReport.badLink
+                            td
+                                input(type="checkbox" checked disabled).form-check-label
+                        else
+                            td
+                                input(type="checkbox" disabled).form-check-label
+                        if imageReport.badContainerImage
+                            td
+                                input(type="checkbox" checked disabled).form-check-label
+                        else
+                            td
+                                input(type="checkbox" disabled).form-check-label
+                        td #{imageReport.message}

@@ -3,11 +3,14 @@ import { getUserToken } from '../../../frontend/controllers/common'
 import { ImageOutput } from '../../../db/nosql/models/Image'
 import { getCount, adminPaginateByDate } from '../../../db/nosql/services/imageService'
 import { adminInterpolationObject } from '../common'
+import { ImageReportsOutput } from '../../../db/sql/models/ImageReports'
+import { getImageReportsPaginated } from '../../../db/sql/dal/Reports'
 
 type adminImagesInterpolation = adminInterpolationObject & {
     imageCount?: number,
     mostRecentImages?: Array<ImageOutput>,
-    unmatchedImages?: Array<ImageOutput>
+    unmatchedImages?: Array<ImageOutput>,
+    imageReports?: Array<ImageReportsOutput>
 }
 
 let adminImagesInterpolation : adminImagesInterpolation = {
@@ -18,14 +21,12 @@ let adminImagesInterpolation : adminImagesInterpolation = {
 class Images {
     public static async index (req: Request, res: Response): Promise<void> {
         [adminImagesInterpolation.usernameToken, adminImagesInterpolation.userIDToken, adminImagesInterpolation.isAdmin] = await getUserToken(req)
-        // add functionality to test if user is admin
-        adminImagesInterpolation.imageCount = await getCount()
-        let mostRecentImages = await adminPaginateByDate(1)
-        if (mostRecentImages != undefined){
-            adminImagesInterpolation.mostRecentImages = mostRecentImages
-        }
-        //add dal here
         if (adminImagesInterpolation.isAdmin) {
+            adminImagesInterpolation.imageCount = await getCount()
+
+            adminImagesInterpolation.imageReports = await getImageReportsPaginated(0)
+
+            adminImagesInterpolation.mostRecentImages = await adminPaginateByDate(1)
             return res.render('admin/images/index.pug', adminImagesInterpolation)
         }
         return res.status(404).render('error/404.pug', adminImagesInterpolation)
