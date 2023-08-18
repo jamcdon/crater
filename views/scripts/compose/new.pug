@@ -31,14 +31,15 @@ mixin content
             div.mb-3
                 label(for="yaml").form-label YAML
                 div(style="height:50vh;")#yaml.w-100.border.border-primary
-            div.d-flex.flex-wrap.align-items-center.justify-content-left.justify-content.lg-start#form-buttons
-                button(type="submit").btn.btn-warning Submit
-                button(type="button" onclick="setPreview()").btn.btn-secondary.mx-2 Preview
+            div.d-flex.flex-wrap.align-items-center.justify-content.lg-start.float-end#form-buttons
                 p#validation.text-danger &nbsp;
+                button(type="button" onclick="setPreview()").btn.btn-secondary.mx-2 Preview
+                button(type="submit").btn.btn-warning Submit
         div(style="height:0;")#preview-buttons.invisible
             button(onclick="setEdit()").btn.btn-warning Edit
 
     script.
         const minioPublic = "#{minioPublic}";
     script(src="/script/lib/ace/ace.js")
+    script(src="/script/scripts/common/new.js")
     script(src="/script/scripts/compose/new.js")

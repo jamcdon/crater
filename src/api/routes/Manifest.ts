@@ -19,6 +19,7 @@ manifestRouter.post('/', async(req: Request, res: Response) => {
             tags: req.body.tags,
             public: req.body.public,
             yaml: req.body.yaml,
+            yamlTitle: req.body.yamlTitle,
             yamls: req.body.yamls,
             stars: 0
         }
@@ -34,6 +35,18 @@ manifestRouter.post('/', async(req: Request, res: Response) => {
     }
     return res.status(400).send('"Error": "Image for manifest not created."')
 
+})
+
+manifestRouter.get('/paginate/popular/:page', async(req: Request, res: Response) => {
+    const page: number = parseInt(req.params.page)
+    if (!Number.isNaN(page)){
+        const manifests = await manifestController.paginatePopularity(page)
+        if (manifests != undefined){
+            return res.status(200).json(manifests)
+        }
+        return res.status(400).json({Error: "Results undefined"})
+    }
+    return res.status(400).json({Error: `Paginate requres page paramter to be a number, ${req.params.page} provided`})
 })
 
 export default manifestRouter

@@ -23,6 +23,7 @@ export const create = async(payload: ComposeInput): Promise<ComposeOutput | unde
         tags: compose.tags,
         public: compose.public!,
         yaml: compose.yaml!,
+        yamlTitle: compose.yamlTitle,
         yamls: compose.yamls,
         stars: compose.stars!
     }
@@ -43,7 +44,7 @@ export const deleteById = async (id: string): Promise<boolean> => {
 export const getById = async (id: string): Promise<ComposeOutput | undefined> => {
     let compose
     try {
-        compose = await Compose.findById(id)
+        compose = await Compose.findById(id).lean()
     }
     catch (err) {
         return undefined
@@ -59,7 +60,34 @@ export const paginatePopularity = async (page: number): Promise<Array<ComposeOut
     try {
         composes = await Compose.find(
             {
-                public: true
+                public: true,
+                manifest: false
+            },
+            {},
+            {
+                skip: values - 25,
+                limit: values,
+                sort: {stars: -1}
+            }
+        )
+    }
+    catch (err) {
+        return undefined
+    }
+    if (composes != null){
+        return composes
+    }
+    return undefined
+}
+
+export const paginatePopularityManifests = async (page: number): Promise<Array<ComposeOutput> | undefined> => {
+    const values = page * 25
+    let composes: Array<ComposeOutput> | null = null;
+    try {
+        composes = await Compose.find(
+            {
+                public: true,
+                manifest: true
             },
             {},
             {

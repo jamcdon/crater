@@ -10,6 +10,7 @@ export type CreateComposeDTO = {
     tags?: Types.Array<string>,
     public: Boolean;
     yaml: string;
+    yamlTitle: string;
     yamls?: Record<string, string>
     stars: number
 }

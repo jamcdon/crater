@@ -11,6 +11,7 @@ export const toManifest = (manifest: ComposeOutput): ICompose => {
         tags: manifest.tags,
         public: manifest.public,
         yaml: manifest.yaml,
+        yamlTitle: manifest.yamlTitle,
         yamls: manifest.yamls,
         stars: manifest.stars
     }

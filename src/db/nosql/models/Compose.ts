@@ -10,6 +10,7 @@ export interface ICompose {
     tags: Types.Array<string>,
     public: Boolean
     yaml: string,
+    yamlTitle: string,
     yamls: {
         [key: string]: string
     }
@@ -59,6 +60,10 @@ const ComposeModelSchema = new Schema({
         default: true
     },
     yaml: {
+        type: String,
+        required: true
+    },
+    yamlTitle: {
         type: String,
         required: true
     },

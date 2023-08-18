@@ -51,6 +51,7 @@ composeRouter.post('/', async(req: Request, res: Response) => {
             tags: req.body.tags,
             public: req.body.public,
             yaml: req.body.yaml,
+            yamlTitle: "docker-compose.yml",
             stars: 0
         }
 

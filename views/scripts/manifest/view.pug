@@ -6,7 +6,7 @@ mixin content
                 div.modal-content
                     div.modal-header.d-flex.justify-content-between
                         div.d-inline-flex
-                            h3 Report #{compose.title}&nbsp;
+                            h3 Report #{manifest.title}&nbsp;
                     div.modal-body#modal-body
                         form(action="javascript:reportCompose()")
                             div.mb-3
@@ -37,9 +37,8 @@ mixin content
                                 button(type="submit").btn.btn-danger Submit
         include ../../sign/modal.pug
         div.d-flex.justify-content-between
-            h1.h3 #{compose.title}
+            h1.h3 #{manifest.title}
             span
-                a.btn.btn-secondary.mt-2.me-2(href="/api/v1/compose/raw/" + compose._id + "/docker-compose.yml") View Raw
                 if userIDToken
                     button.btn.btn-danger.mt-2(data-bs-toggle="modal" data-bs-target="#report-modal") Report
                 else
@@ -49,31 +48,43 @@ mixin content
                 p Created by&nbsp;
                 a(href="/account/" + authorName).d-inline-flex.mb-0
                     p.me-2 #{authorName}
-                    img(width="24" height="24" src=minioPublic + "/user/" + compose.authorID + ".png").border.border-primary
+                    img(width="24" height="24" src=minioPublic + "/user/" + manifest.authorID + ".png").border.border-primary
         div
             span.d-inline-flex
-                img(width="48" src=minioPublic + "/image/" + compose.imageName + ".png")
-                h2.h4 &emsp;#{compose.imageName}
+                img(width="48" src=minioPublic + "/image/" + manifest.imageName + ".png")
+                h2.h4 &emsp;#{manifest.imageName}
         h3.h4 Tags:
         ul.d-inline-flex
-            each tag in compose.tags
+            each tag in manifest.tags
                 li.d-inline.mx-3= tag
-        div(style="height:50vh;")#yaml.border.border-primary.w-75
-
-    script(src="/script/lib/ace/ace.js")
+        h3= manifest.yamlTitle
+        div(style="height:50vh;")#yaml0.border.border-primary.w-75
+        script(src="/script/lib/ace/ace.js")
+        -var index = 1
+        each yaml, yamlTitle in manifest.yamls
+            h3= yamlTitle
+            div(style="height:50vh;" id="yaml" + index).border.border-primary.w-75
+            script.
+                let ace#{index} = ace.edit("yaml#{index}")
+                ace#{index}.session.setMode('ace/mode/yaml');
+                ace#{index}.setOptions({
+                    readOnly: true,
+                    highlightActiveLine: false,
+                });
+                ace#{index}.setValue(`#{yaml}`.replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">"))
+                ace#{index}.moveCursorTo(0,0)
+            -index++
     script.
-        var editor = ace.edit("yaml");
+        var editor = ace.edit("yaml0");
             editor.session.setMode("ace/mode/yaml");
             editor.setOptions({
                 readOnly: true,
                 highlightActiveLine: false,
             });
-        let yamlContent = `#{compose.yaml}`.replace(/&quot;/g, '"')
-        yamlContent = yamlContent
-            .replace(/&lt;/g, "<")
-            .replace(/&gt;/g, ">");
+        let yamlContent = `#{manifest.yaml}`.replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">");
         editor.setValue(yamlContent)
         editor.moveCursorTo(0,0);
+
     div.card.mt-3#create-comment
         div.card-header Add a comment
         div.card-body
@@ -89,7 +100,7 @@ mixin content
     div#comment-page-selector
     script.
         const minioPublic = "#{minioPublic}";
-        const composeID = "#{compose._id}";
+        const composeID = "#{manifest._id}";
         let currentPage = 1;
         currentComments = [];
         let loggedIn;

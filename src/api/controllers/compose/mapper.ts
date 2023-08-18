@@ -12,6 +12,7 @@ export const toCompose = (compose: ComposeOutput): ICompose => {
         tags: compose.tags,
         public: compose.public,
         yaml: compose.yaml,
+        yamlTitle: compose.yamlTitle,
         yamls: compose.yamls,
         stars: compose.stars
     }

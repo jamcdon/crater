@@ -1,0 +1,27 @@
+extends ../../template.pug
+mixin content
+    div#content
+        div.d-flex.flex-wrap.my-5.justify-content-between
+            h1.h2 Your Docker-Compose Scripts
+            div.text-end
+                    a(href='/scripts/compose/new').btn.btn-info.mx-3 New
+                    a(href='/scripts/compose/').btn.btn-warning Back
+        if (scripts != undefined)
+            div.d-flex.justify-content-center.container.container-lg
+                div.w-100
+                    table.table.table-striped.table-hover
+                        thead
+                            tr
+                                th(scope="col") Script
+                                th(scope="col") Image
+                                th(scope="col") Stars
+                                th(scope="col") Creator
+                        tbody
+                            each row in scripts
+                                tr(onclick="document.location='/scripts/compose/view/" + row._id +"'")
+                                    th(scope="row")= row.title
+                                    td= row.imageName
+                                    td= row.stars
+                                    td= row.authorName
+        else
+            p You haven't made any compose scripts yet! Click "New" to make your first one now!

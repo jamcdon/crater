@@ -1,0 +1,47 @@
+extends ../../template.pug
+mixin content
+    div#content.p-3
+        h1.h2 Add a kubernetes script to crater 
+        hr
+        form(action="javascript:uploadOrFail()")#manifest-info
+            div.d-flex.flex-wrap.justify-content-between#form-div
+                div.mb-0
+                    label(for="title").form-label Title
+                    input(type="text")#title.form-control
+                div.mb-0
+                    label(for="image").form-label Primary Image
+                    input(type="text" list="image-list")#image.form-control
+                    p.text-muted.mb-0 Must match search result
+                    span(style="overflow:hidden")#image-list-span
+                div.mb-0
+                    label(for="tags").form-label Tags
+                    input(type="text" list="tags-list")#tags.form-control
+                    p.text-muted.mb-0 Comma separated list
+                    span(style="overflow:hidden")#tags-list-span
+                div.mb-0
+                    label(for="public").form-label.px-2 Public
+                    input(type="checkbox" checked)#public.form-control.form-check-input.mx-auto
+            div#preview-div.invisible
+                //todo
+            div.mb-3#yamls-div
+                span#span0
+                    input(type="text" placeholder="file name (service-deployment.yaml, etc)").form-control.w-25.mb-2#title0
+                    div(style="height:50vh;")#yaml0.border.border-primary.mb-3
+                span#span1
+                span#span2
+                span#span3
+                span#span4
+                span#span5
+                span#span6
+                span#span7
+            div.mb-3.float-end
+                p#validation.text-danger.d-inline-block &nbsp;
+                p.text-danger.d-inline-block#add-error
+                button(type="button" onclick="addYaml()").btn.btn-secondary.mx-2 + Add File
+                button(type="button" onclick="setPreview()").btn.btn-light.mx-2.border &nbsp;Preview&nbsp;
+                button(type="submit").btn.btn-warning.ms-2 &nbsp;Submit&nbsp;
+    script.
+        const minioPublic = "#{minioPublic}"
+    script(src="/script/lib/ace/ace.js")
+    script(src="/script/scripts/manifest/new.js")
+    script(src="/script/scripts/common/new.js")

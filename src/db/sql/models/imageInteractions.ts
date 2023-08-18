@@ -4,7 +4,7 @@ import sequelizeConnection from '../config';
 interface ImageInteractionAttributes {
     id: number;
     creator: boolean;
-    star: boolean
+    star: boolean;
     imageID: string;
 }
 
