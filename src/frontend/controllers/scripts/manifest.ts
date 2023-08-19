@@ -39,15 +39,16 @@ class Manifest {
                 .replace(/\$/g, "\\$")
                 .replace(/&lt;/g, "<")
                 .replace(/&gt;/g, ">")
-
-            for(let [key, val] of Object.entries(manifestInterpolation.manifest.yamls)){
-                manifestInterpolation.manifest.yamls[key] = val
-                    .replace(/\$/g, "\\$")
-                    .replace(/&lt;/g, "<")
-                    .replace(/&gt;/g, ">")
+            if (manifestInterpolation.manifest.yamls != undefined){
+                for(let [key, val] of Object.entries(manifestInterpolation.manifest.yamls)){
+                    manifestInterpolation.manifest.yamls[key] = val
+                        .replace(/\$/g, "\\$")
+                        .replace(/&lt;/g, "<")
+                        .replace(/&gt;/g, ">")
+                }
             }
             return res.render('scripts/manifest/view.pug', manifestInterpolation)
-        }
+            }
     }
     public static async yourScripts (req: Request, res: Response): Promise<void> {
         [manifestInterpolation.usernameToken, manifestInterpolation.userIDToken, manifestInterpolation.isAdmin] = await getUserToken(req)

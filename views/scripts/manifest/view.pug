@@ -61,19 +61,20 @@ mixin content
         div(style="height:50vh;")#yaml0.border.border-primary.w-75
         script(src="/script/lib/ace/ace.js")
         -var index = 1
-        each yaml, yamlTitle in manifest.yamls
-            h3= yamlTitle
-            div(style="height:50vh;" id="yaml" + index).border.border-primary.w-75
-            script.
-                let ace#{index} = ace.edit("yaml#{index}")
-                ace#{index}.session.setMode('ace/mode/yaml');
-                ace#{index}.setOptions({
-                    readOnly: true,
-                    highlightActiveLine: false,
-                });
-                ace#{index}.setValue(`#{yaml}`.replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">"))
-                ace#{index}.moveCursorTo(0,0)
-            -index++
+        if manifest.yamls
+            each yaml, yamlTitle in manifest.yamls
+                h3= yamlTitle
+                div(style="height:50vh;" id="yaml" + index).border.border-primary.w-75
+                script.
+                    let ace#{index} = ace.edit("yaml#{index}")
+                    ace#{index}.session.setMode('ace/mode/yaml');
+                    ace#{index}.setOptions({
+                        readOnly: true,
+                        highlightActiveLine: false,
+                    });
+                    ace#{index}.setValue(`#{yaml}`.replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">"))
+                    ace#{index}.moveCursorTo(0,0)
+                -index++
     script.
         var editor = ace.edit("yaml0");
             editor.session.setMode("ace/mode/yaml");
