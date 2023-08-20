@@ -14,7 +14,7 @@ let formButtonDiv = document.getElementById("form-buttons")
 async function uploadOrFail(){
     const tags = setTags()
 
-    let reqBody = `{"title": "${titleForm.value}", "imageName": "${imageForm.value}", "tags": [${tagsText}], "public": ${publicForm.checked}, "yaml": "${editor.getValue().replace(/\n/g, '\\n').replace(/"/g, '\\"')}"}`
+    let reqBody = `{"title": "${titleForm.value}", "imageName": "${imageForm.value}", "tags": [${tags}], "public": ${publicForm.checked}, "yaml": "${editor.getValue().replace(/\n/g, '\\n').replace(/"/g, '\\"')}"}`
     let xhr = new XMLHttpRequest()
 
     xhr.onreadystatechange = () => {
@@ -44,10 +44,19 @@ function setPreview(){
     titlePreview.innerHTML = titleForm.value;
     imagePreview.innerHTML = `&nbsp;${imageForm.value}`;
 
-    tagsList = setTags()
+    let tags = setTags()
+    let tagsArr = []
+    if (tags.includes(",")){
+        tags = tags.replaceAll(/ /g, "").replaceAll(/\"/g, "")
+        console.log(tags)
+        tagsArr = tags.split(",")
+    } else {
+        tags = tags.replaceAll(/\"/g, "")
+        tagsArr = [tags]
+    }
     let tagsPreviewUl = "<ul class='d-inline-flex'>"
-    for (let i in tagsList){
-        tagsPreviewUl += `<li class="d-inline-flex mx-3">${tagsList[i]}</li>`
+    for (let i in tagsArr){
+        tagsPreviewUl += `<li class="d-inline-flex mx-3">${tagsArr[i]}</li>`
     }
     tagsPreviewUl += '</ul>'
 

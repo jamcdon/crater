@@ -8,6 +8,13 @@ let validationText = document.getElementById("validation")
 
 function setTags() {
     let tags = tagsForm.value.split(",")
+    if (tags == ""){
+        return ""
+    }
+    if (tags.length == 1){
+        return `"${tags}"`
+    }
+
     for (let i in tags){
         if (tags[i][0] == " "){
             tags[i] = tags[i].substring(1)
