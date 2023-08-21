@@ -3,7 +3,9 @@ import { ComposeModification, ComposeOutput } from '../../../db/nosql/models/Com
 import { getById, getUsernameByID } from '../../../api/controllers/compose';
 import {getUserToken} from '../common'
 import { scriptsInterpolationObject } from './index'
-import { setUserInteractions } from '../account';
+import * as interactionsService from '../../../db/sql/services/interactionsService'
+import * as service from '../../../db/nosql/services/composeService'
+import * as mapper from '../../../api/controllers/compose/mapper'
 
 type composeInterpolationObject = scriptsInterpolationObject & {
     compose?: ComposeOutput
@@ -50,11 +52,21 @@ class Compose {
         if (composeInterpolation.userIDToken != undefined){
             notUser = (composeInterpolation.userIDToken == undefined)
             if (notUser != true){
-                composeInterpolation.scripts = await setUserInteractions(composeInterpolation.userIDToken, notUser)
+                composeInterpolation.scripts = await setUserComposeInteractions(composeInterpolation.userIDToken, notUser)
                 return res.render('scripts/compose/your-scripts.pug', composeInterpolation)
             }
         }
         return res.status(404).render('error/404.pug', composeInterpolation)
+    }
+}
+
+const setUserComposeInteractions = async(userID: number, findPublic: boolean): Promise<Array<ComposeModification> | undefined> => {
+    const composeIDs = await interactionsService.getComposesFromUser(userID)
+    if (composeIDs != undefined){
+        const composes = await service.getByIds(composeIDs, findPublic, 1)
+        if (composes != undefined){
+            return await mapper.toComposeModifications(composes)
+        }
     }
 }
 

@@ -12,6 +12,7 @@ interface InteractionsAttributes extends InteractionsInitAttributes {
     ComposeInteractionId?: number;
     ImageInteractionId?: number;
     CommentInteractionId?: number;
+    ManifestInteractionId?: number;
 }
 
 export interface InteractionsInput extends Optional<InteractionsAttributes, 'id'> {}
@@ -23,6 +24,7 @@ class Interactions extends Model<InteractionsInitAttributes, InteractionsInput> 
     public ComposeInteractionId!: number
     public ImageInteractionId!: number
     public CommentInteractionId!: number
+    public ManifestInteractionId!: number
     public UserId!: number
 
     // timestamps!
@@ -49,6 +51,13 @@ Interactions.init({
         references: {
             key: 'id',
             model: 'ImageInteraction'
+        }
+    },
+    manifestInteractionId: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        references: {
+            key: 'id',
+            model: 'CommentInteraction'
         }
     },
     commentInteractionId: {

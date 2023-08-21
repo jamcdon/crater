@@ -5,6 +5,7 @@ import { InteractionsInput, InteractionsOutput} from '../models/Interactions'
 import { CommentInteractionInput, CommentInteractionOutput } from '../models/commentInteractions';
 import ComposeInteractions, { ComposeInteractionInput, ComposeInteractionOutput } from '../models/composeInteractions';
 import ImageInteractions, { ImageInteractionInput, ImageInteractionOutput } from '../models/imageInteractions';
+import ManifestInteractions, { ManifestInteractionInput, ManifestInteractionOutput} from '../models/manifestInteractions';
 
 
 export const setCommentInteraction = async(payload: ComposeInteractionDTO): Promise<boolean> => {
@@ -23,7 +24,6 @@ export const setCommentInteraction = async(payload: ComposeInteractionDTO): Prom
     }
 
     let commentInteraction: CommentInteractionOutput | null = null
-
     try {
         commentInteraction = await CommentInteractions.create(commentPayload)
     }
@@ -37,10 +37,8 @@ export const setCommentInteraction = async(payload: ComposeInteractionDTO): Prom
         CommentInteractionId: commentInteraction.id
     } 
 
-    let interaction: InteractionsOutput | null = null
-
     try {
-        interaction = await Interactions.create(interactionPayload)
+        await Interactions.create(interactionPayload)
     }
     catch {
         return false
@@ -60,8 +58,8 @@ export const setComposeInteraction = async(payload: ComposeInteractionDTO): Prom
         composeID: payload.composeID,
         imageID: payload.imageID
     }
-    let composeInteraction: ComposeInteractionOutput | null = null
 
+    let composeInteraction: ComposeInteractionOutput | null = null
     try {
         composeInteraction = await ComposeInteractions.create(composePayload, {raw: true})
     }
@@ -69,16 +67,48 @@ export const setComposeInteraction = async(payload: ComposeInteractionDTO): Prom
         return false
     }
 
-
     const interactionPayload: InteractionsInput = {
         UserId: payload.UserId,
         ComposeInteractionId: composeInteraction.id
     }
 
-    let interaction: InteractionsOutput | null = null
+    try {
+        await Interactions.create(interactionPayload)
+    }
+    catch {
+        return false
+    }
+
+    return true
+}
+
+export const setManifestInteraction = async(payload: ComposeInteractionDTO): Promise<boolean> => {
+    if (payload.imageID == null){
+        return false
+    }
+
+    const manifestPayload: ManifestInteractionInput = {
+        creator: payload.creator,
+        star: payload.star,
+        composeID: payload.composeID,
+        imageID: payload.imageID
+    }
+
+    let manifestInteraction: ManifestInteractionOutput | null = null
+    try {
+        manifestInteraction = await ManifestInteractions.create(manifestPayload, {raw: true})
+    }
+    catch {
+        return false
+    }
+
+    const interactionPayload: InteractionsInput = {
+        UserId: payload.UserId,
+        ManifestInteractionId: manifestInteraction.id
+    }
 
     try {
-        interaction = await Interactions.create(interactionPayload)
+        await Interactions.create(interactionPayload)
     }
     catch {
         return false
@@ -95,8 +125,8 @@ export const setImageInteraction = async(payload: ComposeInteractionDTO): Promis
         star: payload.star,
         imageID: payload.imageID
     }
-    let imageInteraction: ImageInteractionOutput | null = null
 
+    let imageInteraction: ImageInteractionOutput | null = null
     try {
     imageInteraction = await ImageInteractions.create(imagePayload)
     }
@@ -108,8 +138,8 @@ export const setImageInteraction = async(payload: ComposeInteractionDTO): Promis
         UserId: payload.UserId,
         ImageInteractionId: imageInteraction.id
     }
-    let interaction: InteractionsOutput | null = null
 
+    let interaction: InteractionsOutput | null = null
     try {
     interaction = await Interactions.create(interactionPayload)
     }
@@ -123,48 +153,64 @@ export const setImageInteraction = async(payload: ComposeInteractionDTO): Promis
 export const getByUserId = async (id: number): Promise<Array<string> | undefined> => {
     let composeIdArray: Array<string> = []
 
-    const composeInteractions = await ComposeInteractions.findAll({
+    const manifestInteractions = await ManifestInteractions.findAll({
         attributes: ['composeID'],
-        include: [
-            {
+        include: [{
                 model: Interactions,
                 attributes: ['updatedAt'],
-                include: [
-                    {
-                        model: User,
-                        where: {id: id},
-                        attributes: ['id']
-                    }
-                ]
-            }
-        ],
+                include: [{
+                    model: User,
+                    where: {id: id},
+                    attributes: ['id']
+                }]
+        }],
         order: [
             [Interactions, 'updatedAt', 'DESC']
         ],
         raw: true
+    })
 
+    const composeInteractions = await ComposeInteractions.findAll({
+        attributes: ['composeID'],
+        include: [{
+                model: Interactions,
+                attributes: ['updatedAt'],
+                include: [{
+                    model: User,
+                    where: {id: id},
+                    attributes: ['id']
+                }]
+        }],
+        order: [
+            [Interactions, 'updatedAt', 'DESC']
+        ],
+        raw: true
     })
 
     const commentInteractions = await CommentInteractions.findAll({
         attributes: ['composeID'],
-        include: [
-            {
+        include: [{
                 model: Interactions,
                 attributes: ['updatedAt'],
-                include: [
-                    {
-                        model: User,
-                        where: {id: id},
-                        attributes: ['id']
-                    }
-                ]
-            }
-        ],
+                include: [{
+                    model: User,
+                    where: {id: id},
+                    attributes: ['id']
+                }]
+        }],
         order: [
             [Interactions, 'updatedAt', 'DESC']
         ],
         raw: true
     })
+
+    manifestInteractions.forEach(
+        function(interaction){
+            if (interaction.composeID != null){
+                composeIdArray.push(interaction.composeID)
+            }
+        }
+    )
 
     composeInteractions.forEach(
         function(interaction){
@@ -188,23 +234,88 @@ export const getByUserId = async (id: number): Promise<Array<string> | undefined
     return composeIdArray
 }
 
+export const getManifestsByUserId = async(userID: number):Promise<Array<string> | undefined> => {
+    let composeIdArray: Array<string> = []
+
+    const manifestInteractions = await ManifestInteractions.findAll({
+        attributes: ['composeID'],
+        include: [{
+                model: Interactions,
+                attributes: ['updatedAt'],
+                include: [{
+                    model: User,
+                    where: {id: userID},
+                    attributes: ['id']
+                }]
+        }],
+        order: [
+            [Interactions, 'updatedAt', 'DESC']
+        ],
+        raw: true
+    })
+
+    manifestInteractions.forEach(
+        function(interaction){
+            if (interaction.composeID != null){
+                composeIdArray.push(interaction.composeID)
+            }
+        }
+    )
+
+    if(composeIdArray[0] == null){
+        return undefined
+    }
+    return composeIdArray
+}
+
+export const getComposesByUserId = async(userID: number):Promise<Array<string> | undefined> => {
+    let composeIdArray: Array<string> = []
+
+    const composeInteractions = await ComposeInteractions.findAll({
+        attributes: ['composeID'],
+        include: [{
+                model: Interactions,
+                attributes: ['updatedAt'],
+                include: [{
+                    model: User,
+                    where: {id: userID},
+                    attributes: ['id']
+                }]
+        }],
+        order: [
+            [Interactions, 'updatedAt', 'DESC']
+        ],
+        raw: true
+    })
+
+    composeInteractions.forEach(
+        function(interaction){
+            if (interaction.composeID != null){
+                composeIdArray.push(interaction.composeID)
+            }
+        }
+    )
+
+    if(composeIdArray[0] == null){
+        return undefined
+    }
+    return composeIdArray
+}
+
 export const checkIfCommentUpvotedByUser = async(commentID: string, userID: number): Promise<number> => {
     let commentInteractionsRow = await CommentInteractions.findOne({
         attributes: [
             'upvote'
         ],
-        include: [
-            {
-                model: Interactions,
-                attributes: ['UserId'],
-                include: [
-                {
-                    model: User,
-                    attributes: ['id'],
-                    where: {id: userID}
-                }]
-            }
-        ],
+        include: [{
+            model: Interactions,
+            attributes: ['UserId'],
+            include: [{
+                model: User,
+                attributes: ['id'],
+                where: {id: userID}
+            }]
+        }],
         where: {
             commentID: commentID,
             upvote: {

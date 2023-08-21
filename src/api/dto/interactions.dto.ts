@@ -9,6 +9,7 @@ export type ComposeInteractionDTO = {
     commentID?: string,
     comment: boolean,
     star: boolean,
+    manifest?: boolean,
     creator: boolean,
     upvotes?: number
 }

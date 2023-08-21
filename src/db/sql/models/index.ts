@@ -1,5 +1,6 @@
 import User from './User'
 import ComposeInteractions from './composeInteractions'
+import ManifestInteractions from './manifestInteractions'
 import CommentInteractions from './commentInteractions'
 import ImageInteractions from './imageInteractions'
 import ForumCommentInteractions from './ForumCommentInteraction'
@@ -13,6 +14,7 @@ import ScriptReports from './ScriptReports'
 export {
     User,
     ComposeInteractions,
+    ManifestInteractions,
     CommentInteractions,
     ImageInteractions,
     ForumCommentInteractions,

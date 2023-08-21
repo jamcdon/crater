@@ -3,7 +3,9 @@ import {getUserToken} from '../common'
 import { scriptsInterpolationObject } from './index'
 import { ComposeModification, ComposeOutput } from '../../../db/nosql/models/Compose'
 import { getUsernameByID, getById } from '../../../api/controllers/compose';
-import { setUserInteractions } from '../account';
+import * as interactionsService from '../../../db/sql/services/interactionsService'
+import * as composeService from '../../../db/nosql/services/composeService'
+import * as composeMapper from '../../../api/controllers/compose/mapper'
 
 type manifestInterpolationObject = scriptsInterpolationObject & {
     manifest?: ComposeOutput
@@ -57,12 +59,23 @@ class Manifest {
         if (manifestInterpolation.userIDToken != undefined){
             notUser = (manifestInterpolation.userIDToken == undefined)
             if (notUser != true){
-                manifestInterpolation.scripts = await setUserInteractions(manifestInterpolation.userIDToken, notUser)
+                manifestInterpolation.scripts = await setUserManifestInteractions(manifestInterpolation.userIDToken, notUser)
                 return res.render('scripts/compose/your-scripts.pug', manifestInterpolation)
             }
         }
         return res.status(404).render('error/404.pug', manifestInterpolation)
     }
+}
+
+const setUserManifestInteractions = async(userID: number, findPublic: boolean): Promise<Array<ComposeModification> | undefined> => {
+    const manifestIDs = await interactionsService.getManifestsFromUser(userID)
+    if (manifestIDs != undefined){
+        const manifests = await composeService.getByIds(manifestIDs, findPublic, 1)
+        if (manifests != undefined){
+            return await composeMapper.toComposeModifications(manifests)
+        }
+    }
+    return undefined
 }
 
 export default Manifest
