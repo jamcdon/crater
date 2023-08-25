@@ -7,6 +7,8 @@ export interface IForumPost {
     upvotes: number,
     tags: mongoose.Types.Array<string>,
     posterUserID: number,
+    topicID: string,
+    topicName: string,
     views: number,
     createdAt: mongoose.Date,
     updatedAt: mongoose.Date
@@ -34,6 +36,14 @@ const ForumPostSchema = new Schema<IForumPost>({
     },
     posterUserID: {
         type: Number,
+        required: true
+    },
+    topicID: {
+        type: String,
+        required: true
+    },
+    topicName: {
+        type: String,
         required: true
     },
     views: {

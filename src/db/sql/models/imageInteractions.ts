@@ -8,7 +8,7 @@ interface ImageInteractionAttributes {
     imageID: string;
 }
 
-export interface ImageInteractionInput extends Optional<ImageInteractionAttributes, 'id' | 'creator' | 'star' | 'imageID'> {}
+export interface ImageInteractionInput extends Optional<ImageInteractionAttributes, 'id' | 'creator' | 'star'> {}
 export interface ImageInteractionOutput extends Required<ImageInteractionAttributes> {}
 
 class ImageInteractions extends Model<ImageInteractionAttributes, ImageInteractionInput> implements ImageInteractionAttributes{

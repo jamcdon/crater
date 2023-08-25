@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import { Compose } from '../models'
 import { ComposeInput, ComposeOutput, ICompose } from '../models/Compose'
-import { incrementScriptsUsing } from '../services/imageService'
+import { incrementScriptsUsing, decrementScriptsUsing } from '../services/imageService'
 import { QueryArrayObject } from '../models'
 
 export const create = async(payload: ComposeInput): Promise<ComposeOutput | undefined> => {
@@ -35,10 +35,16 @@ export const create = async(payload: ComposeInput): Promise<ComposeOutput | unde
 }
 
 export const deleteById = async (id: string): Promise<boolean> => {
-    const deletion = await Compose.deleteOne({
-        _id: id
-    })
-    return deletion.acknowledged
+    let toDelete = await getById(id)
+    if (toDelete != undefined){
+        const deletion = await Compose.deleteOne({
+            _id: id
+        })
+        decrementScriptsUsing(toDelete.imageID.toString())
+
+        return deletion.acknowledged
+    }
+    return false
 }
 
 export const getById = async (id: string): Promise<ComposeOutput | undefined> => {

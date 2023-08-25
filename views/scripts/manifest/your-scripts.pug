@@ -18,7 +18,7 @@ mixin content
                                 th(scope="col") Creator
                         tbody
                             each row in scripts
-                                tr(onclick="document.location='/scripts/compose/view/" + row._id +"'")
+                                tr(onclick="document.location='/scripts/manifest/view/" + row._id +"'")
                                     th(scope="row")= row.title
                                     td= row.imageName
                                     td= row.stars

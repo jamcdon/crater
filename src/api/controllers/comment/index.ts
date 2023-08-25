@@ -99,8 +99,9 @@ export const upvoteDownvote = async(commentID: string, upvote: boolean, userID: 
         let payload = commentComposeInteractionsMapper(comment, userID, false, interactionUpvote)
 
         const interactionsSuccess = await interactionsService.setInteraction(payload)
+        console.log(interactionsSuccess)
         if (!interactionsSuccess){
-            await service.deleteById(comment._id.toString())
+            await service.upvoteDownvote(comment._id.toString(), -upvoteNumber)
             return undefined
         }
         return comment.upvotes

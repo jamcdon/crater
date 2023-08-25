@@ -17,16 +17,6 @@ composeRouter.get('/id/:id', async(req: Request, res: Response) => {
     return res.status(400).send(`"Error": "Compose ${req.params.id} not found."`)
 })
 
-composeRouter.get('/view/:username/', async(req: Request, res: Response) => {
-    // I think this should be in the frontend ... 
-    // get compose scripts by username, imageName
-    const username = String(req.params.username) 
-    //const result = await composeController.getByUserImage(username)
-    // TODO
-})
-
-composeRouter.get('/')
-
 composeRouter.put('/:id', async(req: Request, res: Response) => {
     // update compose script by id
     const id: string = req.params.id

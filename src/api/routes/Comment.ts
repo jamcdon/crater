@@ -26,7 +26,6 @@ commentsRouter.put('/upvote/:commentID', async(req: Request, res: Response) => {
     if (userToken[1] != undefined){
         const alreadyUpvoted = await controller.checkIfUpvoted( req.params.commentID, userToken[1])
 
-        // this logic is now working for alreadyUpvoted - you need to add logic to handle if a comment has already been upvoted
         const upvotes = await controller.upvoteDownvote(req.params.commentID, req.body.upvote, userToken[1], alreadyUpvoted)
         if (upvotes != undefined){
             return res.status(200).send(`{"upvotes": ${upvotes}}`)

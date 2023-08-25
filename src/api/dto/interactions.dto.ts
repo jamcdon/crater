@@ -37,3 +37,14 @@ export const commentComposeInteractionsMapper = (comment: CommentOutput, interac
         upvotes: upvoteNumber
     }
 }
+
+export type ForumInteractionDTO = {
+    comment: boolean,
+    post: boolean,
+    topic: boolean,
+    postID: string,
+    commentID?: string
+    userID: number,
+    creator: boolean,
+    upvote?: number
+}

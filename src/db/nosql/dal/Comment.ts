@@ -2,7 +2,6 @@ import { Comment } from '../models'
 import { CommentInput, CommentOutput } from '../models/Comment'
 
 export const create = async(payload: CommentInput): Promise<CommentOutput | undefined> => {
-
     let comment
     try {
         comment = await Comment.create(payload)

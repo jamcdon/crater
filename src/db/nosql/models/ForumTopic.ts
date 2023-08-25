@@ -7,6 +7,7 @@ export interface IForumTopic {
     active: boolean,
     promoterUserID: number,
     admins: mongoose.Types.Array<number>,
+    posts: number
     stars: number
 }
 
@@ -33,6 +34,10 @@ const ForumTopicSchema = new Schema<IForumTopic>({
     admins: {
         type: [Number],
         required: false
+    },
+    posts: {
+        type: Number,
+        required: true
     },
     stars: {
         type: Number,

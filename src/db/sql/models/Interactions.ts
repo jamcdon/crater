@@ -13,6 +13,8 @@ interface InteractionsAttributes extends InteractionsInitAttributes {
     ImageInteractionId?: number;
     CommentInteractionId?: number;
     ManifestInteractionId?: number;
+    ForumCommentInteractionId?: number;
+    ForumPostInteractionId?: number;
 }
 
 export interface InteractionsInput extends Optional<InteractionsAttributes, 'id'> {}
@@ -25,6 +27,8 @@ class Interactions extends Model<InteractionsInitAttributes, InteractionsInput> 
     public ImageInteractionId!: number
     public CommentInteractionId!: number
     public ManifestInteractionId!: number
+    public ForumCommentInteractionId!: number;
+    public ForumPostInteractionId!: number;
     public UserId!: number
 
     // timestamps!

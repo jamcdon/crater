@@ -1,4 +1,4 @@
-import {Op, QueryError, QueryTypes, Sequelize} from 'sequelize';
+import { Op } from 'sequelize';
 import { ComposeInteractionDTO } from '../../../api/dto/interactions.dto';
 import { Interactions, User, CommentInteractions } from '../models'
 import { InteractionsInput, InteractionsOutput} from '../models/Interactions'
@@ -119,6 +119,10 @@ export const setManifestInteraction = async(payload: ComposeInteractionDTO): Pro
 }
 
 export const setImageInteraction = async(payload: ComposeInteractionDTO): Promise<boolean> => {
+
+    if (payload.imageID == undefined){
+        return false
+    }
 
     const imagePayload: ImageInteractionInput = {
         creator: payload.creator,

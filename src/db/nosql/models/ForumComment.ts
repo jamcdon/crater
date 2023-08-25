@@ -2,6 +2,7 @@ import mongoose, { Schema, model } from 'mongoose'
 
 export interface IForumComment {
     _id: mongoose.Types.ObjectId
+    postID: string,
     content: string,
     upvotes: number,
     commenterID: number,
@@ -15,6 +16,10 @@ export interface ForumCommentInput extends Partial<IForumComment>{}
 export interface ForumCommentOutput extends Required<IForumComment>{}
 
 const ForumCommentSchema = new Schema<IForumComment>({
+    postID: {
+        type: String,
+        required: true
+    },
     content: {
         type: String,
         required: true
